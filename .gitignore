@@ -1,0 +1,16 @@
+node_modules/
+.pnpm-store/
+
+dist/
+.vitepress/dist/
+.vitepress/cache/
+*.tsbuildinfo
+.eslintcache
+
+apps/docs/src/components/ui/
+apps/docs/src/lib/utils.ts
+apps/docs/src/styles/ocean.css
+
+.DS_Store
+*.log
+.tmp/

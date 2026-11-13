@@ -1,0 +1,13 @@
+node_modules/
+pnpm-lock.yaml
+
+dist/
+apps/docs/.vitepress/dist/
+apps/docs/.vitepress/cache/
+apps/docs/public/r/
+apps/docs/src/components/ui/
+apps/docs/src/lib/utils.ts
+apps/docs/src/styles/ocean.css
+
+docs/
+registry/styles/ocean.css
