@@ -34,6 +34,7 @@
 - 用户授权在仓库根执行 `git init`（本计划不自动执行）：已于实施时获得授权并执行，仓库现为 git 仓库
 - 确认 pnpm 为唯一包管理器：已满足（pnpm 12.8.1，根 `packageManager` 已声明）
 - 若 `light-dark()` 被判定为目标浏览器不可接受，需先确认是接受双写回退还是放弃该机制（G02 与 D05 受影响）：001-T03 实测 Chrome 156 正常，无需回退
+- 参考站点源码的可读方式：本仓库内没有 `speed-ref/` 副本，实际取自上游 `github.com/SukkaW/speed.skk.moe`（Apache-2.0）的 `src/styles/` 同名文件，经 `raw.githubusercontent.com` 读取。逐字比对以此为准；若需离线复核，需自行放置一份 `speed-ref/`
 
 ## 设计
 
@@ -106,7 +107,8 @@ upload       light-dark(#C8731A, #C97C26)
 ### 运行行为
 
 - 令牌文件不包含任何组件选择器，只包含 `:root` 与主题桥接
-- 使用者若整体替换令牌，组件无需改动即可换肤
+- 使用者若整体替换令牌，组件无需改动即可换肤。已实测：`--ocean-*` 任一处被重定义后，使用该语义名的元素立即换色（`--ocean-raised` 改 `#00FF00` 时面板背景同步变化），子树内重定义亦生效
+- `--radius-*` 与 `--shadow-popup` 因 `@theme inline` 在编译期被固化为字面量，重定义变量不会改变已编译的工具类；使用者需在自身 `@theme` 中重定义同名键（实测有效），或在后续阶段改用 `var()` 形式。颜色不受此限制
 - 不引入 `dark:` 变体，任何需要暗色差异的地方都必须通过令牌表达
 
 ## 实施任务
@@ -136,7 +138,7 @@ upload       light-dark(#C8731A, #C97C26)
   - 预期输出：编译后的 CSS 中存在这些工具类，其值与令牌一致
   - 验收引用：001-AC04
   - 计划验证：检查编译产物的声明值；同时用 `.light` 与 `.dark` 类观察 `color-scheme` 生效
-  - 完成证据：在临时目录用 `@tailwindcss/cli@4.3.5` 以 `@import "tailwindcss"` + `ocean.css` + `ocean-shadcn.css` 编译，产物含 `.bg-raised{background-color:var(--ocean-raised)}`、`.text-ink-muted{color:var(--ocean-ink-muted)}`、`.ring-line{--tw-ring-color:var(--ocean-line)}`、`.rounded-panel{border-radius:16px}`、`.font-condensed{font-family:var(--font-barlow-semi-condensed), var(--font-barlow), system-ui, sans-serif}`、`.shadow-popup`，以及 shadcn 别名 `.bg-card`/`.bg-background`/`.text-muted-foreground`。headless Chrome 实测：`<html>` 无类时跟随 `prefers-color-scheme` 模拟得到 surface `rgb(18,20,25)`；加 `.light` 变 `rgb(245,246,248)`；加 `.dark` 变 `rgb(18,20,25)`，`color-scheme` 同步为 `light`/`dark`。九组值与设计表逐一相符。另在真实 Vite 8 + `@tailwindcss/vite` + Vue 3.5 消费者项目中构建并实测，同一元素在 `.light`/`.dark` 下实际颜色随令牌切换。
+  - 完成证据：在临时目录用 `@tailwindcss/cli@4.3.5` 以 `@import "tailwindcss"` + `ocean.css` + `ocean-shadcn.css` 编译，产物含 `.bg-raised{background-color:var(--ocean-raised)}`、`.text-ink-muted{color:var(--ocean-ink-muted)}`、`.ring-line{--tw-ring-color:var(--ocean-line)}`、`.rounded-panel{border-radius:16px}`、`.font-condensed{font-family:var(--font-barlow-semi-condensed, "Barlow Semi Condensed"), var(--font-barlow, "Barlow"), system-ui, sans-serif}`、`.shadow-popup`，以及 shadcn 别名 `.bg-card`/`.bg-background`/`.text-muted-foreground`。headless Chrome 实测：`<html>` 无类时跟随 `prefers-color-scheme` 模拟得到 surface `rgb(18,20,25)`；加 `.light` 变 `rgb(245,246,248)`；加 `.dark` 变 `rgb(18,20,25)`，`color-scheme` 同步为 `light`/`dark`。九组值与设计表逐一相符。另在真实 Vite 8 + `@tailwindcss/vite` + Vue 3.5 消费者项目中构建并实测，同一元素在 `.light`/`.dark` 下实际颜色随令牌切换。
 
 - [x] **001-T04：建立开发工具基线**
   - 依赖：001-T01
@@ -157,7 +159,7 @@ upload       light-dark(#C8731A, #C97C26)
 - [x] **001-AC02：令牌值与参考站点一致**
   - 计划验证：逐个比对 `registry/styles/ocean.css` 中的九组值与参考站点 `tokens.stylex.ts`
   - 所需环境：参考源码可读
-  - 验证证据：逐条比对 `registry/styles/ocean.css` 与参考站点 `src/styles/tokens.stylex.ts`，九个令牌的 light 与 dark 值全部逐字一致（含大小写）。
+  - 验证证据：逐条比对 `registry/styles/ocean.css` 与上游 `SukkaW/speed.skk.moe` 的 `src/styles/tokens.stylex.ts`（经 `raw.githubusercontent.com` 读取，见前置条件），九个令牌的 light 与 dark 值全部逐字一致（含大小写）。
 
 - [x] **001-AC03：色值集中**
   - 计划验证：全文检索十六进制色值，结果只出现在 `registry/styles/ocean.css`
@@ -200,6 +202,8 @@ upload       light-dark(#C8731A, #C97C26)
 
 - `.gitignore` 的 `.vitepress/cache/` 与 `.vitepress/dist/` 含内部斜杠，被 git 锚定到仓库根，未匹配 `apps/docs/.vitepress/cache/`。改为 `**/` 前缀，并用临时仓库验证：三个安装产物与两类 VitePress 输出均被忽略，`apps/docs/public/r/` 仍可提交
 - `@types/node` 原为 `^26`，与本机 Node 25.9.0 不一致，改为 `^25`
+
+参考源核对：仓库内没有计划假设的 `speed-ref/` 副本，本阶段实际从上游公开仓库 `SukkaW/speed.skk.moe` 取源码。已复取并确认：`src/styles/` 下的 `tokens.stylex.ts`、`globals.css`、`menu.stylex.ts`、`breakpoints.stylex.ts` 全部返回 200；`breakpoints.stylex.ts` 的 `639px`/`1024px` 与计划记录的 Tailwind `sm`/`lg` 一致，但 001 不使用断点，未纳入本阶段验证。同时核对总计划所记形状字段，均属实：popup 的 `minWidth 160`、`padding 6`、`borderRadius 16`、`borderColor line`、shadow `0 12px 32px -8px`；`start-button` 的 `minHeight 44` 与 `borderRadius 12`；`stat-value` 与 `speed-readout` 的 `fonts.condensed` + `tabular-nums` + `letterSpacing -0.01em`。这三份组件源码位于 `src/app/components/`，总计划原本只写了文件名，已补全路径。
 
 复审发现、未在本阶段修改（交由后续阶段决定）：
 

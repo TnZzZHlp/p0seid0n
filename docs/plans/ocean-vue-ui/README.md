@@ -70,12 +70,12 @@
 | 项目根目录曾为空目录，非 git 仓库 | `ls -la /root/github/0cean` 当时仅有 `.` 与 `..`；001 实施时经用户授权已执行 `git init` | 001 的全部文件为新建；后续阶段的完工提交可直接进行 |
 | Git 身份已配置 | `git config --get user.name` 返回 `TnZzZHlp`，邮箱 `98214647+TnZzZHlp@users.noreply.github.com` | 只需 `git init`，无需配置身份 |
 | Node 25.9.0、pnpm 12.8.1 可用 | `node -v`、`pnpm -v` | 可直接用 Node 原生 TypeScript 类型剥离运行构建脚本 |
-| 参考站点令牌与断点 | `speed-ref/src/styles/tokens.stylex.ts`、`src/styles/breakpoints.stylex.ts` | 令牌值可逐字继承，断点正好等于 Tailwind 默认 `sm` 640 与 `lg` 1024 |
-| 参考站点深浅色机制 | `speed-ref/src/styles/globals.css` | 采用 `color-scheme` + `light-dark()`，不使用 `dark:` 变体 |
-| 参考站点 popup 形制 | `speed-ref/src/styles/menu.stylex.ts` | 菜单：min-width 160、padding 6、radius 16、内描边 line、shadow `0 12px 32px -8px` |
-| 参考站点按钮与数字形制 | `start-button.tsx`、`stat-value.tsx`、`speed-readout.tsx` | 按钮 min-height 44 + 内嵌进度层；数字用 condensed + `tabular-nums` + 负字距 |
+| 参考站点令牌与断点 | 上游 `SukkaW/speed.skk.moe` 的 `src/styles/tokens.stylex.ts`、`src/styles/breakpoints.stylex.ts`（本仓库内无 `speed-ref/` 副本，经 `raw.githubusercontent.com` 读取） | 令牌值可逐字继承，断点为 639/1024，等价于 Tailwind 默认 `sm` 640 与 `lg` 1024 |
+| 参考站点深浅色机制 | 上游 `src/styles/globals.css` | 采用 `color-scheme` + `light-dark()`，不使用 `dark:` 变体 |
+| 参考站点 popup 形制 | 上游 `src/styles/menu.stylex.ts` | 菜单：min-width 160、padding 6、radius 16、内描边 line、shadow `0 12px 32px -8px` |
+| 参考站点按钮与数字形制 | 上游 `src/app/components/start-button.tsx`、`stat-value.tsx`、`speed-readout.tsx` | 按钮 min-height 44 + radius 12 + 内嵌进度层；数字用 condensed + `tabular-nums` + `letter-spacing: -0.01em` |
 | registry-item schema 字段 | `https://shadcn-vue.com/schema/registry-item.json` | item 支持 `dependencies`、`registryDependencies`、`files[].target`、`css`、`cssVars`、`docs` |
-| 文档站无法直连参考站点 | `curl https://speed.skk.moe` 返回 403（Cloudflare 验证） | 视觉依据来自开源源码而非线上页面 |
+| 文档站无法直连参考站点 | `curl https://speed.skk.moe` 返回 403（Cloudflare 验证） | 视觉依据来自开源源码而非线上页面；本仓库不含 `speed-ref/` 副本，源码经 `raw.githubusercontent.com` 从上游读取 |
 
 ## 约束
 
