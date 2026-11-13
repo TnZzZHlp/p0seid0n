@@ -1,6 +1,6 @@
 {
-  "name": "ocean",
-  "homepage": "https://ocean.example.com",
+  "name": "p0seid0n",
+  "homepage": "https://p0seid0n.example.com",
   "items": [
     {
       "name": "theme",
@@ -11,6 +11,41 @@
       "name": "utils",
       "type": "registry:lib",
       "title": "Utils"
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button"
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge"
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator"
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card"
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input"
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label"
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch"
     }
   ]
 }

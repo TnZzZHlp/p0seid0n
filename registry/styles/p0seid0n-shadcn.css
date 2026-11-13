@@ -1,0 +1,10 @@
+@theme inline {
+  --color-background: var(--p0seid0n-surface);
+  --color-foreground: var(--p0seid0n-ink);
+  --color-card: var(--p0seid0n-raised);
+  --color-primary: var(--p0seid0n-ink);
+  --color-muted-foreground: var(--p0seid0n-ink-muted);
+  --color-border: var(--p0seid0n-line);
+  --color-input: var(--p0seid0n-line);
+  --color-ring: var(--p0seid0n-ink);
+}

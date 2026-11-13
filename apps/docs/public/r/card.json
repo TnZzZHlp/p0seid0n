@@ -1,0 +1,42 @@
+{
+  "name": "card",
+  "type": "registry:ui",
+  "title": "Card",
+  "description": "Panel container with a raised or surface appearance, plus header, content and footer sections.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "The panel radius is 16px and the border uses the line colour. appearance raised is the default for cards on the page background; use surface for panels nested inside a raised container. CardHeader takes title, description and action slots, and its default slot fills the title.",
+  "files": [
+    {
+      "path": "ui/card/Card.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type CardProps = {\n  /** raised sits on the page surface; surface sits on a raised panel. */\n  appearance?: 'raised' | 'surface'\n}\n\nconst props = withDefaults(defineProps<CardProps>(), {\n  appearance: 'raised',\n})\n\nconst appearanceClass = computed(() =>\n  props.appearance === 'surface' ? 'bg-surface' : 'bg-raised',\n)\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('flex flex-col rounded-panel border', appearanceClass, $attrs.class as string | undefined)\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/card/CardHeader.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex items-start justify-between gap-4 px-6 pt-5 pb-4',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <div class=\"flex min-w-0 flex-col gap-1\">\n      <slot name=\"title\">\n        <h3 class=\"text-[15px] leading-tight font-medium text-ink\"><slot /></h3>\n      </slot>\n      <slot name=\"description\" />\n    </div>\n    <slot name=\"action\" />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/card/CardContent.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"cn('px-6 py-4 text-[14px] text-ink-muted', $attrs.class as string | undefined)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/card/CardFooter.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex items-center justify-between gap-3 border-t border-line px-6 py-4 text-[13px] text-ink-muted',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/card/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Card } from './Card.vue'\nexport { default as CardHeader } from './CardHeader.vue'\nexport { default as CardContent } from './CardContent.vue'\nexport { default as CardFooter } from './CardFooter.vue'\nexport type { CardProps } from './Card.vue'\n"
+    }
+  ]
+}

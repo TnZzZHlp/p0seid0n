@@ -1,0 +1,32 @@
+<script setup lang="ts">
+import { computed, useAttrs } from 'vue'
+import { cn } from '@/lib/utils'
+import { badgeVariants } from './variants'
+import type { BadgeVariant } from './variants'
+
+defineOptions({ inheritAttrs: false })
+
+export type BadgeProps = {
+  variant?: BadgeVariant
+}
+
+const props = withDefaults(defineProps<BadgeProps>(), {
+  variant: 'neutral',
+})
+
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  return rest
+})
+</script>
+
+<template>
+  <span
+    v-bind="forwarded"
+    :class="cn(badgeVariants({ variant: props.variant }), $attrs.class as string | undefined)"
+  >
+    <slot />
+  </span>
+</template>

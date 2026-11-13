@@ -1,0 +1,27 @@
+{
+  "name": "input",
+  "type": "registry:ui",
+  "title": "Input",
+  "description": "Text field with a focus ring, an aria-driven invalid state and a disabled state.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Bind with v-model. Set invalid to render aria-invalid and the danger border. Give it an id and point a Label at the same value so the two stay associated.",
+  "files": [
+    {
+      "path": "ui/input/Input.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type InputProps = {\n  /** Marks the field as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n  disabled?: boolean\n  id?: string\n}\n\nwithDefaults(defineProps<InputProps>(), {\n  invalid: false,\n  disabled: false,\n  id: undefined,\n})\n\nconst model = defineModel<string | number>({ default: '' })\nconst emit = defineEmits<{ input: [event: Event] }>()\n\nfunction onInput(event: Event): void {\n  model.value = (event.target as HTMLInputElement).value\n  emit('input', event)\n}\n</script>\n\n<template>\n  <input\n    v-bind=\"forwarded\"\n    :id=\"id\"\n    v-model=\"model\"\n    :disabled=\"disabled\"\n    :aria-invalid=\"invalid ? 'true' : undefined\"\n    :class=\"\n      cn(\n        'h-11 w-full rounded-control border border-line bg-control px-3 text-[15px] text-ink',\n        'placeholder:text-ink-muted',\n        'outline-none focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,color,border-color,box-shadow] duration-150 motion-reduce:transition-none',\n        $attrs.class as string | undefined,\n      )\n    \"\n    @input=\"onInput\"\n  />\n</template>\n"
+    },
+    {
+      "path": "ui/input/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Input } from './Input.vue'\nexport type { InputProps } from './Input.vue'\n"
+    }
+  ]
+}

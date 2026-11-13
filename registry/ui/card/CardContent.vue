@@ -1,0 +1,22 @@
+<script setup lang="ts">
+import { computed, useAttrs } from 'vue'
+import { cn } from '@/lib/utils'
+
+defineOptions({ inheritAttrs: false })
+
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  return rest
+})
+</script>
+
+<template>
+  <div
+    v-bind="forwarded"
+    :class="cn('px-6 py-4 text-[14px] text-ink-muted', $attrs.class as string | undefined)"
+  >
+    <slot />
+  </div>
+</template>

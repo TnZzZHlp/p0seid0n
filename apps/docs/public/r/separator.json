@@ -1,0 +1,27 @@
+{
+  "name": "separator",
+  "type": "registry:ui",
+  "title": "Separator",
+  "description": "One-pixel rule in a line colour, horizontal or vertical.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Set orientation to vertical inside a flex row; the rule stretches to the container height. It is decorative by default and hidden from assistive tech; set decorative to false to expose a separator role.",
+  "files": [
+    {
+      "path": "ui/separator/Separator.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type SeparatorProps = {\n  orientation?: 'horizontal' | 'vertical'\n  /** Marks the separator as presentational; it is then hidden from assistive tech. */\n  decorative?: boolean\n}\n\nconst props = withDefaults(defineProps<SeparatorProps>(), {\n  orientation: 'horizontal',\n  decorative: true,\n})\n\nconst isVertical = computed(() => props.orientation === 'vertical')\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'shrink-0 bg-line',\n        isVertical ? 'h-full w-px self-stretch' : 'h-px w-full',\n        $attrs.class as string | undefined,\n      )\n    \"\n    :role=\"decorative ? 'presentation' : 'separator'\"\n    :aria-orientation=\"decorative ? undefined : orientation\"\n    :aria-hidden=\"decorative ? 'true' : undefined\"\n    :data-orientation=\"orientation\"\n  />\n</template>\n"
+    },
+    {
+      "path": "ui/separator/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Separator } from './Separator.vue'\nexport type { SeparatorProps } from './Separator.vue'\n"
+    }
+  ]
+}

@@ -3,12 +3,54 @@
     "name": "theme",
     "type": "registry:theme",
     "title": "Theme",
-    "description": "Ocean design tokens: the nine --ocean-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge."
+    "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge."
   },
   {
     "name": "utils",
     "type": "registry:lib",
     "title": "Utils",
     "description": "The cn() class merge helper built on clsx and tailwind-merge."
+  },
+  {
+    "name": "button",
+    "type": "registry:ui",
+    "title": "Button",
+    "description": "Ink-filled primary, control-grey secondary, transparent ghost and danger button in three sizes, with loading and leading/trailing slots."
+  },
+  {
+    "name": "badge",
+    "type": "registry:ui",
+    "title": "Badge",
+    "description": "Small labelling chip in neutral, accent, accent-alt and outline variants."
+  },
+  {
+    "name": "separator",
+    "type": "registry:ui",
+    "title": "Separator",
+    "description": "One-pixel rule in a line colour, horizontal or vertical."
+  },
+  {
+    "name": "card",
+    "type": "registry:ui",
+    "title": "Card",
+    "description": "Panel container with a raised or surface appearance, plus header, content and footer sections."
+  },
+  {
+    "name": "input",
+    "type": "registry:ui",
+    "title": "Input",
+    "description": "Text field with a focus ring, an aria-driven invalid state and a disabled state."
+  },
+  {
+    "name": "label",
+    "type": "registry:ui",
+    "title": "Label",
+    "description": "Caption that associates with a control through its for attribute, with an optional required marker."
+  },
+  {
+    "name": "switch",
+    "type": "registry:ui",
+    "title": "Switch",
+    "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb."
   }
 ]

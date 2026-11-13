@@ -1,19 +1,19 @@
 {
-  "name": "ocean",
-  "homepage": "https://ocean.example.com",
+  "name": "p0seid0n",
+  "homepage": "https://p0seid0n.example.com",
   "items": [
     {
       "name": "theme",
       "type": "registry:theme",
       "title": "Theme",
-      "description": "Ocean design tokens: the nine --ocean-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge.",
-      "docs": "Import the stylesheet once, in the same file that imports Tailwind. Light and dark follow color-scheme: the OS preference by default, or a .light or .dark class on the html element. There are no dark: variants, so overriding any --ocean-* value re-themes every component, including at runtime.",
+      "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge.",
+      "docs": "Import the stylesheet once, in the same file that imports Tailwind. Light and dark follow color-scheme: the OS preference by default, or a .light or .dark class on the html element. There are no dark: variants, so overriding any --p0seid0n-* value re-themes every component, including at runtime.",
       "files": [
         {
-          "path": "styles/ocean.css",
+          "path": "styles/p0seid0n.css",
           "type": "registry:file",
-          "content": ":root {\n  color-scheme: light dark;\n\n  --ocean-surface: light-dark(#F5F6F8, #121419);\n  --ocean-raised: light-dark(#FFFFFF, #1A1D24);\n  --ocean-ink: light-dark(#15181F, #ECEEF2);\n  --ocean-ink-muted: light-dark(#5B6270, #969CAA);\n  --ocean-ink-faint: light-dark(#A3A9B5, #5E6473);\n  --ocean-line: light-dark(#DDE1E7, #2A2E37);\n  --ocean-control: light-dark(#E7EAEF, #2B303A);\n  --ocean-download: light-dark(#2F6FE4, #5B8DEF);\n  --ocean-upload: light-dark(#C8731A, #C97C26);\n\n  --ocean-radius-control: 12px;\n  --ocean-radius-panel: 16px;\n  --ocean-radius-panel-lg: 20px;\n\n  --ocean-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));\n}\n\n:root.light {\n  color-scheme: light;\n}\n\n:root.dark {\n  color-scheme: dark;\n}\n\n@theme inline {\n  --color-surface: var(--ocean-surface);\n  --color-raised: var(--ocean-raised);\n  --color-ink: var(--ocean-ink);\n  --color-ink-muted: var(--ocean-ink-muted);\n  --color-ink-faint: var(--ocean-ink-faint);\n  --color-line: var(--ocean-line);\n  --color-control: var(--ocean-control);\n  --color-accent: var(--ocean-download);\n  --color-accent-alt: var(--ocean-upload);\n\n  --radius-control: var(--ocean-radius-control);\n  --radius-panel: var(--ocean-radius-panel);\n  --radius-panel-lg: var(--ocean-radius-panel-lg);\n\n  --font-sans: var(--font-barlow, \"Barlow\"), system-ui, sans-serif;\n  --font-condensed:\n    var(--font-barlow-semi-condensed, \"Barlow Semi Condensed\"), var(--font-barlow, \"Barlow\"),\n    system-ui, sans-serif;\n\n  --shadow-popup: var(--ocean-shadow-popup);\n}\n",
-          "target": "styles/ocean.css"
+          "content": ":root {\n  color-scheme: light dark;\n\n  --p0seid0n-surface: light-dark(#F5F6F8, #121419);\n  --p0seid0n-raised: light-dark(#FFFFFF, #1A1D24);\n  --p0seid0n-ink: light-dark(#15181F, #ECEEF2);\n  --p0seid0n-ink-muted: light-dark(#5B6270, #969CAA);\n  --p0seid0n-ink-faint: light-dark(#A3A9B5, #5E6473);\n  --p0seid0n-line: light-dark(#DDE1E7, #2A2E37);\n  --p0seid0n-control: light-dark(#E7EAEF, #2B303A);\n  --p0seid0n-download: light-dark(#2F6FE4, #5B8DEF);\n  --p0seid0n-upload: light-dark(#C8731A, #C97C26);\n  /* Derived, not taken from the reference palette: the upload colour is too light\n     to carry surface-coloured text at 4.5:1, so it is mixed toward the ink. */\n  --p0seid0n-danger: color-mix(in oklab, var(--p0seid0n-upload) 80%, var(--p0seid0n-ink));\n\n  --p0seid0n-radius-control: 12px;\n  --p0seid0n-radius-panel: 16px;\n  --p0seid0n-radius-panel-lg: 20px;\n\n  --p0seid0n-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));\n}\n\n:root.light {\n  color-scheme: light;\n}\n\n:root.dark {\n  color-scheme: dark;\n}\n\n@theme inline {\n  --color-surface: var(--p0seid0n-surface);\n  --color-raised: var(--p0seid0n-raised);\n  --color-ink: var(--p0seid0n-ink);\n  --color-ink-muted: var(--p0seid0n-ink-muted);\n  --color-ink-faint: var(--p0seid0n-ink-faint);\n  --color-line: var(--p0seid0n-line);\n  --color-control: var(--p0seid0n-control);\n  --color-accent: var(--p0seid0n-download);\n  --color-accent-alt: var(--p0seid0n-upload);\n  --color-danger: var(--p0seid0n-danger);\n\n  --radius-control: var(--p0seid0n-radius-control);\n  --radius-panel: var(--p0seid0n-radius-panel);\n  --radius-panel-lg: var(--p0seid0n-radius-panel-lg);\n\n  --font-sans: var(--font-barlow, \"Barlow\"), system-ui, sans-serif;\n  --font-condensed:\n    var(--font-barlow-semi-condensed, \"Barlow Semi Condensed\"), var(--font-barlow, \"Barlow\"),\n    system-ui, sans-serif;\n\n  --shadow-popup: var(--p0seid0n-shadow-popup);\n}\n",
+          "target": "styles/p0seid0n.css"
         }
       ]
     },
@@ -33,6 +33,223 @@
           "type": "registry:lib",
           "content": "import { clsx, type ClassValue } from 'clsx'\nimport { twMerge } from 'tailwind-merge'\n\nexport function cn(...inputs: ClassValue[]): string {\n  return twMerge(clsx(inputs))\n}\n",
           "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Ink-filled primary, control-grey secondary, transparent ghost and danger button in three sizes, with loading and leading/trailing slots.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Use variant primary, secondary, ghost or danger and size sm, md or lg. Loading sets aria-busy, disables interaction and leaves the progress slot usable. Use the leading and trailing slots for icons; the component ships none. A click handler passed from the parent is not called while loading or disabled.",
+      "files": [
+        {
+          "path": "ui/button/Button.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { Component } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { buttonVariants } from './variants'\nimport type { ButtonSize, ButtonVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type ButtonProps = {\n  variant?: ButtonVariant\n  size?: ButtonSize\n  /** Rendered element or component. Links pass as: 'a'. */\n  as?: string | Component\n  /** Native button type; ignored when `as` is not a button. */\n  type?: 'button' | 'submit' | 'reset'\n  /** Disables interaction and marks the button as busy. */\n  loading?: boolean\n  disabled?: boolean\n}\n\nconst props = withDefaults(defineProps<ButtonProps>(), {\n  variant: 'primary',\n  size: 'md',\n  as: 'button',\n  type: 'button',\n  loading: false,\n  disabled: false,\n})\n\nconst attrs = useAttrs()\n\n// The click listener is attached by this component so that `loading` and\n// `disabled` also block it for non-button roots such as links.\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest.onClick\n  return rest\n})\n\nconst isNativeButton = computed(() => props.as === 'button')\nconst isInert = computed(() => props.disabled || props.loading)\n\nfunction onClick(event: MouseEvent): void {\n  if (isInert.value) {\n    event.preventDefault()\n    return\n  }\n  ;(attrs.onClick as ((event: MouseEvent) => void) | undefined)?.(event)\n}\n</script>\n\n<template>\n  <component\n    :is=\"as\"\n    v-bind=\"forwarded\"\n    :type=\"isNativeButton ? type : undefined\"\n    :class=\"cn(buttonVariants({ variant, size }), $attrs.class as string | undefined)\"\n    :disabled=\"isNativeButton ? isInert : undefined\"\n    :aria-disabled=\"isInert ? 'true' : undefined\"\n    :aria-busy=\"loading ? 'true' : undefined\"\n    @click=\"onClick\"\n  >\n    <slot name=\"progress\" />\n    <slot name=\"leading\" />\n    <slot />\n    <slot name=\"trailing\" />\n  </component>\n</template>\n"
+        },
+        {
+          "path": "ui/button/variants.ts",
+          "type": "registry:ui",
+          "content": "import { cva } from 'class-variance-authority'\n\nexport type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'\nexport type ButtonSize = 'sm' | 'md' | 'lg'\n\n/**\n * Button surfaces follow the reference motif: an ink-filled primary, a control-grey\n * secondary, a transparent ghost, and the theme danger colour.\n */\nexport const buttonVariants = cva(\n  [\n    'relative isolate inline-flex shrink-0 select-none items-center justify-center gap-2 overflow-hidden',\n    'whitespace-nowrap rounded-control font-medium',\n    'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-3 focus-visible:outline-ink',\n    'transition-[background-color,color,border-color,box-shadow] duration-150 motion-reduce:transition-none',\n    'disabled:cursor-default disabled:opacity-55 aria-disabled:cursor-default aria-disabled:opacity-55',\n  ].join(' '),\n  {\n    variants: {\n      variant: {\n        primary:\n          'bg-ink text-surface hover:bg-[color-mix(in_oklab,var(--color-ink)_86%,var(--color-surface))]',\n        secondary:\n          'bg-control text-ink hover:bg-[color-mix(in_oklab,var(--color-control)_92%,var(--color-ink))]',\n        ghost: 'bg-transparent text-ink hover:bg-control',\n        danger:\n          'bg-danger text-surface hover:bg-[color-mix(in_oklab,var(--color-danger)_86%,var(--color-ink))]',\n      } satisfies Record<ButtonVariant, string>,\n      size: {\n        sm: 'min-h-8 px-3 text-[13px]',\n        md: 'min-h-11 px-6 text-[15px]',\n        lg: 'min-h-13 px-8 text-[17px]',\n      } satisfies Record<ButtonSize, string>,\n    },\n    defaultVariants: {\n      variant: 'primary',\n      size: 'md',\n    },\n  },\n)\n"
+        },
+        {
+          "path": "ui/button/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Button } from './Button.vue'\nexport { buttonVariants } from './variants'\nexport type { ButtonSize, ButtonVariant } from './variants'\nexport type { ButtonProps } from './Button.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Small labelling chip in neutral, accent, accent-alt and outline variants.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Pick a variant with the variant prop. Text stays at the smallest type step so a badge never competes with the value it labels.",
+      "files": [
+        {
+          "path": "ui/badge/Badge.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { badgeVariants } from './variants'\nimport type { BadgeVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BadgeProps = {\n  variant?: BadgeVariant\n}\n\nconst props = withDefaults(defineProps<BadgeProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <span\n    v-bind=\"forwarded\"\n    :class=\"cn(badgeVariants({ variant: props.variant }), $attrs.class as string | undefined)\"\n  >\n    <slot />\n  </span>\n</template>\n"
+        },
+        {
+          "path": "ui/badge/variants.ts",
+          "type": "registry:ui",
+          "content": "import { cva } from 'class-variance-authority'\n\nexport type BadgeVariant = 'neutral' | 'accent' | 'accent-alt' | 'outline'\n\n/**\n * The raw download colour sits just below 4.5:1 against surface-coloured text in\n * light mode, so the label is mixed toward the ink instead of the background.\n */\nconst accentFill = 'bg-[color-mix(in_oklab,var(--color-accent)_88%,var(--color-ink))]'\n\nexport const badgeVariants = cva(\n  'inline-flex items-center gap-1 rounded-[10px] px-2 py-0.5 text-[12px] font-medium whitespace-nowrap',\n  {\n    variants: {\n      variant: {\n        neutral: 'bg-control text-ink-muted',\n        accent: `${accentFill} text-surface`,\n        'accent-alt': 'bg-danger text-surface',\n        outline: 'border border-line text-ink-muted',\n      } satisfies Record<BadgeVariant, string>,\n    },\n    defaultVariants: {\n      variant: 'neutral',\n    },\n  },\n)\n"
+        },
+        {
+          "path": "ui/badge/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Badge } from './Badge.vue'\nexport { badgeVariants } from './variants'\nexport type { BadgeVariant } from './variants'\nexport type { BadgeProps } from './Badge.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "One-pixel rule in a line colour, horizontal or vertical.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Set orientation to vertical inside a flex row; the rule stretches to the container height. It is decorative by default and hidden from assistive tech; set decorative to false to expose a separator role.",
+      "files": [
+        {
+          "path": "ui/separator/Separator.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type SeparatorProps = {\n  orientation?: 'horizontal' | 'vertical'\n  /** Marks the separator as presentational; it is then hidden from assistive tech. */\n  decorative?: boolean\n}\n\nconst props = withDefaults(defineProps<SeparatorProps>(), {\n  orientation: 'horizontal',\n  decorative: true,\n})\n\nconst isVertical = computed(() => props.orientation === 'vertical')\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'shrink-0 bg-line',\n        isVertical ? 'h-full w-px self-stretch' : 'h-px w-full',\n        $attrs.class as string | undefined,\n      )\n    \"\n    :role=\"decorative ? 'presentation' : 'separator'\"\n    :aria-orientation=\"decorative ? undefined : orientation\"\n    :aria-hidden=\"decorative ? 'true' : undefined\"\n    :data-orientation=\"orientation\"\n  />\n</template>\n"
+        },
+        {
+          "path": "ui/separator/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Separator } from './Separator.vue'\nexport type { SeparatorProps } from './Separator.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Panel container with a raised or surface appearance, plus header, content and footer sections.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "The panel radius is 16px and the border uses the line colour. appearance raised is the default for cards on the page background; use surface for panels nested inside a raised container. CardHeader takes title, description and action slots, and its default slot fills the title.",
+      "files": [
+        {
+          "path": "ui/card/Card.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type CardProps = {\n  /** raised sits on the page surface; surface sits on a raised panel. */\n  appearance?: 'raised' | 'surface'\n}\n\nconst props = withDefaults(defineProps<CardProps>(), {\n  appearance: 'raised',\n})\n\nconst appearanceClass = computed(() =>\n  props.appearance === 'surface' ? 'bg-surface' : 'bg-raised',\n)\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('flex flex-col rounded-panel border', appearanceClass, $attrs.class as string | undefined)\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/card/CardHeader.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex items-start justify-between gap-4 px-6 pt-5 pb-4',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <div class=\"flex min-w-0 flex-col gap-1\">\n      <slot name=\"title\">\n        <h3 class=\"text-[15px] leading-tight font-medium text-ink\"><slot /></h3>\n      </slot>\n      <slot name=\"description\" />\n    </div>\n    <slot name=\"action\" />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/card/CardContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"cn('px-6 py-4 text-[14px] text-ink-muted', $attrs.class as string | undefined)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/card/CardFooter.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex items-center justify-between gap-3 border-t border-line px-6 py-4 text-[13px] text-ink-muted',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/card/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Card } from './Card.vue'\nexport { default as CardHeader } from './CardHeader.vue'\nexport { default as CardContent } from './CardContent.vue'\nexport { default as CardFooter } from './CardFooter.vue'\nexport type { CardProps } from './Card.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Text field with a focus ring, an aria-driven invalid state and a disabled state.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model. Set invalid to render aria-invalid and the danger border. Give it an id and point a Label at the same value so the two stay associated.",
+      "files": [
+        {
+          "path": "ui/input/Input.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type InputProps = {\n  /** Marks the field as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n  disabled?: boolean\n  id?: string\n}\n\nwithDefaults(defineProps<InputProps>(), {\n  invalid: false,\n  disabled: false,\n  id: undefined,\n})\n\nconst model = defineModel<string | number>({ default: '' })\nconst emit = defineEmits<{ input: [event: Event] }>()\n\nfunction onInput(event: Event): void {\n  model.value = (event.target as HTMLInputElement).value\n  emit('input', event)\n}\n</script>\n\n<template>\n  <input\n    v-bind=\"forwarded\"\n    :id=\"id\"\n    v-model=\"model\"\n    :disabled=\"disabled\"\n    :aria-invalid=\"invalid ? 'true' : undefined\"\n    :class=\"\n      cn(\n        'h-11 w-full rounded-control border border-line bg-control px-3 text-[15px] text-ink',\n        'placeholder:text-ink-muted',\n        'outline-none focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,color,border-color,box-shadow] duration-150 motion-reduce:transition-none',\n        $attrs.class as string | undefined,\n      )\n    \"\n    @input=\"onInput\"\n  />\n</template>\n"
+        },
+        {
+          "path": "ui/input/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Input } from './Input.vue'\nexport type { InputProps } from './Input.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Caption that associates with a control through its for attribute, with an optional required marker.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Pass for with the id of the control. required appends a decorative asterisk in the danger colour; it is hidden from assistive tech, so keep the native required or aria-required attribute on the control itself.",
+      "files": [
+        {
+          "path": "ui/label/Label.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type LabelProps = {\n  /** Id of the control this label describes; rendered as the `for` attribute. */\n  for?: string\n  /** Appends a decorative required marker. */\n  required?: boolean\n}\n\nwithDefaults(defineProps<LabelProps>(), {\n  for: undefined,\n  required: false,\n})\n</script>\n\n<template>\n  <label\n    v-bind=\"forwarded\"\n    :for=\"$props.for\"\n    :class=\"\n      cn(\n        'inline-flex items-center gap-1 text-[13px] font-medium text-ink-muted',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <slot />\n    <span v-if=\"required\" aria-hidden=\"true\" class=\"text-danger\">*</span>\n  </label>\n</template>\n"
+        },
+        {
+          "path": "ui/label/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Label } from './Label.vue'\nexport type { LabelProps } from './Label.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model. Space and Enter toggle it and aria-checked follows the value. The thumb slot is empty by default so an icon can be passed without adding a dependency. Transitions are dropped under prefers-reduced-motion.",
+      "files": [
+        {
+          "path": "ui/switch/Switch.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { SwitchRoot, SwitchThumb } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type SwitchProps = {\n  disabled?: boolean\n  size?: 'md' | 'lg'\n}\n\nconst props = withDefaults(defineProps<SwitchProps>(), {\n  disabled: false,\n  size: 'md',\n})\n\nconst model = defineModel<boolean>({ default: false })\nconst isLarge = computed(() => props.size === 'lg')\n</script>\n\n<template>\n  <SwitchRoot\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :disabled=\"disabled\"\n    :class=\"\n      cn(\n        'relative inline-flex shrink-0 items-center rounded-full border border-line bg-control',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'data-[state=checked]:border-ink data-[state=checked]:bg-ink',\n        'transition-[background-color,border-color,box-shadow] duration-150 motion-reduce:transition-none',\n        'disabled:cursor-default disabled:opacity-55',\n        isLarge ? 'h-10 w-16 p-0.5' : 'h-7 w-11 p-px',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <SwitchThumb\n      :class=\"\n        cn(\n          'pointer-events-none flex items-center justify-center rounded-full bg-surface text-ink-muted shadow',\n          'transition-transform duration-150 motion-reduce:transition-none',\n          'data-[state=checked]:text-ink',\n          isLarge\n            ? 'size-8 data-[state=checked]:translate-x-6.5'\n            : 'size-6 data-[state=checked]:translate-x-4',\n        )\n      \"\n    >\n      <slot name=\"thumb\" />\n    </SwitchThumb>\n  </SwitchRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/switch/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Switch } from './Switch.vue'\nexport type { SwitchProps } from './Switch.vue'\n"
         }
       ]
     }

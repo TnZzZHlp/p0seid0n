@@ -1,0 +1,28 @@
+{
+  "name": "switch",
+  "type": "registry:ui",
+  "title": "Switch",
+  "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Bind with v-model. Space and Enter toggle it and aria-checked follows the value. The thumb slot is empty by default so an icon can be passed without adding a dependency. Transitions are dropped under prefers-reduced-motion.",
+  "files": [
+    {
+      "path": "ui/switch/Switch.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { SwitchRoot, SwitchThumb } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type SwitchProps = {\n  disabled?: boolean\n  size?: 'md' | 'lg'\n}\n\nconst props = withDefaults(defineProps<SwitchProps>(), {\n  disabled: false,\n  size: 'md',\n})\n\nconst model = defineModel<boolean>({ default: false })\nconst isLarge = computed(() => props.size === 'lg')\n</script>\n\n<template>\n  <SwitchRoot\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :disabled=\"disabled\"\n    :class=\"\n      cn(\n        'relative inline-flex shrink-0 items-center rounded-full border border-line bg-control',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'data-[state=checked]:border-ink data-[state=checked]:bg-ink',\n        'transition-[background-color,border-color,box-shadow] duration-150 motion-reduce:transition-none',\n        'disabled:cursor-default disabled:opacity-55',\n        isLarge ? 'h-10 w-16 p-0.5' : 'h-7 w-11 p-px',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <SwitchThumb\n      :class=\"\n        cn(\n          'pointer-events-none flex items-center justify-center rounded-full bg-surface text-ink-muted shadow',\n          'transition-transform duration-150 motion-reduce:transition-none',\n          'data-[state=checked]:text-ink',\n          isLarge\n            ? 'size-8 data-[state=checked]:translate-x-6.5'\n            : 'size-6 data-[state=checked]:translate-x-4',\n        )\n      \"\n    >\n      <slot name=\"thumb\" />\n    </SwitchThumb>\n  </SwitchRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/switch/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Switch } from './Switch.vue'\nexport type { SwitchProps } from './Switch.vue'\n"
+    }
+  ]
+}

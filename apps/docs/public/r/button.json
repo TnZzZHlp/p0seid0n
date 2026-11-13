@@ -1,0 +1,33 @@
+{
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "description": "Ink-filled primary, control-grey secondary, transparent ghost and danger button in three sizes, with loading and leading/trailing slots.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Use variant primary, secondary, ghost or danger and size sm, md or lg. Loading sets aria-busy, disables interaction and leaves the progress slot usable. Use the leading and trailing slots for icons; the component ships none. A click handler passed from the parent is not called while loading or disabled.",
+  "files": [
+    {
+      "path": "ui/button/Button.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { Component } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { buttonVariants } from './variants'\nimport type { ButtonSize, ButtonVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type ButtonProps = {\n  variant?: ButtonVariant\n  size?: ButtonSize\n  /** Rendered element or component. Links pass as: 'a'. */\n  as?: string | Component\n  /** Native button type; ignored when `as` is not a button. */\n  type?: 'button' | 'submit' | 'reset'\n  /** Disables interaction and marks the button as busy. */\n  loading?: boolean\n  disabled?: boolean\n}\n\nconst props = withDefaults(defineProps<ButtonProps>(), {\n  variant: 'primary',\n  size: 'md',\n  as: 'button',\n  type: 'button',\n  loading: false,\n  disabled: false,\n})\n\nconst attrs = useAttrs()\n\n// The click listener is attached by this component so that `loading` and\n// `disabled` also block it for non-button roots such as links.\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest.onClick\n  return rest\n})\n\nconst isNativeButton = computed(() => props.as === 'button')\nconst isInert = computed(() => props.disabled || props.loading)\n\nfunction onClick(event: MouseEvent): void {\n  if (isInert.value) {\n    event.preventDefault()\n    return\n  }\n  ;(attrs.onClick as ((event: MouseEvent) => void) | undefined)?.(event)\n}\n</script>\n\n<template>\n  <component\n    :is=\"as\"\n    v-bind=\"forwarded\"\n    :type=\"isNativeButton ? type : undefined\"\n    :class=\"cn(buttonVariants({ variant, size }), $attrs.class as string | undefined)\"\n    :disabled=\"isNativeButton ? isInert : undefined\"\n    :aria-disabled=\"isInert ? 'true' : undefined\"\n    :aria-busy=\"loading ? 'true' : undefined\"\n    @click=\"onClick\"\n  >\n    <slot name=\"progress\" />\n    <slot name=\"leading\" />\n    <slot />\n    <slot name=\"trailing\" />\n  </component>\n</template>\n"
+    },
+    {
+      "path": "ui/button/variants.ts",
+      "type": "registry:ui",
+      "content": "import { cva } from 'class-variance-authority'\n\nexport type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'\nexport type ButtonSize = 'sm' | 'md' | 'lg'\n\n/**\n * Button surfaces follow the reference motif: an ink-filled primary, a control-grey\n * secondary, a transparent ghost, and the theme danger colour.\n */\nexport const buttonVariants = cva(\n  [\n    'relative isolate inline-flex shrink-0 select-none items-center justify-center gap-2 overflow-hidden',\n    'whitespace-nowrap rounded-control font-medium',\n    'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-3 focus-visible:outline-ink',\n    'transition-[background-color,color,border-color,box-shadow] duration-150 motion-reduce:transition-none',\n    'disabled:cursor-default disabled:opacity-55 aria-disabled:cursor-default aria-disabled:opacity-55',\n  ].join(' '),\n  {\n    variants: {\n      variant: {\n        primary:\n          'bg-ink text-surface hover:bg-[color-mix(in_oklab,var(--color-ink)_86%,var(--color-surface))]',\n        secondary:\n          'bg-control text-ink hover:bg-[color-mix(in_oklab,var(--color-control)_92%,var(--color-ink))]',\n        ghost: 'bg-transparent text-ink hover:bg-control',\n        danger:\n          'bg-danger text-surface hover:bg-[color-mix(in_oklab,var(--color-danger)_86%,var(--color-ink))]',\n      } satisfies Record<ButtonVariant, string>,\n      size: {\n        sm: 'min-h-8 px-3 text-[13px]',\n        md: 'min-h-11 px-6 text-[15px]',\n        lg: 'min-h-13 px-8 text-[17px]',\n      } satisfies Record<ButtonSize, string>,\n    },\n    defaultVariants: {\n      variant: 'primary',\n      size: 'md',\n    },\n  },\n)\n"
+    },
+    {
+      "path": "ui/button/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Button } from './Button.vue'\nexport { buttonVariants } from './variants'\nexport type { ButtonSize, ButtonVariant } from './variants'\nexport type { ButtonProps } from './Button.vue'\n"
+    }
+  ]
+}

@@ -1,20 +1,20 @@
 {
-  "name": "ocean",
-  "homepage": "https://ocean.example.com",
+  "name": "p0seid0n",
+  "homepage": "https://p0seid0n.example.com",
   "items": [
     {
       "name": "theme",
       "type": "registry:theme",
       "title": "Theme",
-      "description": "Ocean design tokens: the nine --ocean-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge.",
+      "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge.",
       "files": [
         {
-          "path": "styles/ocean.css",
+          "path": "styles/p0seid0n.css",
           "type": "registry:file",
-          "target": "styles/ocean.css"
+          "target": "styles/p0seid0n.css"
         }
       ],
-      "docs": "Import the stylesheet once, in the same file that imports Tailwind. Light and dark follow color-scheme: the OS preference by default, or a .light or .dark class on the html element. There are no dark: variants, so overriding any --ocean-* value re-themes every component, including at runtime."
+      "docs": "Import the stylesheet once, in the same file that imports Tailwind. Light and dark follow color-scheme: the OS preference by default, or a .light or .dark class on the html element. There are no dark: variants, so overriding any --p0seid0n-* value re-themes every component, including at runtime."
     },
     {
       "name": "utils",
@@ -30,6 +30,159 @@
         }
       ],
       "docs": "Import cn from your lib alias. It merges conditional classes with clsx and resolves Tailwind conflicts with tailwind-merge."
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Ink-filled primary, control-grey secondary, transparent ghost and danger button in three sizes, with loading and leading/trailing slots.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/button/Button.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/button/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/button/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Use variant primary, secondary, ghost or danger and size sm, md or lg. Loading sets aria-busy, disables interaction and leaves the progress slot usable. Use the leading and trailing slots for icons; the component ships none. A click handler passed from the parent is not called while loading or disabled."
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Small labelling chip in neutral, accent, accent-alt and outline variants.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/badge/Badge.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/badge/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/badge/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pick a variant with the variant prop. Text stays at the smallest type step so a badge never competes with the value it labels."
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "One-pixel rule in a line colour, horizontal or vertical.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/separator/Separator.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/separator/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Set orientation to vertical inside a flex row; the rule stretches to the container height. It is decorative by default and hidden from assistive tech; set decorative to false to expose a separator role."
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Panel container with a raised or surface appearance, plus header, content and footer sections.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/card/Card.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/CardHeader.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/CardContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/CardFooter.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "The panel radius is 16px and the border uses the line colour. appearance raised is the default for cards on the page background; use surface for panels nested inside a raised container. CardHeader takes title, description and action slots, and its default slot fills the title."
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Text field with a focus ring, an aria-driven invalid state and a disabled state.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/input/Input.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/input/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model. Set invalid to render aria-invalid and the danger border. Give it an id and point a Label at the same value so the two stay associated."
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Caption that associates with a control through its for attribute, with an optional required marker.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/label/Label.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/label/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pass for with the id of the control. required appends a decorative asterisk in the danger colour; it is hidden from assistive tech, so keep the native required or aria-required attribute on the control itself."
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/switch/Switch.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/switch/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model. Space and Enter toggle it and aria-checked follows the value. The thumb slot is empty by default so an icon can be passed without adding a dependency. Transitions are dropped under prefers-reduced-motion."
     }
   ]
 }
