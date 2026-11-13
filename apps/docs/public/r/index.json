@@ -1,0 +1,14 @@
+[
+  {
+    "name": "theme",
+    "type": "registry:theme",
+    "title": "Theme",
+    "description": "Ocean design tokens: the nine --ocean-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge."
+  },
+  {
+    "name": "utils",
+    "type": "registry:lib",
+    "title": "Utils",
+    "description": "The cn() class merge helper built on clsx and tailwind-merge."
+  }
+]

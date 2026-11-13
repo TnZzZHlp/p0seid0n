@@ -1,0 +1,19 @@
+{
+  "name": "utils",
+  "type": "registry:lib",
+  "title": "Utils",
+  "description": "The cn() class merge helper built on clsx and tailwind-merge.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "docs": "Import cn from your lib alias. It merges conditional classes with clsx and resolves Tailwind conflicts with tailwind-merge.",
+  "files": [
+    {
+      "path": "lib/utils.ts",
+      "type": "registry:lib",
+      "content": "import { clsx, type ClassValue } from 'clsx'\nimport { twMerge } from 'tailwind-merge'\n\nexport function cn(...inputs: ClassValue[]): string {\n  return twMerge(clsx(inputs))\n}\n",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

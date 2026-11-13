@@ -1,0 +1,16 @@
+{
+  "name": "ocean",
+  "homepage": "https://ocean.example.com",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "Theme"
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils"
+    }
+  ]
+}

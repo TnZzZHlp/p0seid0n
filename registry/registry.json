@@ -1,0 +1,35 @@
+{
+  "name": "ocean",
+  "homepage": "https://ocean.example.com",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "Theme",
+      "description": "Ocean design tokens: the nine --ocean-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge.",
+      "files": [
+        {
+          "path": "styles/ocean.css",
+          "type": "registry:file",
+          "target": "styles/ocean.css"
+        }
+      ],
+      "docs": "Import the stylesheet once, in the same file that imports Tailwind. Light and dark follow color-scheme: the OS preference by default, or a .light or .dark class on the html element. There are no dark: variants, so overriding any --ocean-* value re-themes every component, including at runtime."
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils",
+      "description": "The cn() class merge helper built on clsx and tailwind-merge.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ],
+      "docs": "Import cn from your lib alias. It merges conditional classes with clsx and resolves Tailwind conflicts with tailwind-merge."
+    }
+  ]
+}
