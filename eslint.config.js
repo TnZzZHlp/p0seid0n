@@ -46,7 +46,7 @@ export default tseslint.config(
       'apps/docs/public/r/',
       'apps/docs/src/components/ui/',
       'apps/docs/src/lib/utils.ts',
-      'apps/docs/src/styles/ocean.css',
+      'apps/docs/src/styles/p0seid0n.css',
     ],
   },
   js.configs.recommended,
@@ -63,10 +63,10 @@ export default tseslint.config(
       globals: { ...globals.node, ...globals.browser },
     },
     plugins: {
-      ocean: { rules: { 'no-emoji': noEmoji } },
+      p0seid0n: { rules: { 'no-emoji': noEmoji } },
     },
     rules: {
-      'ocean/no-emoji': 'error',
+      'p0seid0n/no-emoji': 'error',
       'vue/multi-word-component-names': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },

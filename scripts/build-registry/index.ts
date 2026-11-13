@@ -84,7 +84,7 @@ function main(): void {
 
   process.stdout.write(
     [
-      `ocean registry build`,
+      `p0seid0n registry build`,
       `  manifest  registry/registry.json (${manifest.items.length} items)`,
       `  output    ${outDir}`,
       ...written.map((file) => `    ${file}`),
