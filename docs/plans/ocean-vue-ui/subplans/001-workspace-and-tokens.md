@@ -185,6 +185,26 @@ upload       light-dark(#C8731A, #C97C26)
 - 验证结果：已执行。T01 至 T04 与 AC01 至 AC05 全部通过，证据见各任务与验收项的完成证据。验证环境：Node 25.9.0、pnpm 12.8.1、Tailwind 4.3.5、Chrome 156。临时验证目录 `/tmp/tw-verify`、`/tmp/vite-consumer`、`/tmp/ocean-fresh` 未纳入仓库。
 - 实施需要单独授权；生成计划时不要执行任务或创建完成提交。
 
+### 复审记录
+
+复审在完成提交之后独立执行：从 `HEAD` 重新 clone 到空目录，重跑 AC01 至 AC05 的全部检查，并在真实 Vite 消费者项目中复核运行时行为。
+
+通过项：
+
+- AC01 至 AC05 在 clone 出的干净仓库中全部重现通过
+- `bg-raised/50`、`text-ink/80`、`border-line/60` 等透明度变体可用，`color-mix` 回退到纯色声明
+- 消费者在自身 `@theme` 中重定义 `--radius-panel` 时，`rounded-panel` 跟随变为该值（实测 8px）
+- `ocean-shadcn.css` 在 `ocean.css` 之前或之后引入都能正常产出 `bg-card` 等别名
+
+复审发现并已修复：
+
+- `.gitignore` 的 `.vitepress/cache/` 与 `.vitepress/dist/` 含内部斜杠，被 git 锚定到仓库根，未匹配 `apps/docs/.vitepress/cache/`。改为 `**/` 前缀，并用临时仓库验证：三个安装产物与两类 VitePress 输出均被忽略，`apps/docs/public/r/` 仍可提交
+- `@types/node` 原为 `^26`，与本机 Node 25.9.0 不一致，改为 `^25`
+
+复审发现、未在本阶段修改（交由后续阶段决定）：
+
+- `@theme inline` 会把 `--radius-control`/`--radius-panel`/`--radius-panel-lg` 直接固化为 `border-radius: 16px`，`--shadow-popup` 同理。颜色与之不同，因为桥接为 `var(--ocean-*)` 所以仍可覆盖。结果是使用者能在运行时改任意 `--ocean-*` 色值（G02 的验证路径），但不能通过重定义 `--radius-panel` 改圆角；改圆角需在自身 `@theme` 中重定义同名变量，或等 003 起改用 `--radius-*` 的 `var()` 形式。颜色是 G02 的核心，且 003 的尺寸表把圆角当作固定的形制参数，故不阻塞本阶段
+
 ## 风险与缓解措施
 
 | 风险 | 影响 | 缓解或回滚 | 相关任务 |
