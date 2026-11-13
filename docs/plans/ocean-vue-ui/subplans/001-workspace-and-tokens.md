@@ -63,7 +63,13 @@ line         light-dark(#DDE1E7, #2A2E37)
 control      light-dark(#E7EAEF, #2B303A)
 download     light-dark(#2F6FE4, #5B8DEF)
 upload       light-dark(#C8731A, #C97C26)
+radius-control    12px
+radius-panel      16px
+radius-panel-lg   20px
+shadow-popup      0 12px 32px -8px light-dark(rgba(26,36,34,.18), rgba(0,0,0,.6))
 ```
+
+九个色值与三项尺寸、一项阴影全部以 `--ocean-*` 形式定义在 `:root`，构成唯一的可覆盖入口。`@theme inline` 只做 `var()` 桥接，不写入字面量：
 
 `@theme inline` 桥接出的使用面：
 
@@ -73,13 +79,15 @@ upload       light-dark(#C8731A, #C97C26)
 --color-line, --color-control
 --color-accent: var(--ocean-download)
 --color-accent-alt: var(--ocean-upload)
---radius-control: 12px   /* 控件 */
---radius-panel: 16px     /* 卡片 */
---radius-panel-lg: 20px  /* lg 断点下的大面板 */
---font-sans: var(--font-barlow), system-ui, sans-serif
---font-condensed: var(--font-barlow-semi-condensed), var(--font-barlow), system-ui, sans-serif
---shadow-popup: 0 12px 32px -8px light-dark(rgba(26,36,34,.18), rgba(0,0,0,.6))
+--radius-control: var(--ocean-radius-control)     /* 控件 */
+--radius-panel: var(--ocean-radius-panel)         /* 卡片 */
+--radius-panel-lg: var(--ocean-radius-panel-lg)   /* lg 断点下的大面板 */
+--font-sans: var(--font-barlow, "Barlow"), system-ui, sans-serif
+--font-condensed: var(--font-barlow-semi-condensed, "Barlow Semi Condensed"), var(--font-barlow, "Barlow"), system-ui, sans-serif
+--shadow-popup: var(--ocean-shadow-popup)
 ```
+
+桥接一律使用 `var()` 而非字面量。原因：`@theme inline` 会把字面量在编译期固化进工具类，使 `--radius-panel: 16px` 编译成 `border-radius: 16px`，使用者重定义变量也无法生效。改为 `var()` 后，工具类保留变量引用，尺寸、阴影与颜色三者行为一致。
 
 `--color-accent` 与 `--color-accent-alt` 是组件层唯一允许使用的强调色名，`download`/`upload` 仅作为其来源保留，以满足 D09。
 
@@ -108,7 +116,7 @@ upload       light-dark(#C8731A, #C97C26)
 
 - 令牌文件不包含任何组件选择器，只包含 `:root` 与主题桥接
 - 使用者若整体替换令牌，组件无需改动即可换肤。已实测：`--ocean-*` 任一处被重定义后，使用该语义名的元素立即换色（`--ocean-raised` 改 `#00FF00` 时面板背景同步变化），子树内重定义亦生效
-- `--radius-*` 与 `--shadow-popup` 因 `@theme inline` 在编译期被固化为字面量，重定义变量不会改变已编译的工具类；使用者需在自身 `@theme` 中重定义同名键（实测有效），或在后续阶段改用 `var()` 形式。颜色不受此限制
+- 尺寸与阴影与颜色同权可覆盖：在 `:root` 重定义 `--ocean-radius-panel`、`--ocean-shadow-popup` 后，`rounded-panel` 与 `shadow-popup` 立即跟随；子树内重定义同样生效。实测一次注入同时改动颜色、圆角与阴影，三者均按新值渲染
 - 不引入 `dark:` 变体，任何需要暗色差异的地方都必须通过令牌表达
 
 ## 实施任务
@@ -129,7 +137,7 @@ upload       light-dark(#C8731A, #C97C26)
   - 预期输出：两个 CSS 文件，`ocean.css` 是仓库中唯一包含十六进制色值的文件
   - 验收引用：001-AC02、001-AC03
   - 计划验证：`grep -rn "#[0-9A-Fa-f]\{6\}" registry/` 只命中 `ocean.css`
-  - 完成证据：`registry/styles/ocean.css` 含九个 `--ocean-*` 令牌、`color-scheme` 三条规则与 `@theme inline` 桥接；`registry/styles/ocean-shadcn.css` 仅含八个 `--color-*` 映射，无任何色值。`grep -rn "#[0-9A-Fa-f]\{6\}" registry/` 只命中 `ocean.css`。字体族用 `var(--font-barlow, "Barlow")` 形式给出回退名，避免未定义变量导致 `font-sans`/`font-condensed` 退化为浏览器默认字体栈（实测未写回退名时 `font-sans` 计算出系统默认栈）；使用者定义 `--font-barlow` 后即覆盖该名，实测设为 `"Inter"` 时 `font-family` 变为 `Inter, system-ui, sans-serif`。
+  - 完成证据：`registry/styles/ocean.css` 含十三个 `--ocean-*` 令牌（九个色值 + 三项圆角 + 一项阴影）、`color-scheme` 三条规则与 `@theme inline` 桥接；`registry/styles/ocean-shadcn.css` 仅含八个 `--color-*` 映射，无任何色值。`grep -rn "#[0-9A-Fa-f]\{6\}" registry/` 只命中 `ocean.css`。字体族用 `var(--font-barlow, "Barlow")` 形式给出回退名，避免未定义变量导致 `font-sans`/`font-condensed` 退化为浏览器默认字体栈（实测未写回退名时 `font-sans` 计算出系统默认栈）；使用者定义 `--font-barlow` 后即覆盖该名，实测设为 `"Inter"` 时 `font-family` 变为 `Inter, system-ui, sans-serif`。
 
 - [x] **001-T03：验证 Tailwind v4 能派生语义工具类**
   - 依赖：001-T02
@@ -138,7 +146,7 @@ upload       light-dark(#C8731A, #C97C26)
   - 预期输出：编译后的 CSS 中存在这些工具类，其值与令牌一致
   - 验收引用：001-AC04
   - 计划验证：检查编译产物的声明值；同时用 `.light` 与 `.dark` 类观察 `color-scheme` 生效
-  - 完成证据：在临时目录用 `@tailwindcss/cli@4.3.5` 以 `@import "tailwindcss"` + `ocean.css` + `ocean-shadcn.css` 编译，产物含 `.bg-raised{background-color:var(--ocean-raised)}`、`.text-ink-muted{color:var(--ocean-ink-muted)}`、`.ring-line{--tw-ring-color:var(--ocean-line)}`、`.rounded-panel{border-radius:16px}`、`.font-condensed{font-family:var(--font-barlow-semi-condensed, "Barlow Semi Condensed"), var(--font-barlow, "Barlow"), system-ui, sans-serif}`、`.shadow-popup`，以及 shadcn 别名 `.bg-card`/`.bg-background`/`.text-muted-foreground`。headless Chrome 实测：`<html>` 无类时跟随 `prefers-color-scheme` 模拟得到 surface `rgb(18,20,25)`；加 `.light` 变 `rgb(245,246,248)`；加 `.dark` 变 `rgb(18,20,25)`，`color-scheme` 同步为 `light`/`dark`。九组值与设计表逐一相符。另在真实 Vite 8 + `@tailwindcss/vite` + Vue 3.5 消费者项目中构建并实测，同一元素在 `.light`/`.dark` 下实际颜色随令牌切换。
+  - 完成证据：在临时目录用 `@tailwindcss/cli@4.3.5` 以 `@import "tailwindcss"` + `ocean.css` + `ocean-shadcn.css` 编译，产物含 `.bg-raised{background-color:var(--ocean-raised)}`、`.text-ink-muted{color:var(--ocean-ink-muted)}`、`.ring-line{--tw-ring-color:var(--ocean-line)}`、`.rounded-panel{border-radius:var(--ocean-radius-panel)}`、`.font-condensed{font-family:var(--font-barlow-semi-condensed, "Barlow Semi Condensed"), var(--font-barlow, "Barlow"), system-ui, sans-serif}`、`.shadow-popup`，以及 shadcn 别名 `.bg-card`/`.bg-background`/`.text-muted-foreground`。headless Chrome 实测：`<html>` 无类时跟随 `prefers-color-scheme` 模拟得到 surface `rgb(18,20,25)`；加 `.light` 变 `rgb(245,246,248)`；加 `.dark` 变 `rgb(18,20,25)`，`color-scheme` 同步为 `light`/`dark`。九组值与设计表逐一相符。另在真实 Vite 8 + `@tailwindcss/vite` + Vue 3.5 消费者项目中构建并实测，同一元素在 `.light`/`.dark` 下实际颜色随令牌切换。
 
 - [x] **001-T04：建立开发工具基线**
   - 依赖：001-T01
@@ -205,9 +213,9 @@ upload       light-dark(#C8731A, #C97C26)
 
 参考源核对：仓库内没有计划假设的 `speed-ref/` 副本，本阶段实际从上游公开仓库 `SukkaW/speed.skk.moe` 取源码。已复取并确认：`src/styles/` 下的 `tokens.stylex.ts`、`globals.css`、`menu.stylex.ts`、`breakpoints.stylex.ts` 全部返回 200；`breakpoints.stylex.ts` 的 `639px`/`1024px` 与计划记录的 Tailwind `sm`/`lg` 一致，但 001 不使用断点，未纳入本阶段验证。同时核对总计划所记形状字段，均属实：popup 的 `minWidth 160`、`padding 6`、`borderRadius 16`、`borderColor line`、shadow `0 12px 32px -8px`；`start-button` 的 `minHeight 44` 与 `borderRadius 12`；`stat-value` 与 `speed-readout` 的 `fonts.condensed` + `tabular-nums` + `letterSpacing -0.01em`。这三份组件源码位于 `src/app/components/`，总计划原本只写了文件名，已补全路径。
 
-复审发现、未在本阶段修改（交由后续阶段决定）：
+复审发现并已修复（续）：
 
-- `@theme inline` 会把 `--radius-control`/`--radius-panel`/`--radius-panel-lg` 直接固化为 `border-radius: 16px`，`--shadow-popup` 同理。颜色与之不同，因为桥接为 `var(--ocean-*)` 所以仍可覆盖。结果是使用者能在运行时改任意 `--ocean-*` 色值（G02 的验证路径），但不能通过重定义 `--radius-panel` 改圆角；改圆角需在自身 `@theme` 中重定义同名变量，或等 003 起改用 `--radius-*` 的 `var()` 形式。颜色是 G02 的核心，且 003 的尺寸表把圆角当作固定的形制参数，故不阻塞本阶段
+- `@theme inline` 会把字面量在编译期固化进工具类：原先直接写 `--radius-panel: 16px`，产物为 `border-radius: 16px`，重定义变量无效。颜色因为已桥接 `var(--ocean-*)` 而不受影响，导致同一份令牌文件里尺寸与颜色可覆盖性不一致。已修复：把三项圆角与一项阴影下沉为 `--ocean-*` 令牌，桥接改为 `var()`，产物变为 `border-radius: var(--ocean-radius-panel)`。消费者项目实测：一次 `:root` 注入同时改色、改圆角、改阴影，三者全部生效，子树覆盖同样有效
 
 ## 风险与缓解措施
 
