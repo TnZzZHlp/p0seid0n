@@ -10,6 +10,12 @@
   --ocean-control: light-dark(#E7EAEF, #2B303A);
   --ocean-download: light-dark(#2F6FE4, #5B8DEF);
   --ocean-upload: light-dark(#C8731A, #C97C26);
+
+  --ocean-radius-control: 12px;
+  --ocean-radius-panel: 16px;
+  --ocean-radius-panel-lg: 20px;
+
+  --ocean-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));
 }
 
 :root.light {
@@ -31,14 +37,14 @@
   --color-accent: var(--ocean-download);
   --color-accent-alt: var(--ocean-upload);
 
-  --radius-control: 12px;
-  --radius-panel: 16px;
-  --radius-panel-lg: 20px;
+  --radius-control: var(--ocean-radius-control);
+  --radius-panel: var(--ocean-radius-panel);
+  --radius-panel-lg: var(--ocean-radius-panel-lg);
 
   --font-sans: var(--font-barlow, "Barlow"), system-ui, sans-serif;
   --font-condensed:
     var(--font-barlow-semi-condensed, "Barlow Semi Condensed"), var(--font-barlow, "Barlow"),
     system-ui, sans-serif;
 
-  --shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));
+  --shadow-popup: var(--ocean-shadow-popup);
 }
