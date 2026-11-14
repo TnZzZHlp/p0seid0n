@@ -12,7 +12,7 @@
         {
           "path": "styles/p0seid0n.css",
           "type": "registry:file",
-          "content": ":root {\n  color-scheme: light dark;\n\n  --p0seid0n-surface: light-dark(#F5F6F8, #121419);\n  --p0seid0n-raised: light-dark(#FFFFFF, #1A1D24);\n  --p0seid0n-ink: light-dark(#15181F, #ECEEF2);\n  --p0seid0n-ink-muted: light-dark(#5B6270, #969CAA);\n  --p0seid0n-ink-faint: light-dark(#A3A9B5, #5E6473);\n  --p0seid0n-line: light-dark(#DDE1E7, #2A2E37);\n  --p0seid0n-control: light-dark(#E7EAEF, #2B303A);\n  --p0seid0n-download: light-dark(#2F6FE4, #5B8DEF);\n  --p0seid0n-upload: light-dark(#C8731A, #C97C26);\n  /* Derived, not taken from the reference palette: the upload colour is too light\n     to carry surface-coloured text at 4.5:1, so it is mixed toward the ink. */\n  --p0seid0n-danger: color-mix(in oklab, var(--p0seid0n-upload) 80%, var(--p0seid0n-ink));\n\n  --p0seid0n-radius-control: 12px;\n  --p0seid0n-radius-panel: 16px;\n  --p0seid0n-radius-panel-lg: 20px;\n\n  --p0seid0n-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));\n}\n\n:root.light {\n  color-scheme: light;\n}\n\n:root.dark {\n  color-scheme: dark;\n}\n\n@theme inline {\n  --color-surface: var(--p0seid0n-surface);\n  --color-raised: var(--p0seid0n-raised);\n  --color-ink: var(--p0seid0n-ink);\n  --color-ink-muted: var(--p0seid0n-ink-muted);\n  --color-ink-faint: var(--p0seid0n-ink-faint);\n  --color-line: var(--p0seid0n-line);\n  --color-control: var(--p0seid0n-control);\n  --color-accent: var(--p0seid0n-download);\n  --color-accent-alt: var(--p0seid0n-upload);\n  --color-danger: var(--p0seid0n-danger);\n\n  --radius-control: var(--p0seid0n-radius-control);\n  --radius-panel: var(--p0seid0n-radius-panel);\n  --radius-panel-lg: var(--p0seid0n-radius-panel-lg);\n\n  --font-sans: var(--font-barlow, \"Barlow\"), system-ui, sans-serif;\n  --font-condensed:\n    var(--font-barlow-semi-condensed, \"Barlow Semi Condensed\"), var(--font-barlow, \"Barlow\"),\n    system-ui, sans-serif;\n\n  --shadow-popup: var(--p0seid0n-shadow-popup);\n}\n",
+          "content": ":root {\n  color-scheme: light dark;\n\n  --p0seid0n-surface: light-dark(#F5F6F8, #121419);\n  --p0seid0n-raised: light-dark(#FFFFFF, #1A1D24);\n  --p0seid0n-ink: light-dark(#15181F, #ECEEF2);\n  --p0seid0n-ink-muted: light-dark(#5B6270, #969CAA);\n  --p0seid0n-ink-faint: light-dark(#A3A9B5, #5E6473);\n  --p0seid0n-line: light-dark(#DDE1E7, #2A2E37);\n  --p0seid0n-control: light-dark(#E7EAEF, #2B303A);\n  --p0seid0n-download: light-dark(#2F6FE4, #5B8DEF);\n  --p0seid0n-upload: light-dark(#C8731A, #C97C26);\n  /* Derived, not taken from the reference palette: the upload colour is too light\n     to carry surface-coloured text at 4.5:1, so it is mixed toward the ink. */\n  --p0seid0n-danger: color-mix(in oklab, var(--p0seid0n-upload) 80%, var(--p0seid0n-ink));\n\n  --p0seid0n-radius-control: 12px;\n  --p0seid0n-radius-panel: 16px;\n  --p0seid0n-radius-panel-lg: 20px;\n\n  --p0seid0n-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));\n}\n\n:root.light {\n  color-scheme: light;\n}\n\n:root.dark {\n  color-scheme: dark;\n}\n\n@theme inline {\n  --color-surface: var(--p0seid0n-surface);\n  --color-raised: var(--p0seid0n-raised);\n  --color-ink: var(--p0seid0n-ink);\n  --color-ink-muted: var(--p0seid0n-ink-muted);\n  --color-ink-faint: var(--p0seid0n-ink-faint);\n  --color-line: var(--p0seid0n-line);\n  --color-control: var(--p0seid0n-control);\n  --color-accent: var(--p0seid0n-download);\n  --color-accent-alt: var(--p0seid0n-upload);\n  --color-danger: var(--p0seid0n-danger);\n\n  --radius-control: var(--p0seid0n-radius-control);\n  --radius-panel: var(--p0seid0n-radius-panel);\n  --radius-panel-lg: var(--p0seid0n-radius-panel-lg);\n\n  --font-sans: var(--font-barlow, \"Barlow\"), system-ui, sans-serif;\n  --font-condensed:\n    var(--font-barlow-semi-condensed, \"Barlow Semi Condensed\"), var(--font-barlow, \"Barlow\"),\n    system-ui, sans-serif;\n\n  --shadow-popup: var(--p0seid0n-shadow-popup);\n}\n\n@keyframes p0seid0n-toast-in {\n  from {\n    opacity: 0;\n    transform: translateY(8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n",
           "target": "styles/p0seid0n.css"
         }
       ]
@@ -250,6 +250,285 @@
           "path": "ui/switch/index.ts",
           "type": "registry:ui",
           "content": "export { default as Switch } from './Switch.vue'\nexport type { SwitchProps } from './Switch.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Menu root, trigger and popup with plain, checkbox and radio items, labels, separators and groups.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Arrow keys move between items, Enter selects, Esc closes and focus returns to the trigger. DropdownMenuContent takes align, side and sideOffset; its minWidth defaults to 160px. Radio items must sit inside DropdownMenuRadioGroup. Use the trigger's asChild prop to wrap the Button item instead of a raw button.",
+      "files": [
+        {
+          "path": "ui/dropdown-menu/DropdownMenu.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DropdownMenuRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DropdownMenuProps = {\n  /** Keeps the page scrollable while the menu is open. */\n  modal?: boolean\n}\n\nwithDefaults(defineProps<DropdownMenuProps>(), {\n  modal: false,\n})\n\nconst model = defineModel<boolean>({ default: false })\n</script>\n\n<template>\n  <DropdownMenuRoot v-model=\"model\" :modal=\"modal\" v-bind=\"$attrs\">\n    <slot />\n  </DropdownMenuRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DropdownMenuTrigger } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DropdownMenuTriggerProps = {\n  /** Renders the trigger as another element or component (for example the Button item). */\n  as?: string | object\n  asChild?: boolean\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<DropdownMenuTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n  disabled: false,\n})\n</script>\n\n<template>\n  <DropdownMenuTrigger :as=\"as\" :as-child=\"asChild\" :disabled=\"disabled\" v-bind=\"$attrs\">\n    <slot />\n  </DropdownMenuTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DropdownMenuContent, DropdownMenuPortal } from 'reka-ui'\nimport { popupSurface } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DropdownMenuContentProps = {\n  align?: 'start' | 'center' | 'end'\n  /** Gap between the trigger and the popup, in pixels. */\n  sideOffset?: number\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  /** Overrides the 160px minimum width from the reference menu. */\n  minWidth?: number | string\n}\n\nconst props = withDefaults(defineProps<DropdownMenuContentProps>(), {\n  align: 'start',\n  sideOffset: 8,\n  side: 'bottom',\n  minWidth: 160,\n})\n\nfunction minWidthStyle(value: number | string): string {\n  return typeof value === 'number' ? `${value}px` : value\n}\n</script>\n\n<template>\n  <DropdownMenuPortal>\n    <DropdownMenuContent\n      v-bind=\"$attrs\"\n      :side=\"props.side\"\n      :side-offset=\"props.sideOffset\"\n      :align=\"props.align\"\n      :class=\"cn(popupSurface, $attrs.class as string | undefined)\"\n      :style=\"{ minWidth: minWidthStyle(props.minWidth) }\"\n    >\n      <slot />\n    </DropdownMenuContent>\n  </DropdownMenuPortal>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DropdownMenuItem } from 'reka-ui'\nimport { menuItem } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DropdownMenuItemProps = {\n  disabled?: boolean\n  /** Text used for typeahead when the item renders non-text content. */\n  textValue?: string\n}\n\nwithDefaults(defineProps<DropdownMenuItemProps>(), {\n  disabled: false,\n  textValue: undefined,\n})\n\nconst emit = defineEmits<{ select: [event: Event] }>()\n</script>\n\n<template>\n  <DropdownMenuItem\n    v-bind=\"$attrs\"\n    :disabled=\"disabled\"\n    :text-value=\"textValue\"\n    :class=\"cn(menuItem, $attrs.class as string | undefined)\"\n    @select=\"emit('select', $event)\"\n  >\n    <slot />\n  </DropdownMenuItem>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuCheckboxItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DropdownMenuCheckboxItem, DropdownMenuItemIndicator } from 'reka-ui'\nimport { menuItem } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DropdownMenuCheckboxItemProps = {\n  disabled?: boolean\n  textValue?: string\n}\n\nwithDefaults(defineProps<DropdownMenuCheckboxItemProps>(), {\n  disabled: false,\n  textValue: undefined,\n})\n\nconst model = defineModel<boolean>({ default: false })\nconst emit = defineEmits<{ select: [event: Event] }>()\n</script>\n\n<template>\n  <DropdownMenuCheckboxItem\n    v-model=\"model\"\n    v-bind=\"$attrs\"\n    :disabled=\"disabled\"\n    :text-value=\"textValue\"\n    :class=\"cn(menuItem, $attrs.class as string | undefined)\"\n    @select=\"emit('select', $event)\"\n  >\n    <DropdownMenuItemIndicator class=\"flex w-3 shrink-0 text-ink\">\n      <slot name=\"indicator\">\n        <span class=\"size-1.5 rounded-full bg-ink\" />\n      </slot>\n    </DropdownMenuItemIndicator>\n    <slot />\n  </DropdownMenuCheckboxItem>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuRadioGroup.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DropdownMenuRadioGroup } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst model = defineModel<string>()\n</script>\n\n<template>\n  <DropdownMenuRadioGroup v-model=\"model\" v-bind=\"$attrs\">\n    <slot />\n  </DropdownMenuRadioGroup>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuRadioItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DropdownMenuItemIndicator, DropdownMenuRadioItem } from 'reka-ui'\nimport { menuItem } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DropdownMenuRadioItemProps = {\n  value: string\n  disabled?: boolean\n  textValue?: string\n}\n\nwithDefaults(defineProps<DropdownMenuRadioItemProps>(), {\n  disabled: false,\n  textValue: undefined,\n})\n\nconst emit = defineEmits<{ select: [event: Event] }>()\n</script>\n\n<template>\n  <DropdownMenuRadioItem\n    v-bind=\"$attrs\"\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :text-value=\"textValue\"\n    :class=\"cn(menuItem, $attrs.class as string | undefined)\"\n    @select=\"emit('select', $event)\"\n  >\n    <DropdownMenuItemIndicator class=\"flex w-3 shrink-0 text-ink\">\n      <slot name=\"indicator\">\n        <span class=\"size-1.5 rounded-full bg-ink\" />\n      </slot>\n    </DropdownMenuItemIndicator>\n    <slot />\n  </DropdownMenuRadioItem>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuLabel.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DropdownMenuLabel } from 'reka-ui'\nimport { menuLabel } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <DropdownMenuLabel :class=\"cn(menuLabel, $attrs.class as string | undefined)\">\n    <slot />\n  </DropdownMenuLabel>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuSeparator.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DropdownMenuSeparator } from 'reka-ui'\nimport { menuSeparator } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <DropdownMenuSeparator :class=\"cn(menuSeparator, $attrs.class as string | undefined)\" />\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuGroup.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DropdownMenuGroup } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <DropdownMenuGroup v-bind=\"$attrs\">\n    <slot />\n  </DropdownMenuGroup>\n</template>\n"
+        },
+        {
+          "path": "ui/dropdown-menu/styles.ts",
+          "type": "registry:ui",
+          "content": "/**\n * Shared surface for every floating layer, taken from the reference menu styles:\n * 16px radius, 1px line border, popup shadow and a 6px inset so items keep their\n * own 10px radius from touching the edge.\n */\nexport const popupSurface = [\n  'z-10 overflow-hidden rounded-panel border border-line bg-raised p-1.5 shadow-popup',\n  'outline-none',\n].join(' ')\n\nexport const menuItem = [\n  'relative flex h-9 cursor-pointer select-none items-center gap-2 rounded-[10px] px-3',\n  'text-[14px] font-medium text-ink-muted outline-none',\n  'hover:bg-control hover:text-ink',\n  'focus:bg-control focus:text-ink',\n  'data-[highlighted]:bg-control data-[highlighted]:text-ink',\n  'data-[disabled]:pointer-events-none data-[disabled]:opacity-55',\n].join(' ')\n\nexport const menuLabel = 'px-3 py-1.5 text-[12px] font-medium text-ink-faint'\n\nexport const menuSeparator = 'my-1 h-px bg-line'\n"
+        },
+        {
+          "path": "ui/dropdown-menu/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as DropdownMenu } from './DropdownMenu.vue'\nexport { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue'\nexport { default as DropdownMenuContent } from './DropdownMenuContent.vue'\nexport { default as DropdownMenuItem } from './DropdownMenuItem.vue'\nexport { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue'\nexport { default as DropdownMenuRadioGroup } from './DropdownMenuRadioGroup.vue'\nexport { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue'\nexport { default as DropdownMenuLabel } from './DropdownMenuLabel.vue'\nexport { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue'\nexport { default as DropdownMenuGroup } from './DropdownMenuGroup.vue'\n\nexport type { DropdownMenuProps } from './DropdownMenu.vue'\nexport type { DropdownMenuTriggerProps } from './DropdownMenuTrigger.vue'\nexport type { DropdownMenuContentProps } from './DropdownMenuContent.vue'\nexport type { DropdownMenuItemProps } from './DropdownMenuItem.vue'\nexport type { DropdownMenuCheckboxItemProps } from './DropdownMenuCheckboxItem.vue'\nexport type { DropdownMenuRadioItemProps } from './DropdownMenuRadioItem.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Delayed hover and focus hint with four sides and an optional shortcut hint.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "The tip opens after the delay prop (300ms by default) on both hover and keyboard focus, and Escape dismisses it. The trigger points aria-describedby at the tip content while it is open. Pass shortcut to append a key hint such as K.",
+      "files": [
+        {
+          "path": "ui/tooltip/Tooltip.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { TooltipProvider, TooltipRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipProps = {\n  /** Milliseconds the pointer must rest before the tip opens. */\n  delay?: number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TooltipProps>(), {\n  delay: 300,\n  disabled: false,\n})\n\nconst model = defineModel<boolean>({ default: false })\n</script>\n\n<template>\n  <TooltipProvider :delay-duration=\"delay\" :disabled=\"disabled\">\n    <TooltipRoot v-model=\"model\" v-bind=\"$attrs\">\n      <slot />\n    </TooltipRoot>\n  </TooltipProvider>\n</template>\n"
+        },
+        {
+          "path": "ui/tooltip/TooltipTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { TooltipTrigger } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipTriggerProps = {\n  as?: string | object\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<TooltipTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <TooltipTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </TooltipTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/tooltip/TooltipContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TooltipContent, TooltipPortal } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipContentProps = {\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  align?: 'start' | 'center' | 'end'\n  sideOffset?: number\n  /** Keyboard shortcut hint appended after the label. */\n  shortcut?: string\n}\n\nwithDefaults(defineProps<TooltipContentProps>(), {\n  side: 'top',\n  align: 'center',\n  sideOffset: 6,\n  shortcut: undefined,\n})\n</script>\n\n<template>\n  <TooltipPortal>\n    <TooltipContent\n      v-bind=\"$attrs\"\n      :side=\"side\"\n      :align=\"align\"\n      :side-offset=\"sideOffset\"\n      :class=\"\n        cn(\n          'z-10 flex items-center gap-2 rounded-[10px] border border-line bg-raised px-2.5 py-1.5',\n          'text-[12px] font-medium text-ink shadow-popup',\n          $attrs.class as string | undefined,\n        )\n      \"\n    >\n      <slot />\n      <kbd\n        v-if=\"shortcut\"\n        class=\"rounded-[6px] border border-line px-1.5 py-0.5 font-sans text-[11px] text-ink-muted\"\n        >{{ shortcut }}</kbd\n      >\n    </TooltipContent>\n  </TooltipPortal>\n</template>\n"
+        },
+        {
+          "path": "ui/tooltip/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Tooltip } from './Tooltip.vue'\nexport { default as TooltipTrigger } from './TooltipTrigger.vue'\nexport { default as TooltipContent } from './TooltipContent.vue'\n\nexport type { TooltipProps } from './Tooltip.vue'\nexport type { TooltipTriggerProps } from './TooltipTrigger.vue'\nexport type { TooltipContentProps } from './TooltipContent.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Centered modal with overlay, title, description and a built-in close control.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model:open. The panel sets role dialog with modal behaviour, locks background scroll and traps Tab inside. Escape and outside clicks close it unless closeOnEsc or closeOnOutside are false. Always render DialogTitle; it becomes the accessible name. Set hideClose on DialogContent when the panel supplies its own dismiss control.",
+      "files": [
+        {
+          "path": "ui/dialog/Dialog.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DialogRoot } from 'reka-ui'\nimport { provideDialogBehaviour } from './behaviour'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogProps = {\n  /** Closes when the pointer goes down outside the panel. */\n  closeOnOutside?: boolean\n  closeOnEsc?: boolean\n}\n\nconst props = withDefaults(defineProps<DialogProps>(), {\n  closeOnOutside: true,\n  closeOnEsc: true,\n})\n\n// Passed as thunks rather than as props so the flags are read at event time.\nprovideDialogBehaviour({\n  closeOnOutside: () => props.closeOnOutside,\n  closeOnEsc: () => props.closeOnEsc,\n})\n\nconst model = defineModel<boolean>({ default: false })\n</script>\n\n<template>\n  <DialogRoot v-model=\"model\" modal v-bind=\"$attrs\">\n    <slot />\n  </DialogRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/dialog/DialogTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DialogTrigger } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogTriggerProps = {\n  as?: string | object\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<DialogTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/dialog/DialogContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DialogClose, DialogContent, DialogOverlay, DialogPortal } from 'reka-ui'\nimport type { PointerDownOutsideEvent } from 'reka-ui'\nimport { useDialogBehaviour } from './behaviour'\nimport { closeButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogContentProps = {\n  /** Hides the built-in close button when the panel supplies its own. */\n  hideClose?: boolean\n}\n\nwithDefaults(defineProps<DialogContentProps>(), {\n  hideClose: false,\n})\n\nconst behaviour = useDialogBehaviour()\n\nconst emit = defineEmits<{\n  escapeKeyDown: [event: KeyboardEvent]\n  pointerDownOutside: [event: PointerDownOutsideEvent]\n  interactOutside: [event: Event]\n}>()\n\nfunction onEscapeKeyDown(event: KeyboardEvent): void {\n  if (!behaviour.closeOnEsc.value) event.preventDefault()\n  emit('escapeKeyDown', event)\n}\n\nfunction onPointerDownOutside(event: PointerDownOutsideEvent): void {\n  if (!behaviour.closeOnOutside.value) event.preventDefault()\n  emit('pointerDownOutside', event)\n}\n\nfunction onInteractOutside(event: Event): void {\n  emit('interactOutside', event)\n}\n</script>\n\n<template>\n  <DialogPortal>\n    <DialogOverlay\n      class=\"fixed inset-0 z-40 bg-[color-mix(in_oklab,var(--color-ink)_45%,transparent)]\"\n    />\n    <DialogContent\n      v-bind=\"$attrs\"\n      aria-modal=\"true\"\n      :class=\"\n        cn(\n          'fixed left-1/2 top-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2',\n          'rounded-panel border border-line bg-raised p-6 shadow-popup outline-none',\n          $attrs.class as string | undefined,\n        )\n      \"\n      @escape-key-down=\"onEscapeKeyDown\"\n      @pointer-down-outside=\"onPointerDownOutside\"\n      @interact-outside=\"onInteractOutside\"\n    >\n      <slot />\n      <DialogClose v-if=\"!hideClose\" aria-label=\"Close\" :class=\"closeButton\">\n        <span aria-hidden=\"true\">&#215;</span>\n      </DialogClose>\n    </DialogContent>\n  </DialogPortal>\n</template>\n"
+        },
+        {
+          "path": "ui/dialog/DialogTitle.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DialogTitle } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <DialogTitle :class=\"cn('text-[17px] font-medium text-ink', $attrs.class as string | undefined)\">\n    <slot />\n  </DialogTitle>\n</template>\n"
+        },
+        {
+          "path": "ui/dialog/DialogDescription.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DialogDescription } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <DialogDescription\n    :class=\"cn('mt-2 text-[14px] text-ink-muted', $attrs.class as string | undefined)\"\n  >\n    <slot />\n  </DialogDescription>\n</template>\n"
+        },
+        {
+          "path": "ui/dialog/DialogClose.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DialogClose } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogCloseProps = {\n  as?: string | object\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<DialogCloseProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogClose :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogClose>\n</template>\n"
+        },
+        {
+          "path": "ui/dialog/styles.ts",
+          "type": "registry:ui",
+          "content": "/**\n * The dialog close control mirrors the ghost button: transparent until hovered,\n * ink icon, 2px focus ring at 2px offset.\n */\nexport const closeButton = [\n  'absolute right-4 top-4 inline-flex size-8 items-center justify-center rounded-[10px]',\n  'text-[16px] leading-none text-ink-muted',\n  'hover:bg-control hover:text-ink',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'transition-[background-color,color] duration-150 motion-reduce:transition-none',\n].join(' ')\n"
+        },
+        {
+          "path": "ui/dialog/behaviour.ts",
+          "type": "registry:ui",
+          "content": "import { computed, inject, provide, type ComputedRef, type InjectionKey } from 'vue'\n\nexport type DialogBehaviour = {\n  closeOnOutside: ComputedRef<boolean>\n  closeOnEsc: ComputedRef<boolean>\n}\n\nexport const dialogBehaviourKey: InjectionKey<DialogBehaviour> = Symbol('p0seid0n-dialog')\n\nexport type DialogBehaviourSource = {\n  closeOnOutside: () => boolean\n  closeOnEsc: () => boolean\n}\n\n/**\n * The source is a plain pair of getters rather than the props object: a destructured\n * or defaulted props proxy can resolve before `withDefaults` settles, which would\n * freeze the flags at their defaults.\n */\nexport function provideDialogBehaviour(source: DialogBehaviourSource): void {\n  provide(dialogBehaviourKey, {\n    closeOnOutside: computed(source.closeOnOutside),\n    closeOnEsc: computed(source.closeOnEsc),\n  })\n}\n\nconst defaults: DialogBehaviour = {\n  closeOnOutside: computed(() => true),\n  closeOnEsc: computed(() => true),\n}\n\n/** Both flags stay true when DialogContent is used without a Dialog parent. */\nexport function useDialogBehaviour(): DialogBehaviour {\n  return inject(dialogBehaviourKey, defaults)\n}\n"
+        },
+        {
+          "path": "ui/dialog/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Dialog } from './Dialog.vue'\nexport { default as DialogTrigger } from './DialogTrigger.vue'\nexport { default as DialogContent } from './DialogContent.vue'\nexport { default as DialogTitle } from './DialogTitle.vue'\nexport { default as DialogDescription } from './DialogDescription.vue'\nexport { default as DialogClose } from './DialogClose.vue'\n\nexport type { DialogProps } from './Dialog.vue'\nexport type { DialogTriggerProps } from './DialogTrigger.vue'\nexport type { DialogContentProps } from './DialogContent.vue'\nexport type { DialogCloseProps } from './DialogClose.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Trigger strip and panels with arrow key navigation.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model and give each TabsTrigger and TabsContent a matching value. Arrow keys move within the strip, Home and End jump to the ends. activationMode automatic switches on arrow key, manual waits for Enter or Space. Panels stay mounted by default so form state survives a tab change.",
+      "files": [
+        {
+          "path": "ui/tabs/Tabs.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { TabsRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsProps = {\n  orientation?: 'horizontal' | 'vertical'\n  /** 'automatic' follows arrow keys; 'manual' waits for Enter or Space. */\n  activationMode?: 'automatic' | 'manual'\n  /** Unmounts inactive panels instead of hiding them. */\n  unmountOnHide?: boolean\n}\n\nwithDefaults(defineProps<TabsProps>(), {\n  orientation: 'horizontal',\n  activationMode: 'automatic',\n  unmountOnHide: false,\n})\n\nconst model = defineModel<string | number>()\n</script>\n\n<template>\n  <TabsRoot\n    v-model=\"model\"\n    v-bind=\"$attrs\"\n    :orientation=\"orientation\"\n    :activation-mode=\"activationMode\"\n    :unmount-on-hide=\"unmountOnHide\"\n  >\n    <slot />\n  </TabsRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/tabs/TabsList.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsList } from 'reka-ui'\nimport { tabList } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsListProps = {\n  /** Wraps focus from the last trigger to the first. */\n  loop?: boolean\n}\n\nwithDefaults(defineProps<TabsListProps>(), {\n  loop: true,\n})\n</script>\n\n<template>\n  <TabsList :loop=\"loop\" :class=\"cn(tabList, $attrs.class as string | undefined)\" v-bind=\"$attrs\">\n    <slot />\n  </TabsList>\n</template>\n"
+        },
+        {
+          "path": "ui/tabs/TabsTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsTrigger } from 'reka-ui'\nimport { tabTrigger } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsTriggerProps = {\n  value: string | number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TabsTriggerProps>(), {\n  disabled: false,\n})\n</script>\n\n<template>\n  <TabsTrigger\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :class=\"cn(tabTrigger, $attrs.class as string | undefined)\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </TabsTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/tabs/TabsContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsContent } from 'reka-ui'\nimport { tabPanel } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsContentProps = {\n  value: string | number\n  forceMount?: boolean\n}\n\nwithDefaults(defineProps<TabsContentProps>(), {\n  forceMount: false,\n})\n</script>\n\n<template>\n  <TabsContent\n    :value=\"value\"\n    :force-mount=\"forceMount\"\n    :class=\"cn(tabPanel, $attrs.class as string | undefined)\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </TabsContent>\n</template>\n"
+        },
+        {
+          "path": "ui/tabs/styles.ts",
+          "type": "registry:ui",
+          "content": "/**\n * The trigger strip is a control-height track: 4px inset, 10px item radius, and a\n * raised fill on the active trigger so it reads as the selected segment.\n */\nexport const tabList = [\n  'inline-flex items-center gap-1 rounded-control bg-control p-1',\n  'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',\n].join(' ')\n\nexport const tabTrigger = [\n  'inline-flex h-8 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] px-3',\n  'text-[13px] font-medium text-ink-muted',\n  'hover:text-ink',\n  'data-[state=active]:bg-raised data-[state=active]:text-ink data-[state=active]:shadow-sm',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'transition-[background-color,color,box-shadow] duration-150 motion-reduce:transition-none',\n  'disabled:pointer-events-none disabled:opacity-55',\n].join(' ')\n\nexport const tabPanel = 'mt-4 text-[14px] text-ink-muted outline-none'\n"
+        },
+        {
+          "path": "ui/tabs/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Tabs } from './Tabs.vue'\nexport { default as TabsList } from './TabsList.vue'\nexport { default as TabsTrigger } from './TabsTrigger.vue'\nexport { default as TabsContent } from './TabsContent.vue'\n\nexport type { TabsProps } from './Tabs.vue'\nexport type { TabsListProps } from './TabsList.vue'\nexport type { TabsTriggerProps } from './TabsTrigger.vue'\nexport type { TabsContentProps } from './TabsContent.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Self-contained notification stack with a provider, useToast composable and three variants.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Wrap the app in ToastProvider, then call useToast().toast({ title, description, variant, action, duration }). The provider keeps at most max notifications (3 by default) and drops the oldest first; duration defaults to 4000ms and zero keeps one open. variant danger uses the theme danger colour. The stack sits at z-60 so it stays above dialogs.",
+      "files": [
+        {
+          "path": "ui/toast/ToastProvider.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, provide } from 'vue'\nimport { toastKey, type ToastApi, type ToastOptions } from './context'\nimport { createToastStack, provideToastStack } from './stack'\nimport Toaster from './Toaster.vue'\n\nexport type ToastProviderProps = {\n  /** Milliseconds a notification stays open, overridable per call. */\n  duration?: number\n  /** Oldest notifications beyond this count are dropped immediately. */\n  max?: number\n}\n\nconst props = withDefaults(defineProps<ToastProviderProps>(), {\n  duration: 4000,\n  max: 3,\n})\n\nconst stack = createToastStack()\nprovideToastStack(stack)\n\nfunction toast(options: ToastOptions): string {\n  return stack.push(options, props.duration, props.max)\n}\n\nconst api = computed<ToastApi>(() => ({\n  toast,\n  dismiss: stack.dismiss,\n  dismissAll: stack.dismissAll,\n}))\nprovide(toastKey, api.value)\n\ndefineExpose({ toast, dismiss: stack.dismiss, dismissAll: stack.dismissAll })\n</script>\n\n<template>\n  <slot />\n  <Toaster />\n</template>\n"
+        },
+        {
+          "path": "ui/toast/Toaster.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport Toast from './Toast.vue'\nimport { useToastStack } from './stack'\nimport { toastViewport } from './styles'\n\nconst stack = useToastStack()\n</script>\n\n<template>\n  <div :class=\"toastViewport\" role=\"region\" aria-label=\"Notifications\">\n    <Toast\n      v-for=\"record in stack.items.value\"\n      :key=\"record.id\"\n      :record=\"record\"\n      @dismiss=\"stack.dismiss\"\n    />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/toast/Toast.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { onBeforeUnmount, onMounted, watch } from 'vue'\nimport { cn } from '@/lib/utils'\nimport type { ToastRecord } from './context'\nimport {\n  toastAccent,\n  toastAction,\n  toastActions,\n  toastCard,\n  toastDescription,\n  toastDismiss,\n  toastTitle,\n} from './styles'\n\nconst props = defineProps<{ record: ToastRecord }>()\nconst emit = defineEmits<{ dismiss: [id: string] }>()\n\nlet timer: ReturnType<typeof setTimeout> | undefined\n\nfunction clearTimer(): void {\n  if (timer !== undefined) {\n    clearTimeout(timer)\n    timer = undefined\n  }\n}\n\nfunction armTimer(): void {\n  clearTimer()\n  // A zero duration means the notification stays until dismissed by hand.\n  if (props.record.duration > 0) {\n    timer = setTimeout(() => emit('dismiss', props.record.id), props.record.duration)\n  }\n}\n\nonMounted(armTimer)\n// Re-arming on duration change keeps the countdown honest if a record is replaced.\nwatch(() => props.record.duration, armTimer)\nonBeforeUnmount(clearTimer)\n\nfunction runAction(): void {\n  props.record.action?.onClick?.()\n  emit('dismiss', props.record.id)\n}\n</script>\n\n<template>\n  <div\n    :class=\"cn(toastCard, 'relative overflow-hidden pl-5')\"\n    role=\"status\"\n    aria-live=\"polite\"\n    :data-toast-id=\"record.id\"\n  >\n    <span :class=\"toastAccent(record.variant)\" aria-hidden=\"true\" />\n    <div class=\"min-w-0 flex-1\">\n      <p :class=\"toastTitle\">{{ record.title }}</p>\n      <p v-if=\"record.description\" :class=\"toastDescription\">{{ record.description }}</p>\n      <div v-if=\"record.action\" :class=\"toastActions\">\n        <button type=\"button\" :class=\"toastAction\" @click=\"runAction\">\n          {{ record.action.label }}\n        </button>\n      </div>\n    </div>\n    <button\n      type=\"button\"\n      aria-label=\"Dismiss notification\"\n      :class=\"toastDismiss\"\n      @click=\"emit('dismiss', record.id)\"\n    >\n      <span aria-hidden=\"true\">&#215;</span>\n    </button>\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/toast/context.ts",
+          "type": "registry:ui",
+          "content": "import { inject, type InjectionKey } from 'vue'\n\nexport type ToastVariant = 'default' | 'success' | 'danger'\n\nexport type ToastAction = {\n  label: string\n  /** Called after the notification is dismissed. */\n  onClick?: () => void\n}\n\nexport type ToastOptions = {\n  title: string\n  description?: string\n  variant?: ToastVariant\n  /** Overrides the provider default, in milliseconds. Zero keeps it open. */\n  duration?: number\n  action?: ToastAction\n  /** Identity used by `dismiss`; generated when omitted. */\n  id?: string\n}\n\nexport type ToastRecord = ToastOptions & {\n  id: string\n  variant: ToastVariant\n  duration: number\n}\n\nexport type ToastApi = {\n  toast: (options: ToastOptions) => string\n  dismiss: (id: string) => void\n  dismissAll: () => void\n}\n\nexport const toastKey: InjectionKey<ToastApi> = Symbol('p0seid0n-toast')\n\n/**\n * Calling this outside a ToastProvider throws rather than silently dropping the\n * notification, so a missing provider surfaces during development.\n */\nexport function useToast(): ToastApi {\n  const api = inject(toastKey, null)\n  if (!api) {\n    throw new Error('useToast() must be called inside a ToastProvider.')\n  }\n  return api\n}\n"
+        },
+        {
+          "path": "ui/toast/stack.ts",
+          "type": "registry:ui",
+          "content": "import { inject, provide, shallowRef, type InjectionKey, type Ref } from 'vue'\nimport type { ToastOptions, ToastRecord } from './context'\n\nexport type ToastStack = {\n  items: Ref<ToastRecord[]>\n  push: (options: ToastOptions, duration: number, max: number) => string\n  dismiss: (id: string) => void\n  dismissAll: () => void\n}\n\nexport const toastStackKey: InjectionKey<ToastStack> = Symbol('p0seid0n-toast-stack')\n\n/**\n * The stack lives outside the provider component so the viewport can read the same\n * reactive list without prop drilling through slots.\n */\nexport function createToastStack(): ToastStack {\n  const items = shallowRef<ToastRecord[]>([])\n  let sequence = 0\n\n  function dismiss(id: string): void {\n    items.value = items.value.filter((item) => item.id !== id)\n  }\n\n  function dismissAll(): void {\n    items.value = []\n  }\n\n  function push(options: ToastOptions, duration: number, max: number): string {\n    sequence += 1\n    const id = options.id ?? `p0seid0n-toast-${sequence}`\n    const record: ToastRecord = {\n      ...options,\n      id,\n      variant: options.variant ?? 'default',\n      duration: options.duration ?? duration,\n    }\n\n    // Re-pushing an id moves it to the top of the stack instead of duplicating it.\n    const withoutDuplicate = items.value.filter((item) => item.id !== id)\n    const next = [...withoutDuplicate, record]\n    // The cap trims the oldest entries, so a burst keeps the most recent ones.\n    items.value = next.slice(Math.max(0, next.length - max))\n    return id\n  }\n\n  return { items, push, dismiss, dismissAll }\n}\n\nexport function provideToastStack(stack: ToastStack): void {\n  provide(toastStackKey, stack)\n}\n\nexport function useToastStack(): ToastStack {\n  const stack = inject(toastStackKey, null)\n  if (!stack) {\n    throw new Error('ToastProvider is required to render notifications.')\n  }\n  return stack\n}\n"
+        },
+        {
+          "path": "ui/toast/styles.ts",
+          "type": "registry:ui",
+          "content": "import type { ToastVariant } from './context'\n\nexport const toastViewport = [\n  'pointer-events-none fixed bottom-4 right-4 z-[60] flex w-[min(22rem,calc(100vw-2rem))] flex-col gap-2',\n].join(' ')\n\nexport const toastCard = [\n  'pointer-events-auto flex items-start gap-3 rounded-panel border border-line bg-raised p-4 shadow-popup',\n  'motion-safe:animate-[p0seid0n-toast-in_150ms_ease-out]',\n].join(' ')\n\nconst variantAccent: Record<ToastVariant, string> = {\n  default: 'bg-line',\n  success: 'bg-accent',\n  danger: 'bg-danger',\n}\n\n/** Left edge marker that tints the card without recolouring the text. */\nexport function toastAccent(variant: ToastVariant): string {\n  return `absolute inset-y-3 left-0 w-0.5 rounded-full ${variantAccent[variant]}`\n}\n\nexport const toastTitle = 'text-[14px] font-medium text-ink'\n\nexport const toastDescription = 'mt-0.5 text-[13px] text-ink-muted'\n\nexport const toastActions = 'mt-2 flex items-center gap-2'\n\nexport const toastAction = [\n  'rounded-[8px] px-2 py-1 text-[12px] font-medium text-ink',\n  'hover:bg-control',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n].join(' ')\n\nexport const toastDismiss = [\n  'ml-auto inline-flex size-6 shrink-0 items-center justify-center rounded-[6px]',\n  'text-[14px] leading-none text-ink-faint',\n  'hover:bg-control hover:text-ink',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n].join(' ')\n"
+        },
+        {
+          "path": "ui/toast/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as ToastProvider } from './ToastProvider.vue'\nexport { default as Toaster } from './Toaster.vue'\n\nexport { useToast } from './context'\nexport type { ToastAction, ToastApi, ToastOptions, ToastRecord, ToastVariant } from './context'\nexport type { ToastProviderProps } from './ToastProvider.vue'\n"
         }
       ]
     }

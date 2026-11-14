@@ -46,6 +46,31 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch"
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu"
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip"
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog"
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs"
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast"
     }
   ]
 }

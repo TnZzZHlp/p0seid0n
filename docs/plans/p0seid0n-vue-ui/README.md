@@ -6,7 +6,7 @@
 - 项目根目录：仓库根（`/root/github/0cean`，相对描述即本文档所在仓库）
 - 计划目录：`docs/plans/p0seid0n-vue-ui/`
 - 规划状态：已批准
-- 实施状态：进行中（001、002、003 已完成）
+- 实施状态：进行中（001、002、003、004 已完成）
 - 批准依据：用户在评审后回复「批准」，批准范围为下述目标、范围、架构与 001-007 阶段拆分。批准时未提出「一条命令装全部」需求，因此该能力不进入 v1 范围（见 Q01）。
 
 ## 概述
@@ -199,7 +199,7 @@ p0seid0n add button                                         自有 CLI
 | 001 | [workspace 与令牌层](subplans/001-workspace-and-tokens.md) | 仓库骨架、`--p0seid0n-*` 令牌、`@theme inline` 桥接、shadcn 别名、构建工具基线 | 无 | Tailwind 编译后能产出 `bg-raised` 与 `text-ink-muted` 等工具类 | 已完成 |
 | 002 | [registry 流水线](subplans/002-registry-pipeline.md) | `registry.json`、`build-registry`、`/r/*.json` 产物、结构校验 | 001 | 产物通过结构校验，且 `r/registry.json` 可解析跨 item 依赖 | 已完成 |
 | 003 | [基础控件](subplans/003-core-controls.md) | button、badge、separator、card、input、label、switch（`utils` 已由 002 交付） | 001、002 | 七个 item 可被单独安装并渲染 | 已完成 |
-| 004 | [覆盖层与导航](subplans/004-overlays-and-nav.md) | dropdown-menu、tooltip、dialog、tabs、toast | 003 | 键盘可达、焦点可回收，Esc 与外部点击行为正确 | 未开始 |
+| 004 | [覆盖层与导航](subplans/004-overlays-and-nav.md) | dropdown-menu、tooltip、dialog、tabs、toast | 003 | 键盘可达、焦点可回收，Esc 与外部点击行为正确 | 已完成 |
 | 005 | [数据展示](subplans/005-data-display.md) | 4 个展示 item：stat、sparkline、theme-provider、theme-switcher | 003（T04 另需 004 的 dropdown-menu） | stat 与 sparkline 可先独立验收，theme-switcher 在 004 完成后补齐 | 未开始 |
 | 006 | [文档站](subplans/006-docs-site.md) | VitePress、安装脚本、令牌页、逐组件页、部署配置 | 002、004、005 | 从零 clone 后两条命令可构建出完整站点 | 未开始 |
 | 007 | [CLI](subplans/007-cli.md) | `p0seid0n init`、`p0seid0n add`、依赖解析、别名替换、发布配置 | 002 | tarball 装进空项目后 `init` + `add` 成功 | 未开始 |

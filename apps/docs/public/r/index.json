@@ -52,5 +52,35 @@
     "type": "registry:ui",
     "title": "Switch",
     "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb."
+  },
+  {
+    "name": "dropdown-menu",
+    "type": "registry:ui",
+    "title": "Dropdown Menu",
+    "description": "Menu root, trigger and popup with plain, checkbox and radio items, labels, separators and groups."
+  },
+  {
+    "name": "tooltip",
+    "type": "registry:ui",
+    "title": "Tooltip",
+    "description": "Delayed hover and focus hint with four sides and an optional shortcut hint."
+  },
+  {
+    "name": "dialog",
+    "type": "registry:ui",
+    "title": "Dialog",
+    "description": "Centered modal with overlay, title, description and a built-in close control."
+  },
+  {
+    "name": "tabs",
+    "type": "registry:ui",
+    "title": "Tabs",
+    "description": "Trigger strip and panels with arrow key navigation."
+  },
+  {
+    "name": "toast",
+    "type": "registry:ui",
+    "title": "Toast",
+    "description": "Self-contained notification stack with a provider, useToast composable and three variants."
   }
 ]

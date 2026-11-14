@@ -1,0 +1,48 @@
+{
+  "name": "tabs",
+  "type": "registry:ui",
+  "title": "Tabs",
+  "description": "Trigger strip and panels with arrow key navigation.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Bind with v-model and give each TabsTrigger and TabsContent a matching value. Arrow keys move within the strip, Home and End jump to the ends. activationMode automatic switches on arrow key, manual waits for Enter or Space. Panels stay mounted by default so form state survives a tab change.",
+  "files": [
+    {
+      "path": "ui/tabs/Tabs.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { TabsRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsProps = {\n  orientation?: 'horizontal' | 'vertical'\n  /** 'automatic' follows arrow keys; 'manual' waits for Enter or Space. */\n  activationMode?: 'automatic' | 'manual'\n  /** Unmounts inactive panels instead of hiding them. */\n  unmountOnHide?: boolean\n}\n\nwithDefaults(defineProps<TabsProps>(), {\n  orientation: 'horizontal',\n  activationMode: 'automatic',\n  unmountOnHide: false,\n})\n\nconst model = defineModel<string | number>()\n</script>\n\n<template>\n  <TabsRoot\n    v-model=\"model\"\n    v-bind=\"$attrs\"\n    :orientation=\"orientation\"\n    :activation-mode=\"activationMode\"\n    :unmount-on-hide=\"unmountOnHide\"\n  >\n    <slot />\n  </TabsRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/tabs/TabsList.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsList } from 'reka-ui'\nimport { tabList } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsListProps = {\n  /** Wraps focus from the last trigger to the first. */\n  loop?: boolean\n}\n\nwithDefaults(defineProps<TabsListProps>(), {\n  loop: true,\n})\n</script>\n\n<template>\n  <TabsList :loop=\"loop\" :class=\"cn(tabList, $attrs.class as string | undefined)\" v-bind=\"$attrs\">\n    <slot />\n  </TabsList>\n</template>\n"
+    },
+    {
+      "path": "ui/tabs/TabsTrigger.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsTrigger } from 'reka-ui'\nimport { tabTrigger } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsTriggerProps = {\n  value: string | number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TabsTriggerProps>(), {\n  disabled: false,\n})\n</script>\n\n<template>\n  <TabsTrigger\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :class=\"cn(tabTrigger, $attrs.class as string | undefined)\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </TabsTrigger>\n</template>\n"
+    },
+    {
+      "path": "ui/tabs/TabsContent.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsContent } from 'reka-ui'\nimport { tabPanel } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsContentProps = {\n  value: string | number\n  forceMount?: boolean\n}\n\nwithDefaults(defineProps<TabsContentProps>(), {\n  forceMount: false,\n})\n</script>\n\n<template>\n  <TabsContent\n    :value=\"value\"\n    :force-mount=\"forceMount\"\n    :class=\"cn(tabPanel, $attrs.class as string | undefined)\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </TabsContent>\n</template>\n"
+    },
+    {
+      "path": "ui/tabs/styles.ts",
+      "type": "registry:ui",
+      "content": "/**\n * The trigger strip is a control-height track: 4px inset, 10px item radius, and a\n * raised fill on the active trigger so it reads as the selected segment.\n */\nexport const tabList = [\n  'inline-flex items-center gap-1 rounded-control bg-control p-1',\n  'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',\n].join(' ')\n\nexport const tabTrigger = [\n  'inline-flex h-8 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] px-3',\n  'text-[13px] font-medium text-ink-muted',\n  'hover:text-ink',\n  'data-[state=active]:bg-raised data-[state=active]:text-ink data-[state=active]:shadow-sm',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'transition-[background-color,color,box-shadow] duration-150 motion-reduce:transition-none',\n  'disabled:pointer-events-none disabled:opacity-55',\n].join(' ')\n\nexport const tabPanel = 'mt-4 text-[14px] text-ink-muted outline-none'\n"
+    },
+    {
+      "path": "ui/tabs/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Tabs } from './Tabs.vue'\nexport { default as TabsList } from './TabsList.vue'\nexport { default as TabsTrigger } from './TabsTrigger.vue'\nexport { default as TabsContent } from './TabsContent.vue'\n\nexport type { TabsProps } from './Tabs.vue'\nexport type { TabsListProps } from './TabsList.vue'\nexport type { TabsTriggerProps } from './TabsTrigger.vue'\nexport type { TabsContentProps } from './TabsContent.vue'\n"
+    }
+  ]
+}

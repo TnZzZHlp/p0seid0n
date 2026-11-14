@@ -1,0 +1,63 @@
+{
+  "name": "dialog",
+  "type": "registry:ui",
+  "title": "Dialog",
+  "description": "Centered modal with overlay, title, description and a built-in close control.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Bind with v-model:open. The panel sets role dialog with modal behaviour, locks background scroll and traps Tab inside. Escape and outside clicks close it unless closeOnEsc or closeOnOutside are false. Always render DialogTitle; it becomes the accessible name. Set hideClose on DialogContent when the panel supplies its own dismiss control.",
+  "files": [
+    {
+      "path": "ui/dialog/Dialog.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { DialogRoot } from 'reka-ui'\nimport { provideDialogBehaviour } from './behaviour'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogProps = {\n  /** Closes when the pointer goes down outside the panel. */\n  closeOnOutside?: boolean\n  closeOnEsc?: boolean\n}\n\nconst props = withDefaults(defineProps<DialogProps>(), {\n  closeOnOutside: true,\n  closeOnEsc: true,\n})\n\n// Passed as thunks rather than as props so the flags are read at event time.\nprovideDialogBehaviour({\n  closeOnOutside: () => props.closeOnOutside,\n  closeOnEsc: () => props.closeOnEsc,\n})\n\nconst model = defineModel<boolean>({ default: false })\n</script>\n\n<template>\n  <DialogRoot v-model=\"model\" modal v-bind=\"$attrs\">\n    <slot />\n  </DialogRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/dialog/DialogTrigger.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { DialogTrigger } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogTriggerProps = {\n  as?: string | object\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<DialogTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogTrigger>\n</template>\n"
+    },
+    {
+      "path": "ui/dialog/DialogContent.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DialogClose, DialogContent, DialogOverlay, DialogPortal } from 'reka-ui'\nimport type { PointerDownOutsideEvent } from 'reka-ui'\nimport { useDialogBehaviour } from './behaviour'\nimport { closeButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogContentProps = {\n  /** Hides the built-in close button when the panel supplies its own. */\n  hideClose?: boolean\n}\n\nwithDefaults(defineProps<DialogContentProps>(), {\n  hideClose: false,\n})\n\nconst behaviour = useDialogBehaviour()\n\nconst emit = defineEmits<{\n  escapeKeyDown: [event: KeyboardEvent]\n  pointerDownOutside: [event: PointerDownOutsideEvent]\n  interactOutside: [event: Event]\n}>()\n\nfunction onEscapeKeyDown(event: KeyboardEvent): void {\n  if (!behaviour.closeOnEsc.value) event.preventDefault()\n  emit('escapeKeyDown', event)\n}\n\nfunction onPointerDownOutside(event: PointerDownOutsideEvent): void {\n  if (!behaviour.closeOnOutside.value) event.preventDefault()\n  emit('pointerDownOutside', event)\n}\n\nfunction onInteractOutside(event: Event): void {\n  emit('interactOutside', event)\n}\n</script>\n\n<template>\n  <DialogPortal>\n    <DialogOverlay\n      class=\"fixed inset-0 z-40 bg-[color-mix(in_oklab,var(--color-ink)_45%,transparent)]\"\n    />\n    <DialogContent\n      v-bind=\"$attrs\"\n      aria-modal=\"true\"\n      :class=\"\n        cn(\n          'fixed left-1/2 top-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2',\n          'rounded-panel border border-line bg-raised p-6 shadow-popup outline-none',\n          $attrs.class as string | undefined,\n        )\n      \"\n      @escape-key-down=\"onEscapeKeyDown\"\n      @pointer-down-outside=\"onPointerDownOutside\"\n      @interact-outside=\"onInteractOutside\"\n    >\n      <slot />\n      <DialogClose v-if=\"!hideClose\" aria-label=\"Close\" :class=\"closeButton\">\n        <span aria-hidden=\"true\">&#215;</span>\n      </DialogClose>\n    </DialogContent>\n  </DialogPortal>\n</template>\n"
+    },
+    {
+      "path": "ui/dialog/DialogTitle.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DialogTitle } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <DialogTitle :class=\"cn('text-[17px] font-medium text-ink', $attrs.class as string | undefined)\">\n    <slot />\n  </DialogTitle>\n</template>\n"
+    },
+    {
+      "path": "ui/dialog/DialogDescription.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { DialogDescription } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <DialogDescription\n    :class=\"cn('mt-2 text-[14px] text-ink-muted', $attrs.class as string | undefined)\"\n  >\n    <slot />\n  </DialogDescription>\n</template>\n"
+    },
+    {
+      "path": "ui/dialog/DialogClose.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { DialogClose } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type DialogCloseProps = {\n  as?: string | object\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<DialogCloseProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogClose :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogClose>\n</template>\n"
+    },
+    {
+      "path": "ui/dialog/styles.ts",
+      "type": "registry:ui",
+      "content": "/**\n * The dialog close control mirrors the ghost button: transparent until hovered,\n * ink icon, 2px focus ring at 2px offset.\n */\nexport const closeButton = [\n  'absolute right-4 top-4 inline-flex size-8 items-center justify-center rounded-[10px]',\n  'text-[16px] leading-none text-ink-muted',\n  'hover:bg-control hover:text-ink',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'transition-[background-color,color] duration-150 motion-reduce:transition-none',\n].join(' ')\n"
+    },
+    {
+      "path": "ui/dialog/behaviour.ts",
+      "type": "registry:ui",
+      "content": "import { computed, inject, provide, type ComputedRef, type InjectionKey } from 'vue'\n\nexport type DialogBehaviour = {\n  closeOnOutside: ComputedRef<boolean>\n  closeOnEsc: ComputedRef<boolean>\n}\n\nexport const dialogBehaviourKey: InjectionKey<DialogBehaviour> = Symbol('p0seid0n-dialog')\n\nexport type DialogBehaviourSource = {\n  closeOnOutside: () => boolean\n  closeOnEsc: () => boolean\n}\n\n/**\n * The source is a plain pair of getters rather than the props object: a destructured\n * or defaulted props proxy can resolve before `withDefaults` settles, which would\n * freeze the flags at their defaults.\n */\nexport function provideDialogBehaviour(source: DialogBehaviourSource): void {\n  provide(dialogBehaviourKey, {\n    closeOnOutside: computed(source.closeOnOutside),\n    closeOnEsc: computed(source.closeOnEsc),\n  })\n}\n\nconst defaults: DialogBehaviour = {\n  closeOnOutside: computed(() => true),\n  closeOnEsc: computed(() => true),\n}\n\n/** Both flags stay true when DialogContent is used without a Dialog parent. */\nexport function useDialogBehaviour(): DialogBehaviour {\n  return inject(dialogBehaviourKey, defaults)\n}\n"
+    },
+    {
+      "path": "ui/dialog/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Dialog } from './Dialog.vue'\nexport { default as DialogTrigger } from './DialogTrigger.vue'\nexport { default as DialogContent } from './DialogContent.vue'\nexport { default as DialogTitle } from './DialogTitle.vue'\nexport { default as DialogDescription } from './DialogDescription.vue'\nexport { default as DialogClose } from './DialogClose.vue'\n\nexport type { DialogProps } from './Dialog.vue'\nexport type { DialogTriggerProps } from './DialogTrigger.vue'\nexport type { DialogContentProps } from './DialogContent.vue'\nexport type { DialogCloseProps } from './DialogClose.vue'\n"
+    }
+  ]
+}

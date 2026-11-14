@@ -183,6 +183,213 @@
         }
       ],
       "docs": "Bind with v-model. Space and Enter toggle it and aria-checked follows the value. The thumb slot is empty by default so an icon can be passed without adding a dependency. Transitions are dropped under prefers-reduced-motion."
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Menu root, trigger and popup with plain, checkbox and radio items, labels, separators and groups.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/dropdown-menu/DropdownMenu.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuCheckboxItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuRadioGroup.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuRadioItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuLabel.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuSeparator.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuGroup.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Arrow keys move between items, Enter selects, Esc closes and focus returns to the trigger. DropdownMenuContent takes align, side and sideOffset; its minWidth defaults to 160px. Radio items must sit inside DropdownMenuRadioGroup. Use the trigger's asChild prop to wrap the Button item instead of a raw button."
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Delayed hover and focus hint with four sides and an optional shortcut hint.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/tooltip/Tooltip.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tooltip/TooltipTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tooltip/TooltipContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tooltip/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "The tip opens after the delay prop (300ms by default) on both hover and keyboard focus, and Escape dismisses it. The trigger points aria-describedby at the tip content while it is open. Pass shortcut to append a key hint such as K."
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Centered modal with overlay, title, description and a built-in close control.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/dialog/Dialog.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogTitle.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogDescription.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogClose.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/behaviour.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model:open. The panel sets role dialog with modal behaviour, locks background scroll and traps Tab inside. Escape and outside clicks close it unless closeOnEsc or closeOnOutside are false. Always render DialogTitle; it becomes the accessible name. Set hideClose on DialogContent when the panel supplies its own dismiss control."
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Trigger strip and panels with arrow key navigation.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/tabs/Tabs.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/TabsList.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/TabsTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/TabsContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model and give each TabsTrigger and TabsContent a matching value. Arrow keys move within the strip, Home and End jump to the ends. activationMode automatic switches on arrow key, manual waits for Enter or Space. Panels stay mounted by default so form state survives a tab change."
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Self-contained notification stack with a provider, useToast composable and three variants.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/toast/ToastProvider.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/Toaster.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/Toast.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/stack.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Wrap the app in ToastProvider, then call useToast().toast({ title, description, variant, action, duration }). The provider keeps at most max notifications (3 by default) and drops the oldest first; duration defaults to 4000ms and zero keeps one open. variant danger uses the theme danger colour. The stack sits at z-60 so it stays above dialogs."
     }
   ]
 }
