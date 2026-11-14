@@ -1,0 +1,25 @@
+{
+  "name": "@p0seid0n/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "dependencies": {
+    "@fontsource/barlow": "^5.3.0",
+    "@fontsource/barlow-semi-condensed": "^5.3.0",
+    "class-variance-authority": "0.7.1",
+    "clsx": "^2.1.1",
+    "reka-ui": "2.11.0",
+    "tailwind-merge": "^3.7.0",
+    "vue": "^3.5.45"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "tailwindcss": "^4.3.5",
+    "vitepress": "^1.6.4"
+  }
+}

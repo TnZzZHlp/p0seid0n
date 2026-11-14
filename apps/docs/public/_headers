@@ -1,0 +1,8 @@
+# Cloudflare Pages / Netlify header rules. Registry JSON is short-lived so a
+# renamed or corrected item propagates quickly; hashed assets are immutable.
+/r/*.json
+  Cache-Control: public, max-age=300
+  Content-Type: application/json; charset=utf-8
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://shadcn-vue.com/schema.json",
+  "style": "p0seid0n",
+  "typescript": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/p0seid0n.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "composables": "@/composables",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "utils": "@/lib/utils"
+  },
+  "iconLibrary": "lucide"
+}

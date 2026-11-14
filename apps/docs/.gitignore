@@ -1,0 +1,6 @@
+# Installed artifacts: `pnpm ui:install` writes these from apps/docs/public/r.
+src/components/ui/
+src/lib/utils.ts
+src/styles/p0seid0n.css
+# Staged registry output so the built site serves /r/*.json.
+src/public/

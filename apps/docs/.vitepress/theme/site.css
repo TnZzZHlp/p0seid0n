@@ -1,0 +1,65 @@
+/*
+ * Imported piecewise instead of `@import 'tailwindcss'` on purpose. VitePress
+ * ships an unlayered reset (`button { background-color: transparent }`, the
+ * `a, button { ... }` group and so on), and unlayered declarations always beat
+ * layered ones regardless of specificity. Pulling the utilities in outside any
+ * layer puts them on equal footing, where `.bg-ink` correctly outranks `button`.
+ */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css';
+/* Installed by `pnpm ui:install`; importing it here is the only place the tokens
+   enter the site build. */
+@import '@/styles/p0seid0n.css';
+
+/* Paths are relative to this file. Installed component sources are scanned too:
+   the registry ships class strings, but Tailwind still has to emit them, and
+   whichever classes the site's own examples use must be found as well. */
+@source '../../src/pages/**/*.md';
+@source '../../src/examples/**/*.vue';
+@source '../../src/components/ui/**/*.{vue,ts}';
+@source '../../src/lib/**/*.ts';
+@source './**/*.{vue,ts}';
+
+/*
+ * VitePress switches its chrome with a `.dark` class on <html>, while p0seid0n
+ * relies on color-scheme. Adding `.dark` already flips the tokens (001 wires
+ * `:root.dark`), so the two mechanisms agree; these variables only restyle the
+ * site chrome. Layout, spacing and component internals stay upstream.
+ */
+:root {
+  --vp-c-bg: var(--p0seid0n-surface);
+  --vp-c-bg-alt: var(--p0seid0n-raised);
+  --vp-c-bg-soft: var(--p0seid0n-control);
+  --vp-c-text-1: var(--p0seid0n-ink);
+  --vp-c-text-2: var(--p0seid0n-ink-muted);
+  --vp-c-text-3: var(--p0seid0n-ink-faint);
+  --vp-c-divider: var(--p0seid0n-line);
+  --vp-c-border: var(--p0seid0n-line);
+  --vp-c-gutter: var(--p0seid0n-line);
+  --vp-c-brand-1: var(--p0seid0n-download);
+  --vp-c-brand-2: var(--p0seid0n-download);
+  --vp-c-brand-3: var(--p0seid0n-download);
+
+  --vp-font-family-base: var(--font-barlow, 'Barlow'), system-ui, sans-serif;
+  --vp-font-family-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --vp-code-block-bg: var(--p0seid0n-raised);
+  --vp-custom-block-tip-bg: var(--p0seid0n-control);
+  --vp-custom-block-tip-border: var(--p0seid0n-line);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.example-surface {
+  background-color: var(--p0seid0n-surface);
+  border: 1px solid var(--p0seid0n-line);
+  border-radius: var(--p0seid0n-radius-panel);
+  padding: 1.5rem;
+}
+
+.token-table td code {
+  font-variant-numeric: tabular-nums;
+}

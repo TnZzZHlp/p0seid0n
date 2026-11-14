@@ -6,7 +6,7 @@
 - 项目根目录：仓库根（`/root/github/0cean`，相对描述即本文档所在仓库）
 - 计划目录：`docs/plans/p0seid0n-vue-ui/`
 - 规划状态：已批准
-- 实施状态：进行中（001、002、003、004、005 已完成）
+- 实施状态：进行中（001、002、003、004、005、006 已完成）
 - 批准依据：用户在评审后回复「批准」，批准范围为下述目标、范围、架构与 001-007 阶段拆分。批准时未提出「一条命令装全部」需求，因此该能力不进入 v1 范围（见 Q01）。
 
 ## 概述
@@ -201,7 +201,7 @@ p0seid0n add button                                         自有 CLI
 | 003 | [基础控件](subplans/003-core-controls.md) | button、badge、separator、card、input、label、switch（`utils` 已由 002 交付） | 001、002 | 七个 item 可被单独安装并渲染 | 已完成 |
 | 004 | [覆盖层与导航](subplans/004-overlays-and-nav.md) | dropdown-menu、tooltip、dialog、tabs、toast | 003 | 键盘可达、焦点可回收，Esc 与外部点击行为正确 | 已完成 |
 | 005 | [数据展示](subplans/005-data-display.md) | 4 个展示 item：stat、sparkline、theme-provider、theme-switcher | 003（T04 另需 004 的 dropdown-menu） | 四个 item 均已验收，theme-switcher 的跨 item 依赖已验证 | 已完成 |
-| 006 | [文档站](subplans/006-docs-site.md) | VitePress、安装脚本、令牌页、逐组件页、部署配置 | 002、004、005 | 从零 clone 后两条命令可构建出完整站点 | 未开始 |
+| 006 | [文档站](subplans/006-docs-site.md) | VitePress、安装脚本、令牌页、逐组件页、部署配置 | 002、004、005 | 从零 clone 后两条命令可构建出完整站点 | 已完成（AC07 待部署复验） |
 | 007 | [CLI](subplans/007-cli.md) | `p0seid0n init`、`p0seid0n add`、依赖解析、别名替换、发布配置 | 002 | tarball 装进空项目后 `init` + `add` 成功 | 未开始 |
 
 ### 执行顺序
@@ -240,7 +240,7 @@ p0seid0n add button                                         自有 CLI
 | --- | --- | --- | --- | --- |
 | Q01 | 是否提供 `p0seid0n add all` 一次性安装全部 item | v1 使用者需按名安装；item 数量增长后体验变差 | 在 007-T03 实现 `add` 时评估：若依赖解析已能批量处理，则加 `all` 作为 `add` 的别名展开 | 007-T03 开始前 |
 | Q02 | npm 包名 `p0seid0n` 若已被占用，改用哪个名字 | 影响 007-T01 的包名、bin 与发布脚本；不影响 registry name 与 CSS 前缀 | 已核实空闲。发布前在 007-T01 用 `npm view p0seid0n name` 复核；若届时被抢占，改用 `@p0seid0n/ui` 并保持 bin 为 `p0seid0n` | 007-T01 开始前 |
-| Q03 | 文档站具体域名 | 部署地址与 registry 默认地址在域名确定前使用占位值 | 006-T06 部署任务中确定，并回填 registry `homepage` 与 CLI 默认 registry 地址 | 006-T06 开始前 |
+| Q03 | 文档站具体域名 | 部署地址与 registry 默认地址继续使用占位值 | 用户决定 006 阶段保留占位；真实域名在 007 发布前回填 registry `homepage` 与 CLI 默认 registry 地址 | 007 发布前 |
 
 ## 实施进度与提交
 

@@ -47,6 +47,8 @@ export default tseslint.config(
       'apps/docs/src/components/ui/',
       'apps/docs/src/lib/utils.ts',
       'apps/docs/src/styles/p0seid0n.css',
+      'apps/docs/src/public/',
+      'apps/docs/src/examples/',
     ],
   },
   js.configs.recommended,
@@ -57,6 +59,12 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: { parser: tseslint.parser },
     },
+  },
+  {
+    // A VitePress theme composes its layout and a header slot in one module; the
+    // theme contract is a single default export, so the rule does not apply.
+    files: ['apps/docs/.vitepress/theme/index.ts'],
+    rules: { 'vue/one-component-per-file': 'off' },
   },
   {
     languageOptions: {

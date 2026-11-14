@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["node"]
+  },
+  "include": [".vitepress/**/*.ts", ".vitepress/**/*.vue", "src/examples/**/*.vue", "src/types/**/*.d.ts"],
+  "exclude": [".vitepress/dist", ".vitepress/cache", "src/components", "src/lib", "src/styles"]
+}
