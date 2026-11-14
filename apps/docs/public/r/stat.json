@@ -1,0 +1,27 @@
+{
+  "name": "stat",
+  "type": "registry:ui",
+  "title": "Stat",
+  "description": "Label, condensed tabular value and unit, with an inline figure slot for a sparkline.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Values are preformatted strings, so locale and rounding stay with you. A null, undefined or empty value renders emptyText in the faint ink colour and hides the unit. tone colours the value: default ink, accent, or accent-alt which maps to the theme danger colour. Drop a Sparkline into the figure slot; it is baseline aligned with the value.",
+  "files": [
+    {
+      "path": "ui/stat/Stat.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type StatTone = 'default' | 'accent' | 'accent-alt'\n\nexport type StatProps = {\n  label: string\n  /** Preformatted value. Null or undefined renders `emptyText`. */\n  value?: string | number | null\n  unit?: string\n  emptyText?: string\n  /** Colours the value; `accent-alt` uses the theme danger colour. */\n  tone?: StatTone\n}\n\nconst props = withDefaults(defineProps<StatProps>(), {\n  value: null,\n  unit: undefined,\n  emptyText: '—',\n  tone: 'default',\n})\n\nconst isEmpty = computed(\n  () => props.value === null || props.value === undefined || props.value === '',\n)\n\nconst toneClass = computed(\n  () =>\n    ({\n      default: 'text-ink',\n      accent: 'text-accent',\n      'accent-alt': 'text-danger',\n    })[props.tone],\n)\n</script>\n\n<template>\n  <div v-bind=\"$attrs\" :class=\"cn('flex flex-col', $attrs.class as string | undefined)\">\n    <span class=\"text-[13px] font-medium text-ink-muted\">{{ label }}</span>\n    <div class=\"mt-1 flex items-baseline gap-0\">\n      <span\n        :class=\"\n          cn(\n            'font-condensed text-[26px] leading-none font-medium tracking-[-0.01em] tabular-nums',\n            'max-sm:text-[24px] lg:text-[28px]',\n            isEmpty ? 'text-ink-faint' : toneClass,\n          )\n        \"\n      >\n        {{ isEmpty ? emptyText : value }}\n      </span>\n      <span\n        v-if=\"unit && !isEmpty\"\n        class=\"ml-1.5 font-sans text-[14px] font-normal text-ink-muted lg:text-[16px]\"\n        >{{ unit }}</span\n      >\n      <span\n        v-if=\"$slots.figure\"\n        class=\"min-w-0 flex-1 pl-3 font-condensed text-[26px] leading-none max-sm:text-[24px] lg:text-[28px]\"\n      >\n        <slot name=\"figure\" />\n      </span>\n    </div>\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/stat/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Stat } from './Stat.vue'\nexport type { StatProps, StatTone } from './Stat.vue'\n"
+    }
+  ]
+}

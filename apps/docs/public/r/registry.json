@@ -71,6 +71,26 @@
       "name": "toast",
       "type": "registry:ui",
       "title": "Toast"
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:ui",
+      "title": "Sparkline"
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "Stat"
+    },
+    {
+      "name": "theme-provider",
+      "type": "registry:ui",
+      "title": "Theme Provider"
+    },
+    {
+      "name": "theme-switcher",
+      "type": "registry:ui",
+      "title": "Theme Switcher"
     }
   ]
 }

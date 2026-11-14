@@ -390,6 +390,94 @@
         }
       ],
       "docs": "Wrap the app in ToastProvider, then call useToast().toast({ title, description, variant, action, duration }). The provider keeps at most max notifications (3 by default) and drops the oldest first; duration defaults to 4000ms and zero keeps one open. variant danger uses the theme danger colour. The stack sits at z-60 so it stays above dialogs."
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:ui",
+      "title": "Sparkline",
+      "description": "Hand-written SVG bar strip for a numeric series, with median-based scaling and an optional baseline.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/sparkline/Sparkline.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sparkline/geometry.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sparkline/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pass values as a number array; the component never formats or formats labels for you. Bars fill 60% of each slot and the series is pinned to the right edge when slots is larger than the data. The value axis is capped at median x 3 so a few spikes cannot flatten the rest; with one or two samples it falls back to the maximum. An empty array renders no path but keeps its size, a single sample renders one full-width-relative bar. Set ariaLabel to expose role img; without it the graphic is aria-hidden."
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "Stat",
+      "description": "Label, condensed tabular value and unit, with an inline figure slot for a sparkline.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/stat/Stat.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/stat/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Values are preformatted strings, so locale and rounding stay with you. A null, undefined or empty value renders emptyText in the faint ink colour and hides the unit. tone colours the value: default ink, accent, or accent-alt which maps to the theme danger colour. Drop a Sparkline into the figure slot; it is baseline aligned with the value."
+    },
+    {
+      "name": "theme-provider",
+      "type": "registry:ui",
+      "title": "Theme Provider",
+      "description": "Three-state theme state (system, light, dark) with a matching inline script for the first paint.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/theme-provider/ThemeProvider.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-provider/theme.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-provider/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-provider/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Wrap the app in ThemeProvider and read state with useTheme(): theme is the stored choice, resolvedTheme is what is painted. setTheme writes localStorage only when the choice changes, and system removes the key so the OS preference keeps driving the page. Inline the themeScript() string in head before your bundle to avoid a flash on reload; it only touches the html element, so hydration has nothing to disagree with."
+    },
+    {
+      "name": "theme-switcher",
+      "type": "registry:ui",
+      "title": "Theme Switcher",
+      "description": "Ghost button opening a radio menu with system, light and dark choices.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme", "theme-provider", "button", "dropdown-menu"],
+      "files": [
+        {
+          "path": "ui/theme-switcher/ThemeSwitcher.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-switcher/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Requires a ThemeProvider above it and uses useTheme(), so the menu, the html class and localStorage always agree. The icon slot receives the current choice for rendering a matching icon. Labels default to System, Light and Dark and can be overridden per locale."
     }
   ]
 }

@@ -82,5 +82,29 @@
     "type": "registry:ui",
     "title": "Toast",
     "description": "Self-contained notification stack with a provider, useToast composable and three variants."
+  },
+  {
+    "name": "sparkline",
+    "type": "registry:ui",
+    "title": "Sparkline",
+    "description": "Hand-written SVG bar strip for a numeric series, with median-based scaling and an optional baseline."
+  },
+  {
+    "name": "stat",
+    "type": "registry:ui",
+    "title": "Stat",
+    "description": "Label, condensed tabular value and unit, with an inline figure slot for a sparkline."
+  },
+  {
+    "name": "theme-provider",
+    "type": "registry:ui",
+    "title": "Theme Provider",
+    "description": "Three-state theme state (system, light, dark) with a matching inline script for the first paint."
+  },
+  {
+    "name": "theme-switcher",
+    "type": "registry:ui",
+    "title": "Theme Switcher",
+    "description": "Ghost button opening a radio menu with system, light and dark choices."
   }
 ]

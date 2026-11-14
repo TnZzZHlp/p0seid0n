@@ -1,0 +1,37 @@
+{
+  "name": "theme-provider",
+  "type": "registry:ui",
+  "title": "Theme Provider",
+  "description": "Three-state theme state (system, light, dark) with a matching inline script for the first paint.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Wrap the app in ThemeProvider and read state with useTheme(): theme is the stored choice, resolvedTheme is what is painted. setTheme writes localStorage only when the choice changes, and system removes the key so the OS preference keeps driving the page. Inline the themeScript() string in head before your bundle to avoid a flash on reload; it only touches the html element, so hydration has nothing to disagree with.",
+  "files": [
+    {
+      "path": "ui/theme-provider/ThemeProvider.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue'\nimport {\n  DEFAULT_STORAGE_KEY,\n  applyThemeToDocument,\n  readStoredTheme,\n  systemTheme,\n  type ResolvedTheme,\n  type ThemeChoice,\n} from './theme'\nimport { themeKey, type ThemeApi } from './context'\n\nexport type ThemeProviderProps = {\n  storageKey?: string\n  /** Used when nothing is stored yet. */\n  defaultTheme?: ThemeChoice\n  /** Attribute mirrored onto `html` so CSS can target the explicit choice. */\n  attribute?: string\n}\n\nconst props = withDefaults(defineProps<ThemeProviderProps>(), {\n  storageKey: DEFAULT_STORAGE_KEY,\n  defaultTheme: 'system',\n  attribute: 'data-theme',\n})\n\nconst theme = ref<ThemeChoice>(props.defaultTheme)\nconst resolvedTheme = ref<ResolvedTheme>('light')\n\nlet media: MediaQueryList | undefined\nlet hydrated = false\n\nfunction sync(): void {\n  resolvedTheme.value = applyThemeToDocument(theme.value, props.attribute)\n}\n\nfunction setTheme(next: ThemeChoice): void {\n  theme.value = next\n}\n\n// localStorage is written only when the choice changes, not on every system\n// preference event: those are not user decisions and must not pin `system`.\nwatch(theme, (next) => {\n  sync()\n  if (!hydrated) return\n  try {\n    if (next === 'system') localStorage.removeItem(props.storageKey)\n    else localStorage.setItem(props.storageKey, next)\n  } catch {\n    // A blocked storage backend still needs the in-memory choice to apply.\n  }\n})\n\nfunction onSystemChange(): void {\n  // Only matters while following the system; a pinned choice ignores it.\n  if (theme.value === 'system') sync()\n}\n\nonMounted(() => {\n  theme.value = readStoredTheme(props.storageKey)\n  sync()\n  hydrated = true\n  media = window.matchMedia('(prefers-color-scheme: dark)')\n  media.addEventListener('change', onSystemChange)\n})\n\nonBeforeUnmount(() => {\n  media?.removeEventListener('change', onSystemChange)\n})\n\nconst api: ThemeApi = {\n  theme,\n  resolvedTheme,\n  setTheme,\n  systemTheme,\n  storageKey: props.storageKey,\n}\nprovide(themeKey, api)\n\nconst ready = computed(() => hydrated)\ndefineExpose({ ready, theme, resolvedTheme, setTheme })\n</script>\n\n<template>\n  <slot />\n</template>\n"
+    },
+    {
+      "path": "ui/theme-provider/theme.ts",
+      "type": "registry:ui",
+      "content": "export type ThemeChoice = 'system' | 'light' | 'dark'\nexport type ResolvedTheme = 'light' | 'dark'\n\nexport const DEFAULT_STORAGE_KEY = 'p0seid0n-theme'\n\n/** Reads the stored choice; anything unrecognised falls back to `system`. */\nexport function readStoredTheme(storageKey: string): ThemeChoice {\n  try {\n    const stored = localStorage.getItem(storageKey)\n    if (stored === 'light' || stored === 'dark') return stored\n  } catch {\n    // Storage can be blocked (private mode, third-party context); system is the safe answer.\n  }\n  return 'system'\n}\n\nexport function systemTheme(): ResolvedTheme {\n  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'\n}\n\n/**\n * The class on `html` is the only thing the stylesheet reads. `system` removes both\n * classes so `color-scheme: light dark` keeps following the OS, which a pinned class\n * would stop doing.\n */\nexport function applyThemeToDocument(choice: ThemeChoice, attribute: string): ResolvedTheme {\n  const root = document.documentElement\n  root.classList.remove('light', 'dark')\n  const resolved: ResolvedTheme = choice === 'system' ? systemTheme() : choice\n  if (choice !== 'system') root.classList.add(choice)\n  // The attribute mirrors the explicit choice for selectors that need it; `system`\n  // omits it so styles can tell \"unset\" apart from a pinned light.\n  if (choice === 'system') root.removeAttribute(attribute)\n  else root.setAttribute(attribute, choice)\n  return resolved\n}\n\n/**\n * Inline this in `<head>` before the app bundle so a stored choice paints on the\n * first frame. It touches only `<html>` and never the framework state, so there is\n * nothing for hydration to disagree with.\n */\nexport function themeScript(\n  storageKey: string = DEFAULT_STORAGE_KEY,\n  attribute: string = 'data-theme',\n): string {\n  return `(()=>{try{var r=document.documentElement,k=${JSON.stringify(storageKey)},a=${JSON.stringify(attribute)},s=localStorage.getItem(k);r.classList.remove(\"light\",\"dark\");if(s===\"light\"||s===\"dark\"){r.classList.add(s);r.setAttribute(a,s)}else{r.removeAttribute(a)}}catch(e){}})()`\n}\n"
+    },
+    {
+      "path": "ui/theme-provider/context.ts",
+      "type": "registry:ui",
+      "content": "import { inject, type InjectionKey, type Ref } from 'vue'\nimport { DEFAULT_STORAGE_KEY, type ResolvedTheme, type ThemeChoice } from './theme'\n\nexport type ThemeApi = {\n  /** The stored choice: system, light or dark. */\n  theme: Ref<ThemeChoice>\n  /** What is actually painted right now. */\n  resolvedTheme: Ref<ResolvedTheme>\n  setTheme: (choice: ThemeChoice) => void\n  systemTheme: () => ResolvedTheme\n  storageKey: string\n}\n\nexport const themeKey: InjectionKey<ThemeApi> = Symbol('p0seid0n-theme')\n\nexport function useTheme(): ThemeApi {\n  const api = inject(themeKey, null)\n  if (!api) {\n    throw new Error('useTheme() must be called inside a ThemeProvider.')\n  }\n  return api\n}\n\nexport { DEFAULT_STORAGE_KEY }\n"
+    },
+    {
+      "path": "ui/theme-provider/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as ThemeProvider } from './ThemeProvider.vue'\nexport { useTheme, DEFAULT_STORAGE_KEY } from './context'\nexport { applyThemeToDocument, readStoredTheme, systemTheme, themeScript } from './theme'\nexport type { ThemeApi } from './context'\nexport type { ThemeProviderProps } from './ThemeProvider.vue'\nexport type { ResolvedTheme, ThemeChoice } from './theme'\n"
+    }
+  ]
+}

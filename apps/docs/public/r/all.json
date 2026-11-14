@@ -531,6 +531,132 @@
           "content": "export { default as ToastProvider } from './ToastProvider.vue'\nexport { default as Toaster } from './Toaster.vue'\n\nexport { useToast } from './context'\nexport type { ToastAction, ToastApi, ToastOptions, ToastRecord, ToastVariant } from './context'\nexport type { ToastProviderProps } from './ToastProvider.vue'\n"
         }
       ]
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:ui",
+      "title": "Sparkline",
+      "description": "Hand-written SVG bar strip for a numeric series, with median-based scaling and an optional baseline.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Pass values as a number array; the component never formats or formats labels for you. Bars fill 60% of each slot and the series is pinned to the right edge when slots is larger than the data. The value axis is capped at median x 3 so a few spikes cannot flatten the rest; with one or two samples it falls back to the maximum. An empty array renders no path but keeps its size, a single sample renders one full-width-relative bar. Set ariaLabel to expose role img; without it the graphic is aria-hidden.",
+      "files": [
+        {
+          "path": "ui/sparkline/Sparkline.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { sparklinePath } from './geometry'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SparklineTone = 'default' | 'accent' | 'accent-alt'\n\nexport type SparklineProps = {\n  values: readonly number[]\n  /** Upper bound of the value axis; defaults to the median-based scale. */\n  max?: number\n  /** Draws a 1px rule at the bottom of the strip. */\n  baseline?: boolean\n  tone?: SparklineTone\n  /** Accessible name. Without it the graphic is hidden from assistive technology. */\n  ariaLabel?: string\n  /** Bars are laid out across this many slots; the newest sits at the right edge. */\n  slots?: number\n  /**\n   * Strip height, `font-size` relative. The reference puts the strip beside the 26px\n   * value text, so `0.7em` there is about 18px; inside a Stat the figure slot\n   * inherits that font size, and standalone use should set a font size on the parent.\n   */\n  height?: string\n}\n\nconst props = withDefaults(defineProps<SparklineProps>(), {\n  max: undefined,\n  baseline: false,\n  tone: 'default',\n  ariaLabel: undefined,\n  slots: undefined,\n  height: '0.7em',\n})\n\nconst toneClass = computed(\n  () =>\n    ({\n      default: 'text-ink-faint',\n      accent: 'text-accent',\n      'accent-alt': 'text-danger',\n    })[props.tone],\n)\n\nconst path = computed(() =>\n  sparklinePath({ values: props.values, slots: props.slots, max: props.max }),\n)\nconst viewWidth = computed(() =>\n  Math.max(props.slots ?? props.values.length, props.values.length, 1),\n)\n\nconst labelled = computed(() => props.ariaLabel !== undefined)\n</script>\n\n<template>\n  <svg\n    v-bind=\"$attrs\"\n    :viewBox=\"`0 0 ${viewWidth} 1`\"\n    :style=\"{ height: props.height }\"\n    preserveAspectRatio=\"none\"\n    :class=\"\n      cn(\n        'block w-full',\n        props.baseline ? 'border-b border-line' : undefined,\n        toneClass,\n        $attrs.class as string | undefined,\n      )\n    \"\n    :role=\"labelled ? 'img' : undefined\"\n    :aria-label=\"props.ariaLabel\"\n    :aria-hidden=\"labelled ? undefined : 'true'\"\n  >\n    <path :d=\"path\" fill=\"currentColor\" />\n  </svg>\n</template>\n"
+        },
+        {
+          "path": "ui/sparkline/geometry.ts",
+          "type": "registry:ui",
+          "content": "/**\n * Bar geometry, ported from the reference PingStrip: each bar fills 0.6 of its\n * slot and the rest is the gap to its neighbours.\n */\nconst BAR = 0.6\n/** A value this many times the median already reaches the top, so spikes cannot flatten the rest. */\nconst SPIKE = 3\n/** Below this many samples the median is not meaningful, so the max is used instead. */\nconst MIN_SAMPLES_FOR_MEDIAN = 3\n\nexport function median(values: readonly number[]): number {\n  const sorted = [...values].sort((a, b) => a - b)\n  const mid = sorted.length >> 1\n  return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid]\n}\n\n/**\n * Upper bound for the value axis. The reference clamps to `median * 3` so a few\n * spikes do not squash the rest; with one or two samples the median is too noisy,\n * so it falls back to the max (005 risk table).\n */\nexport function scaleTop(values: readonly number[]): number {\n  if (values.length === 0) return 1\n  const max = Math.max(...values)\n  if (values.length < MIN_SAMPLES_FOR_MEDIAN) return Math.max(1, max)\n  return Math.max(1, Math.min(max, median(values) * SPIKE))\n}\n\nexport type SparklineOptions = {\n  values: readonly number[]\n  /** Values are laid out across this many slots; the newest sits at the right edge. */\n  slots?: number\n  /** Upper bound of the value axis; defaults to the derived scale. */\n  max?: number\n}\n\n/**\n * Builds the bar path in a `0 0 slots 1` viewBox where y grows downward, so every\n * bar is drawn from y=1 up to `1 - value / top`. Returns an empty string when there\n * is nothing to draw.\n */\nexport function sparklinePath({ values, slots, max }: SparklineOptions): string {\n  if (values.length === 0) return ''\n\n  // The slot count never drops below the sample count, or bars would overlap.\n  const width = Math.max(slots ?? values.length, values.length)\n  const top = max !== undefined ? Math.max(1e-9, max) : scaleTop(values)\n  const first = width - values.length\n  const halfGap = (1 - BAR) / 2\n\n  let d = ''\n  for (let index = 0; index < values.length; index += 1) {\n    const ratio = Math.min(1, Math.max(0, values[index] / top))\n    const x = first + index + halfGap\n    d += `M${round(x)},1V${round(1 - ratio)}h${BAR}V1Z`\n  }\n  return d\n}\n\n/** Trims float noise so the generated `d` stays comparable between runs. */\nfunction round(value: number): number {\n  return Math.round(value * 1000) / 1000\n}\n"
+        },
+        {
+          "path": "ui/sparkline/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Sparkline } from './Sparkline.vue'\nexport { median, scaleTop, sparklinePath } from './geometry'\nexport type { SparklineOptions } from './geometry'\nexport type { SparklineProps, SparklineTone } from './Sparkline.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "Stat",
+      "description": "Label, condensed tabular value and unit, with an inline figure slot for a sparkline.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Values are preformatted strings, so locale and rounding stay with you. A null, undefined or empty value renders emptyText in the faint ink colour and hides the unit. tone colours the value: default ink, accent, or accent-alt which maps to the theme danger colour. Drop a Sparkline into the figure slot; it is baseline aligned with the value.",
+      "files": [
+        {
+          "path": "ui/stat/Stat.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type StatTone = 'default' | 'accent' | 'accent-alt'\n\nexport type StatProps = {\n  label: string\n  /** Preformatted value. Null or undefined renders `emptyText`. */\n  value?: string | number | null\n  unit?: string\n  emptyText?: string\n  /** Colours the value; `accent-alt` uses the theme danger colour. */\n  tone?: StatTone\n}\n\nconst props = withDefaults(defineProps<StatProps>(), {\n  value: null,\n  unit: undefined,\n  emptyText: '—',\n  tone: 'default',\n})\n\nconst isEmpty = computed(\n  () => props.value === null || props.value === undefined || props.value === '',\n)\n\nconst toneClass = computed(\n  () =>\n    ({\n      default: 'text-ink',\n      accent: 'text-accent',\n      'accent-alt': 'text-danger',\n    })[props.tone],\n)\n</script>\n\n<template>\n  <div v-bind=\"$attrs\" :class=\"cn('flex flex-col', $attrs.class as string | undefined)\">\n    <span class=\"text-[13px] font-medium text-ink-muted\">{{ label }}</span>\n    <div class=\"mt-1 flex items-baseline gap-0\">\n      <span\n        :class=\"\n          cn(\n            'font-condensed text-[26px] leading-none font-medium tracking-[-0.01em] tabular-nums',\n            'max-sm:text-[24px] lg:text-[28px]',\n            isEmpty ? 'text-ink-faint' : toneClass,\n          )\n        \"\n      >\n        {{ isEmpty ? emptyText : value }}\n      </span>\n      <span\n        v-if=\"unit && !isEmpty\"\n        class=\"ml-1.5 font-sans text-[14px] font-normal text-ink-muted lg:text-[16px]\"\n        >{{ unit }}</span\n      >\n      <span\n        v-if=\"$slots.figure\"\n        class=\"min-w-0 flex-1 pl-3 font-condensed text-[26px] leading-none max-sm:text-[24px] lg:text-[28px]\"\n      >\n        <slot name=\"figure\" />\n      </span>\n    </div>\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/stat/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Stat } from './Stat.vue'\nexport type { StatProps, StatTone } from './Stat.vue'\n"
+        }
+      ]
+    },
+    {
+      "name": "theme-provider",
+      "type": "registry:ui",
+      "title": "Theme Provider",
+      "description": "Three-state theme state (system, light, dark) with a matching inline script for the first paint.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Wrap the app in ThemeProvider and read state with useTheme(): theme is the stored choice, resolvedTheme is what is painted. setTheme writes localStorage only when the choice changes, and system removes the key so the OS preference keeps driving the page. Inline the themeScript() string in head before your bundle to avoid a flash on reload; it only touches the html element, so hydration has nothing to disagree with.",
+      "files": [
+        {
+          "path": "ui/theme-provider/ThemeProvider.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue'\nimport {\n  DEFAULT_STORAGE_KEY,\n  applyThemeToDocument,\n  readStoredTheme,\n  systemTheme,\n  type ResolvedTheme,\n  type ThemeChoice,\n} from './theme'\nimport { themeKey, type ThemeApi } from './context'\n\nexport type ThemeProviderProps = {\n  storageKey?: string\n  /** Used when nothing is stored yet. */\n  defaultTheme?: ThemeChoice\n  /** Attribute mirrored onto `html` so CSS can target the explicit choice. */\n  attribute?: string\n}\n\nconst props = withDefaults(defineProps<ThemeProviderProps>(), {\n  storageKey: DEFAULT_STORAGE_KEY,\n  defaultTheme: 'system',\n  attribute: 'data-theme',\n})\n\nconst theme = ref<ThemeChoice>(props.defaultTheme)\nconst resolvedTheme = ref<ResolvedTheme>('light')\n\nlet media: MediaQueryList | undefined\nlet hydrated = false\n\nfunction sync(): void {\n  resolvedTheme.value = applyThemeToDocument(theme.value, props.attribute)\n}\n\nfunction setTheme(next: ThemeChoice): void {\n  theme.value = next\n}\n\n// localStorage is written only when the choice changes, not on every system\n// preference event: those are not user decisions and must not pin `system`.\nwatch(theme, (next) => {\n  sync()\n  if (!hydrated) return\n  try {\n    if (next === 'system') localStorage.removeItem(props.storageKey)\n    else localStorage.setItem(props.storageKey, next)\n  } catch {\n    // A blocked storage backend still needs the in-memory choice to apply.\n  }\n})\n\nfunction onSystemChange(): void {\n  // Only matters while following the system; a pinned choice ignores it.\n  if (theme.value === 'system') sync()\n}\n\nonMounted(() => {\n  theme.value = readStoredTheme(props.storageKey)\n  sync()\n  hydrated = true\n  media = window.matchMedia('(prefers-color-scheme: dark)')\n  media.addEventListener('change', onSystemChange)\n})\n\nonBeforeUnmount(() => {\n  media?.removeEventListener('change', onSystemChange)\n})\n\nconst api: ThemeApi = {\n  theme,\n  resolvedTheme,\n  setTheme,\n  systemTheme,\n  storageKey: props.storageKey,\n}\nprovide(themeKey, api)\n\nconst ready = computed(() => hydrated)\ndefineExpose({ ready, theme, resolvedTheme, setTheme })\n</script>\n\n<template>\n  <slot />\n</template>\n"
+        },
+        {
+          "path": "ui/theme-provider/theme.ts",
+          "type": "registry:ui",
+          "content": "export type ThemeChoice = 'system' | 'light' | 'dark'\nexport type ResolvedTheme = 'light' | 'dark'\n\nexport const DEFAULT_STORAGE_KEY = 'p0seid0n-theme'\n\n/** Reads the stored choice; anything unrecognised falls back to `system`. */\nexport function readStoredTheme(storageKey: string): ThemeChoice {\n  try {\n    const stored = localStorage.getItem(storageKey)\n    if (stored === 'light' || stored === 'dark') return stored\n  } catch {\n    // Storage can be blocked (private mode, third-party context); system is the safe answer.\n  }\n  return 'system'\n}\n\nexport function systemTheme(): ResolvedTheme {\n  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'\n}\n\n/**\n * The class on `html` is the only thing the stylesheet reads. `system` removes both\n * classes so `color-scheme: light dark` keeps following the OS, which a pinned class\n * would stop doing.\n */\nexport function applyThemeToDocument(choice: ThemeChoice, attribute: string): ResolvedTheme {\n  const root = document.documentElement\n  root.classList.remove('light', 'dark')\n  const resolved: ResolvedTheme = choice === 'system' ? systemTheme() : choice\n  if (choice !== 'system') root.classList.add(choice)\n  // The attribute mirrors the explicit choice for selectors that need it; `system`\n  // omits it so styles can tell \"unset\" apart from a pinned light.\n  if (choice === 'system') root.removeAttribute(attribute)\n  else root.setAttribute(attribute, choice)\n  return resolved\n}\n\n/**\n * Inline this in `<head>` before the app bundle so a stored choice paints on the\n * first frame. It touches only `<html>` and never the framework state, so there is\n * nothing for hydration to disagree with.\n */\nexport function themeScript(\n  storageKey: string = DEFAULT_STORAGE_KEY,\n  attribute: string = 'data-theme',\n): string {\n  return `(()=>{try{var r=document.documentElement,k=${JSON.stringify(storageKey)},a=${JSON.stringify(attribute)},s=localStorage.getItem(k);r.classList.remove(\"light\",\"dark\");if(s===\"light\"||s===\"dark\"){r.classList.add(s);r.setAttribute(a,s)}else{r.removeAttribute(a)}}catch(e){}})()`\n}\n"
+        },
+        {
+          "path": "ui/theme-provider/context.ts",
+          "type": "registry:ui",
+          "content": "import { inject, type InjectionKey, type Ref } from 'vue'\nimport { DEFAULT_STORAGE_KEY, type ResolvedTheme, type ThemeChoice } from './theme'\n\nexport type ThemeApi = {\n  /** The stored choice: system, light or dark. */\n  theme: Ref<ThemeChoice>\n  /** What is actually painted right now. */\n  resolvedTheme: Ref<ResolvedTheme>\n  setTheme: (choice: ThemeChoice) => void\n  systemTheme: () => ResolvedTheme\n  storageKey: string\n}\n\nexport const themeKey: InjectionKey<ThemeApi> = Symbol('p0seid0n-theme')\n\nexport function useTheme(): ThemeApi {\n  const api = inject(themeKey, null)\n  if (!api) {\n    throw new Error('useTheme() must be called inside a ThemeProvider.')\n  }\n  return api\n}\n\nexport { DEFAULT_STORAGE_KEY }\n"
+        },
+        {
+          "path": "ui/theme-provider/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as ThemeProvider } from './ThemeProvider.vue'\nexport { useTheme, DEFAULT_STORAGE_KEY } from './context'\nexport { applyThemeToDocument, readStoredTheme, systemTheme, themeScript } from './theme'\nexport type { ThemeApi } from './context'\nexport type { ThemeProviderProps } from './ThemeProvider.vue'\nexport type { ResolvedTheme, ThemeChoice } from './theme'\n"
+        }
+      ]
+    },
+    {
+      "name": "theme-switcher",
+      "type": "registry:ui",
+      "title": "Theme Switcher",
+      "description": "Ghost button opening a radio menu with system, light and dark choices.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "theme-provider",
+        "button",
+        "dropdown-menu"
+      ],
+      "docs": "Requires a ThemeProvider above it and uses useTheme(), so the menu, the html class and localStorage always agree. The icon slot receives the current choice for rendering a matching icon. Labels default to System, Light and Dark and can be overridden per locale.",
+      "files": [
+        {
+          "path": "ui/theme-switcher/ThemeSwitcher.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed } from 'vue'\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuTrigger,\n} from '../dropdown-menu'\nimport { Button } from '../button'\nimport { useTheme } from '../theme-provider'\nimport type { ThemeChoice } from '../theme-provider'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type ThemeSwitcherProps = {\n  /** Accessible name for the trigger. */\n  label?: string\n  labels?: Record<ThemeChoice, string>\n}\n\nconst props = withDefaults(defineProps<ThemeSwitcherProps>(), {\n  label: 'Appearance',\n  labels: () => ({ system: 'System', light: 'Light', dark: 'Dark' }),\n})\n\nconst { theme, setTheme } = useTheme()\n\nconst choices: readonly ThemeChoice[] = ['system', 'light', 'dark']\n\n// The radio group wants a plain string model; the injected ref stays the single source.\nconst model = computed({\n  get: () => theme.value,\n  set: (next: string) => setTheme(next as ThemeChoice),\n})\n</script>\n\n<template>\n  <DropdownMenu v-bind=\"$attrs\">\n    <DropdownMenuTrigger as-child>\n      <Button variant=\"ghost\" size=\"sm\" :aria-label=\"props.label\">\n        <slot name=\"icon\" :theme=\"theme\">\n          <span data-theme-label>{{ props.labels[theme] }}</span>\n        </slot>\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent align=\"end\" :min-width=\"160\">\n      <DropdownMenuRadioGroup v-model=\"model\">\n        <DropdownMenuRadioItem\n          v-for=\"choice in choices\"\n          :key=\"choice\"\n          :value=\"choice\"\n          :data-testid=\"`theme-${choice}`\"\n        >\n          {{ props.labels[choice] }}\n        </DropdownMenuRadioItem>\n      </DropdownMenuRadioGroup>\n    </DropdownMenuContent>\n  </DropdownMenu>\n</template>\n"
+        },
+        {
+          "path": "ui/theme-switcher/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as ThemeSwitcher } from './ThemeSwitcher.vue'\nexport type { ThemeSwitcherProps } from './ThemeSwitcher.vue'\n"
+        }
+      ]
     }
   ]
 }
