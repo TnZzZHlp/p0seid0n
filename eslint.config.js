@@ -41,6 +41,8 @@ export default tseslint.config(
     ignores: [
       'node_modules/',
       'dist/',
+      'packages/cli/dist/',
+      'packages/cli/*.tgz',
       'apps/docs/.vitepress/dist/',
       'apps/docs/.vitepress/cache/',
       'apps/docs/public/r/',

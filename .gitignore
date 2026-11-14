@@ -2,7 +2,9 @@ node_modules/
 .pnpm-store/
 
 dist/
+packages/cli/*.tgz
 **/.vitepress/dist/
+packages/cli/*.tgz
 **/.vitepress/cache/
 *.tsbuildinfo
 .eslintcache

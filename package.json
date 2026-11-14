@@ -9,10 +9,11 @@
     "ui:install": "node scripts/install-ui.ts",
     "docs:dev": "pnpm ui:install && pnpm -C apps/docs dev",
     "docs:build": "pnpm ui:install && pnpm -C apps/docs build",
-    "typecheck": "vue-tsc --noEmit -p tsconfig.json && vue-tsc --noEmit -p apps/docs/tsconfig.json",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json && vue-tsc --noEmit -p apps/docs/tsconfig.json && tsc -p packages/cli/tsconfig.json --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "docs:preview": "pnpm -C apps/docs preview"
+    "docs:preview": "pnpm -C apps/docs preview",
+    "cli:build": "pnpm -C packages/cli build"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -1,0 +1,32 @@
+{
+  "name": "p0seid0n",
+  "version": "0.1.0",
+  "description": "Install p0seid0n UI components into a Vue and Tailwind project.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "p0seid0n": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "vue",
+    "tailwind",
+    "ui",
+    "registry",
+    "cli"
+  ]
+}
