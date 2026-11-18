@@ -33,7 +33,9 @@ import popoverBasic from '../../src/examples/popover-basic.vue?raw'
 import alertDialogBasic from '../../src/examples/alert-dialog-basic.vue?raw'
 import sheetSides from '../../src/examples/sheet-sides.vue?raw'
 import accordionBasic from '../../src/examples/accordion-basic.vue?raw'
+import accordionMultiple from '../../src/examples/accordion-multiple.vue?raw'
 import breadcrumbBasic from '../../src/examples/breadcrumb-basic.vue?raw'
+import breadcrumbCustom from '../../src/examples/breadcrumb-custom.vue?raw'
 import paginationBasic from '../../src/examples/pagination-basic.vue?raw'
 import alertVariants from '../../src/examples/alert-variants.vue?raw'
 import progressStates from '../../src/examples/progress-states.vue?raw'
@@ -85,7 +87,9 @@ const sources: Record<string, string> = {
   'alert-dialog-basic': alertDialogBasic,
   'sheet-sides': sheetSides,
   'accordion-basic': accordionBasic,
+  'accordion-multiple': accordionMultiple,
   'breadcrumb-basic': breadcrumbBasic,
+  'breadcrumb-custom': breadcrumbCustom,
   'pagination-basic': paginationBasic,
   'alert-variants': alertVariants,
   'progress-states': progressStates,
@@ -160,12 +164,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="example-surface my-4">
+  <div class="vp-raw example-surface my-4">
     <slot />
   </div>
-  <details class="my-4 overflow-hidden rounded-panel border border-line bg-raised">
+  <details class="vp-raw my-4 overflow-hidden rounded-panel border border-line bg-raised">
     <summary
-      class="flex cursor-pointer items-center justify-between px-4 py-2 text-[13px] font-medium text-ink-muted select-none hover:text-ink"
+      class="m-0 flex cursor-pointer items-center justify-between px-4 py-2 text-[13px] font-medium text-ink-muted select-none hover:text-ink"
     >
       <span>Source</span>
       <button

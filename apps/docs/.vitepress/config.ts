@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig } from 'vitepress'
+import { defineConfig, postcssIsolateStyles } from 'vitepress'
 
 const srcDir = fileURLToPath(new URL('../src', import.meta.url))
 
@@ -106,6 +106,12 @@ export default defineConfig({
     // VitePress bundles its own Vite major, so its plugin type and the one
     // @tailwindcss/vite declares do not unify. The runtime object is compatible.
     plugins: [tailwindcss() as never],
+    css: {
+      postcss: {
+        // Scope VitePress base/doc typography rules away from `.vp-raw` live examples.
+        plugins: [postcssIsolateStyles({ includeFiles: [/vp-doc\.css/, /base\.css/] }) as never],
+      },
+    },
     resolve: {
       alias: {
         // The installed artifacts are the only component source; nothing here

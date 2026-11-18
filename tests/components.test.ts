@@ -292,4 +292,56 @@ describe('component SFC regression contracts', () => {
     const progress = readFileSync(join(repoRoot, 'registry/ui/progress/Progress.vue'), 'utf8')
     assert.match(progress, /motion-safe:animate-progress-indeterminate/)
   })
+
+  it('defends Breadcrumb against prose list/link leakage and wires Accordion ARIA & type inference', () => {
+    const breadcrumbList = readFileSync(
+      join(repoRoot, 'registry/ui/breadcrumb/BreadcrumbList.vue'),
+      'utf8',
+    )
+    assert.match(breadcrumbList, /\bm-0\b/)
+    assert.match(breadcrumbList, /\blist-none\b/)
+    assert.match(breadcrumbList, /\bp-0\b/)
+
+    const breadcrumbItem = readFileSync(
+      join(repoRoot, 'registry/ui/breadcrumb/BreadcrumbItem.vue'),
+      'utf8',
+    )
+    assert.match(breadcrumbItem, /\bm-0\b/)
+    assert.match(breadcrumbItem, /\binline-flex\b/)
+    assert.match(breadcrumbItem, /\blist-none\b/)
+
+    const breadcrumbSeparator = readFileSync(
+      join(repoRoot, 'registry/ui/breadcrumb/BreadcrumbSeparator.vue'),
+      'utf8',
+    )
+    assert.match(breadcrumbSeparator, /\bm-0\b/)
+    assert.match(breadcrumbSeparator, /\binline-flex\b/)
+    assert.match(breadcrumbSeparator, /\blist-none\b/)
+    assert.match(breadcrumbSeparator, /\[&>svg\]:size-3\.5/)
+
+    const breadcrumbLink = readFileSync(
+      join(repoRoot, 'registry/ui/breadcrumb/BreadcrumbLink.vue'),
+      'utf8',
+    )
+    assert.match(breadcrumbLink, /\bno-underline\b/)
+
+    const accordion = readFileSync(join(repoRoot, 'registry/ui/accordion/Accordion.vue'), 'utf8')
+    assert.match(accordion, /type:\s*undefined/)
+    assert.match(accordion, /Array\.isArray\(model\.value \?\? props\.defaultValue\)/)
+
+    const accordionTrigger = readFileSync(
+      join(repoRoot, 'registry/ui/accordion/AccordionTrigger.vue'),
+      'utf8',
+    )
+    assert.match(accordionTrigger, /injectCollapsibleRootContext\(null\)/)
+    assert.match(accordionTrigger, /collapsibleContext\.contentId = fallbackContentId/)
+    assert.match(accordionTrigger, /<AccordionHeader class="m-0 flex">/)
+    assert.match(accordionTrigger, /group-hover:text-ink/)
+
+    const accordionContent = readFileSync(
+      join(repoRoot, 'registry/ui/accordion/AccordionContent.vue'),
+      'utf8',
+    )
+    assert.match(accordionContent, /\[&>p\]:m-0/)
+  })
 })

@@ -223,6 +223,32 @@ describe('CLI utilities and end-to-end installation', () => {
       assert.ok(commandResult.created.includes('app/ui/command/CommandDialog.vue'))
       assert.ok(commandResult.created.includes('app/ui/dialog/Dialog.vue'))
       assert.ok(commandResult.unchanged.includes('app/helpers/cn.ts'))
+
+      const navResult = await add({
+        cwd: dir,
+        items: ['breadcrumb', 'accordion'],
+        overwrite: false,
+        install: false,
+        registry: registryOutputDir,
+      })
+      assert.equal(navResult.conflicts.length, 0)
+      assert.ok(navResult.created.includes('app/ui/breadcrumb/Breadcrumb.vue'))
+      assert.ok(navResult.created.includes('app/ui/breadcrumb/BreadcrumbSeparator.vue'))
+      assert.ok(navResult.created.includes('app/ui/accordion/Accordion.vue'))
+      assert.ok(navResult.created.includes('app/ui/accordion/AccordionTrigger.vue'))
+      assert.ok(navResult.unchanged.includes('app/helpers/cn.ts'))
+      assert.ok(navResult.unchanged.includes('app/styles/p0seid0n.css'))
+
+      const breadcrumbListContent = readFileSync(
+        join(dir, 'app/ui/breadcrumb/BreadcrumbList.vue'),
+        'utf8',
+      )
+      assert.match(breadcrumbListContent, /from '~\/helpers\/cn'/)
+      const accordionTriggerContent = readFileSync(
+        join(dir, 'app/ui/accordion/AccordionTrigger.vue'),
+        'utf8',
+      )
+      assert.match(accordionTriggerContent, /from '~\/helpers\/cn'/)
     })
   })
 })

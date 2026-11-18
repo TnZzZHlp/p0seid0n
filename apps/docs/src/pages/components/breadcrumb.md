@@ -4,6 +4,7 @@ title: Breadcrumb
 
 <script setup lang="ts">
 import BreadcrumbBasic from '../../examples/breadcrumb-basic.vue'
+import BreadcrumbCustom from '../../examples/breadcrumb-custom.vue'
 </script>
 
 # Breadcrumb
@@ -13,10 +14,13 @@ marker and a current-page indicator.
 
 <Example name="breadcrumb-basic"><BreadcrumbBasic /></Example>
 
-## Router links
+## Custom separator and as-child
 
-`BreadcrumbLink` uses reka-ui's `Primitive`, so you can pass `as-child` to wrap
-a framework router link while preserving the muted hover colour and focus ring:
+`BreadcrumbSeparator` accepts any icon slot content, and `BreadcrumbLink` uses
+reka-ui's `Primitive`, so passing `as-child` lets you wrap a `<button>` or
+framework router link while preserving the muted hover colour and focus ring:
+
+<Example name="breadcrumb-custom"><BreadcrumbCustom /></Example>
 
 ```vue
 <BreadcrumbLink as-child>

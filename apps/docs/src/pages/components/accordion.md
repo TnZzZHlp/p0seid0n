@@ -4,6 +4,7 @@ title: Accordion
 
 <script setup lang="ts">
 import AccordionBasic from '../../examples/accordion-basic.vue'
+import AccordionMultiple from '../../examples/accordion-multiple.vue'
 </script>
 
 # Accordion
@@ -12,6 +13,14 @@ Vertically stacked disclosure sections built on reka-ui, supporting single or
 multiple open panels.
 
 <Example name="accordion-basic"><AccordionBasic /></Example>
+
+## Multiple panels, disabled items and custom icons
+
+Pass an array to `default-value` or `v-model` (or set `type="multiple"`) to
+allow several sections open at once, mark individual `AccordionItem` entries
+`disabled`, and override the indicator through `AccordionTrigger`'s `icon` slot.
+
+<Example name="accordion-multiple"><AccordionMultiple /></Example>
 
 ## Motion
 

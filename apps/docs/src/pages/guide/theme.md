@@ -131,7 +131,7 @@ preview. Nothing is rebuilt.
   <Badge :variant="applied ? 'accent' : 'outline'">{{ applied ? 'overridden' : 'defaults' }}</Badge>
 </div>
 
-<div class="example-surface">
+<div class="vp-raw example-surface">
   <div class="flex flex-wrap items-center gap-3">
     <Button>Primary</Button>
     <Button variant="secondary">Secondary</Button>
