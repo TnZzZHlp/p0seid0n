@@ -196,6 +196,33 @@ describe('CLI utilities and end-to-end installation', () => {
       })
       assert.equal(third.conflicts.length, 0)
       assert.deepEqual(third.updated, ['app/ui/button/Button.vue'])
+
+      const alertResult = await add({
+        cwd: dir,
+        items: ['alert-dialog'],
+        overwrite: false,
+        install: false,
+        registry: registryOutputDir,
+      })
+      assert.equal(alertResult.conflicts.length, 0)
+      assert.ok(alertResult.created.includes('app/ui/alert-dialog/AlertDialog.vue'))
+      assert.ok(alertResult.created.includes('app/ui/alert-dialog/AlertDialogAction.vue'))
+      assert.ok(alertResult.unchanged.includes('app/ui/button/Button.vue'))
+      assert.ok(alertResult.unchanged.includes('app/helpers/cn.ts'))
+      assert.ok(alertResult.unchanged.includes('app/styles/p0seid0n.css'))
+
+      const commandResult = await add({
+        cwd: dir,
+        items: ['command'],
+        overwrite: false,
+        install: false,
+        registry: registryOutputDir,
+      })
+      assert.equal(commandResult.conflicts.length, 0)
+      assert.ok(commandResult.created.includes('app/ui/command/Command.vue'))
+      assert.ok(commandResult.created.includes('app/ui/command/CommandDialog.vue'))
+      assert.ok(commandResult.created.includes('app/ui/dialog/Dialog.vue'))
+      assert.ok(commandResult.unchanged.includes('app/helpers/cn.ts'))
     })
   })
 })

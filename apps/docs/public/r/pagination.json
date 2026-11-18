@@ -1,0 +1,69 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "pagination",
+  "type": "registry:ui",
+  "title": "Pagination",
+  "description": "Page navigation controls built on reka-ui, with condensed tabular page numbers and edge buttons.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Pass total and itemsPerPage, and bind v-model:page (or defaultPage for uncontrolled usage). PaginationList exposes the computed items array of page and ellipsis entries through its scoped slot.",
+  "files": [
+    {
+      "path": "ui/pagination/Pagination.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationProps = {\n  total?: number\n  itemsPerPage?: number\n  siblingCount?: number\n  showEdges?: boolean\n  defaultPage?: number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<PaginationProps>(), {\n  total: 0,\n  itemsPerPage: 10,\n  siblingCount: 1,\n  showEdges: true,\n  defaultPage: 1,\n  disabled: false,\n})\n\nconst page = defineModel<number>('page')\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationRoot\n    v-slot=\"slotProps\"\n    v-model:page=\"page\"\n    aria-label=\"Pagination\"\n    v-bind=\"forwarded\"\n    :default-page=\"defaultPage\"\n    :total=\"total\"\n    :items-per-page=\"itemsPerPage\"\n    :sibling-count=\"siblingCount\"\n    :show-edges=\"showEdges\"\n    :disabled=\"disabled\"\n    :class=\"cn('mx-auto flex w-full justify-center', attrs.class as ClassValue)\"\n  >\n    <slot v-bind=\"slotProps\" />\n  </PaginationRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/PaginationList.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationList } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationList\n    v-slot=\"{ items }\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex flex-wrap items-center gap-1', attrs.class as ClassValue)\"\n  >\n    <slot :items=\"items\" />\n  </PaginationList>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/PaginationListItem.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationListItem } from 'reka-ui'\nimport { paginationItemButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationListItemProps = {\n  value: number\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationListItemProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationListItem\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationItemButton, attrs.class as ClassValue)\"\n  >\n    <slot>{{ value }}</slot>\n  </PaginationListItem>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/PaginationFirst.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationFirst } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationFirstProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationFirstProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationFirst\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M11 12 7 8l4-4\" />\n        <path d=\"M6 12 2 8l4-4\" />\n      </svg>\n    </slot>\n  </PaginationFirst>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/PaginationPrev.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationPrev } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationPrevProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationPrevProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationPrev\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M10 12 6 8l4-4\" />\n      </svg>\n    </slot>\n  </PaginationPrev>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/PaginationNext.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationNext } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationNextProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationNextProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationNext\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"m6 12 4-4-4-4\" />\n      </svg>\n    </slot>\n  </PaginationNext>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/PaginationLast.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationLast } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationLastProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationLastProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationLast\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"m5 12 4-4-4-4\" />\n        <path d=\"m10 12 4-4-4-4\" />\n      </svg>\n    </slot>\n  </PaginationLast>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/PaginationEllipsis.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationEllipsis } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationEllipsis\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'inline-flex size-9 items-center justify-center text-ink-faint select-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot>\n      <svg class=\"size-4\" viewBox=\"0 0 16 16\" fill=\"currentColor\" aria-hidden=\"true\">\n        <circle cx=\"3.5\" cy=\"8\" r=\"1.25\" />\n        <circle cx=\"8\" cy=\"8\" r=\"1.25\" />\n        <circle cx=\"12.5\" cy=\"8\" r=\"1.25\" />\n      </svg>\n    </slot>\n  </PaginationEllipsis>\n</template>\n"
+    },
+    {
+      "path": "ui/pagination/styles.ts",
+      "type": "registry:ui",
+      "content": "export const paginationButton = [\n  'inline-flex h-9 min-w-9 cursor-pointer select-none items-center justify-center gap-1 rounded-control px-2.5',\n  'text-[13px] font-medium text-ink-muted',\n  'outline-none hover:bg-control hover:text-ink',\n  'focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'disabled:pointer-events-none disabled:opacity-55',\n  'transition-[background-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n].join(' ')\n\nexport const paginationItemButton = [\n  paginationButton,\n  'font-condensed text-[15px] tracking-[-0.01em] tabular-nums',\n  'data-[selected]:bg-ink data-[selected]:text-surface data-[selected]:hover:bg-ink data-[selected]:hover:text-surface',\n].join(' ')\n"
+    },
+    {
+      "path": "ui/pagination/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Pagination } from './Pagination.vue'\nexport { default as PaginationList } from './PaginationList.vue'\nexport { default as PaginationListItem } from './PaginationListItem.vue'\nexport { default as PaginationFirst } from './PaginationFirst.vue'\nexport { default as PaginationPrev } from './PaginationPrev.vue'\nexport { default as PaginationNext } from './PaginationNext.vue'\nexport { default as PaginationLast } from './PaginationLast.vue'\nexport { default as PaginationEllipsis } from './PaginationEllipsis.vue'\n\nexport type { PaginationProps } from './Pagination.vue'\nexport type { PaginationListItemProps } from './PaginationListItem.vue'\nexport type { PaginationFirstProps } from './PaginationFirst.vue'\nexport type { PaginationPrevProps } from './PaginationPrev.vue'\nexport type { PaginationNextProps } from './PaginationNext.vue'\nexport type { PaginationLastProps } from './PaginationLast.vue'\n"
+    }
+  ]
+}

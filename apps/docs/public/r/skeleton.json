@@ -1,0 +1,28 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "description": "Animated placeholder block that marks loading layout regions without colour literals.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Size Skeleton with utility classes such as h-4 w-48 or size-10 rounded-full. The element is aria-hidden by default and disables its pulse under prefers-reduced-motion.",
+  "files": [
+    {
+      "path": "ui/skeleton/Skeleton.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    aria-hidden=\"true\"\n    v-bind=\"forwarded\"\n    :class=\"cn('rounded-control bg-control motion-safe:animate-pulse', attrs.class as ClassValue)\"\n  />\n</template>\n"
+    },
+    {
+      "path": "ui/skeleton/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Skeleton } from './Skeleton.vue'\n"
+    }
+  ]
+}

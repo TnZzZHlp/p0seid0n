@@ -14,7 +14,7 @@
         {
           "path": "styles/p0seid0n.css",
           "type": "registry:file",
-          "content": ":root {\n  color-scheme: light dark;\n\n  --p0seid0n-surface: light-dark(#F5F6F8, #121419);\n  --p0seid0n-raised: light-dark(#FFFFFF, #1A1D24);\n  --p0seid0n-ink: light-dark(#15181F, #ECEEF2);\n  --p0seid0n-ink-muted: light-dark(#5B6270, #969CAA);\n  --p0seid0n-ink-faint: light-dark(#A3A9B5, #5E6473);\n  --p0seid0n-line: light-dark(#DDE1E7, #2A2E37);\n  --p0seid0n-control: light-dark(#E7EAEF, #2B303A);\n  --p0seid0n-download: light-dark(#2F6FE4, #5B8DEF);\n  --p0seid0n-upload: light-dark(#C8731A, #C97C26);\n  /* Derived, not taken from the reference palette: the upload colour is too light\n     to carry surface-coloured text at 4.5:1, so it is mixed toward the ink. */\n  --p0seid0n-danger: color-mix(in oklab, var(--p0seid0n-upload) 80%, var(--p0seid0n-ink));\n\n  --p0seid0n-radius-control: 12px;\n  --p0seid0n-radius-panel: 16px;\n  --p0seid0n-radius-panel-lg: 20px;\n\n  --p0seid0n-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));\n\n  --p0seid0n-ease-out: cubic-bezier(0.16, 1, 0.3, 1);\n  --p0seid0n-ease-in: cubic-bezier(0.4, 0, 1, 1);\n  --p0seid0n-ease-spring: cubic-bezier(0.22, 1, 0.36, 1);\n\n  --p0seid0n-duration-fast: 120ms;\n  --p0seid0n-duration-normal: 160ms;\n  --p0seid0n-duration-slow: 200ms;\n}\n\n:root.light {\n  color-scheme: light;\n}\n\n:root.dark {\n  color-scheme: dark;\n}\n\n@theme inline {\n  --color-surface: var(--p0seid0n-surface);\n  --color-raised: var(--p0seid0n-raised);\n  --color-ink: var(--p0seid0n-ink);\n  --color-ink-muted: var(--p0seid0n-ink-muted);\n  --color-ink-faint: var(--p0seid0n-ink-faint);\n  --color-line: var(--p0seid0n-line);\n  --color-control: var(--p0seid0n-control);\n  --color-accent: var(--p0seid0n-download);\n  --color-accent-alt: var(--p0seid0n-upload);\n  --color-danger: var(--p0seid0n-danger);\n\n  --radius-control: var(--p0seid0n-radius-control);\n  --radius-panel: var(--p0seid0n-radius-panel);\n  --radius-panel-lg: var(--p0seid0n-radius-panel-lg);\n\n  --font-sans: var(--font-barlow, \"Barlow\"), system-ui, sans-serif;\n  --font-condensed:\n    var(--font-barlow-semi-condensed, \"Barlow Semi Condensed\"), var(--font-barlow, \"Barlow\"),\n    system-ui, sans-serif;\n\n  --shadow-popup: var(--p0seid0n-shadow-popup);\n\n  --ease-out-expo: var(--p0seid0n-ease-out);\n  --ease-in-quad: var(--p0seid0n-ease-in);\n  --ease-spring: var(--p0seid0n-ease-spring);\n\n  --animate-fade-in: p0seid0n-fade-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);\n  --animate-fade-out: p0seid0n-fade-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n  --animate-dialog-in: p0seid0n-dialog-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);\n  --animate-dialog-out: p0seid0n-dialog-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n  --animate-pop-in: p0seid0n-pop-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);\n  --animate-pop-out: p0seid0n-pop-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n  --animate-panel-in: p0seid0n-panel-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);\n  --animate-toast-in: p0seid0n-toast-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);\n  --animate-toast-out: p0seid0n-toast-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in);\n  --animate-check-in: p0seid0n-check-in var(--p0seid0n-duration-fast) var(--p0seid0n-ease-spring);\n  --animate-check-out: p0seid0n-check-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n}\n\n@keyframes p0seid0n-fade-in {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n\n@keyframes p0seid0n-fade-out {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes p0seid0n-dialog-in {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 6px, 0) scale(0.96);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n}\n\n@keyframes p0seid0n-dialog-out {\n  from {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translate3d(0, 4px, 0) scale(0.97);\n  }\n}\n\n@keyframes p0seid0n-pop-in {\n  from {\n    opacity: 0;\n    transform: translate3d(var(--p0seid0n-pop-x, 0px), var(--p0seid0n-pop-y, -4px), 0) scale(0.96);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n}\n\n@keyframes p0seid0n-pop-out {\n  from {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translate3d(var(--p0seid0n-pop-x, 0px), var(--p0seid0n-pop-y, -3px), 0) scale(0.97);\n  }\n}\n\n@keyframes p0seid0n-panel-in {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3px, 0);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes p0seid0n-toast-in {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 10px, 0) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n}\n\n@keyframes p0seid0n-toast-out {\n  from {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translate3d(16px, 0, 0) scale(0.97);\n  }\n}\n\n@keyframes p0seid0n-check-in {\n  from {\n    opacity: 0;\n    transform: scale(0.4);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n\n@keyframes p0seid0n-check-out {\n  from {\n    opacity: 1;\n    transform: scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: scale(0.4);\n  }\n}\n",
+          "content": ":root {\n  color-scheme: light dark;\n\n  --p0seid0n-surface: light-dark(#F5F6F8, #121419);\n  --p0seid0n-raised: light-dark(#FFFFFF, #1A1D24);\n  --p0seid0n-ink: light-dark(#15181F, #ECEEF2);\n  --p0seid0n-ink-muted: light-dark(#5B6270, #969CAA);\n  --p0seid0n-ink-faint: light-dark(#A3A9B5, #5E6473);\n  --p0seid0n-line: light-dark(#DDE1E7, #2A2E37);\n  --p0seid0n-control: light-dark(#E7EAEF, #2B303A);\n  --p0seid0n-download: light-dark(#2F6FE4, #5B8DEF);\n  --p0seid0n-upload: light-dark(#C8731A, #C97C26);\n  /* Derived, not taken from the reference palette: the upload colour is too light\n     to carry surface-coloured text at 4.5:1, so it is mixed toward the ink. */\n  --p0seid0n-danger: color-mix(in oklab, var(--p0seid0n-upload) 80%, var(--p0seid0n-ink));\n\n  --p0seid0n-radius-control: 12px;\n  --p0seid0n-radius-panel: 16px;\n  --p0seid0n-radius-panel-lg: 20px;\n\n  --p0seid0n-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));\n\n  --p0seid0n-ease-out: cubic-bezier(0.16, 1, 0.3, 1);\n  --p0seid0n-ease-in: cubic-bezier(0.4, 0, 1, 1);\n  --p0seid0n-ease-spring: cubic-bezier(0.22, 1, 0.36, 1);\n\n  --p0seid0n-duration-fast: 120ms;\n  --p0seid0n-duration-normal: 160ms;\n  --p0seid0n-duration-slow: 200ms;\n}\n\n:root.light {\n  color-scheme: light;\n}\n\n:root.dark {\n  color-scheme: dark;\n}\n\n@theme inline {\n  --color-surface: var(--p0seid0n-surface);\n  --color-raised: var(--p0seid0n-raised);\n  --color-ink: var(--p0seid0n-ink);\n  --color-ink-muted: var(--p0seid0n-ink-muted);\n  --color-ink-faint: var(--p0seid0n-ink-faint);\n  --color-line: var(--p0seid0n-line);\n  --color-control: var(--p0seid0n-control);\n  --color-accent: var(--p0seid0n-download);\n  --color-accent-alt: var(--p0seid0n-upload);\n  --color-danger: var(--p0seid0n-danger);\n\n  --radius-control: var(--p0seid0n-radius-control);\n  --radius-panel: var(--p0seid0n-radius-panel);\n  --radius-panel-lg: var(--p0seid0n-radius-panel-lg);\n\n  --font-sans: var(--font-barlow, \"Barlow\"), system-ui, sans-serif;\n  --font-condensed:\n    var(--font-barlow-semi-condensed, \"Barlow Semi Condensed\"), var(--font-barlow, \"Barlow\"),\n    system-ui, sans-serif;\n\n  --shadow-popup: var(--p0seid0n-shadow-popup);\n\n  --ease-out-expo: var(--p0seid0n-ease-out);\n  --ease-in-quad: var(--p0seid0n-ease-in);\n  --ease-spring: var(--p0seid0n-ease-spring);\n\n  --animate-fade-in: p0seid0n-fade-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);\n  --animate-fade-out: p0seid0n-fade-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n  --animate-dialog-in: p0seid0n-dialog-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);\n  --animate-dialog-out: p0seid0n-dialog-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n  --animate-pop-in: p0seid0n-pop-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);\n  --animate-pop-out: p0seid0n-pop-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n  --animate-panel-in: p0seid0n-panel-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);\n  --animate-toast-in: p0seid0n-toast-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);\n  --animate-toast-out: p0seid0n-toast-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in);\n  --animate-check-in: p0seid0n-check-in var(--p0seid0n-duration-fast) var(--p0seid0n-ease-spring);\n  --animate-check-out: p0seid0n-check-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);\n  --animate-accordion-down: p0seid0n-accordion-down var(--p0seid0n-duration-normal)\n    var(--p0seid0n-ease-out);\n  --animate-accordion-up: p0seid0n-accordion-up var(--p0seid0n-duration-fast)\n    var(--p0seid0n-ease-in);\n  --animate-sheet-in: p0seid0n-sheet-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);\n  --animate-sheet-out: p0seid0n-sheet-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in);\n  --animate-progress-indeterminate: p0seid0n-progress-indeterminate 1.4s var(--p0seid0n-ease-out)\n    infinite;\n}\n\n@keyframes p0seid0n-fade-in {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n\n@keyframes p0seid0n-fade-out {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes p0seid0n-dialog-in {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 6px, 0) scale(0.96);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n}\n\n@keyframes p0seid0n-dialog-out {\n  from {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translate3d(0, 4px, 0) scale(0.97);\n  }\n}\n\n@keyframes p0seid0n-pop-in {\n  from {\n    opacity: 0;\n    transform: translate3d(var(--p0seid0n-pop-x, 0px), var(--p0seid0n-pop-y, -4px), 0) scale(0.96);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n}\n\n@keyframes p0seid0n-pop-out {\n  from {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translate3d(var(--p0seid0n-pop-x, 0px), var(--p0seid0n-pop-y, -3px), 0) scale(0.97);\n  }\n}\n\n@keyframes p0seid0n-panel-in {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3px, 0);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes p0seid0n-toast-in {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 10px, 0) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n}\n\n@keyframes p0seid0n-toast-out {\n  from {\n    opacity: 1;\n    transform: translate3d(0, 0, 0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translate3d(16px, 0, 0) scale(0.97);\n  }\n}\n\n@keyframes p0seid0n-check-in {\n  from {\n    opacity: 0;\n    transform: scale(0.4);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n\n@keyframes p0seid0n-check-out {\n  from {\n    opacity: 1;\n    transform: scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: scale(0.4);\n  }\n}\n\n@keyframes p0seid0n-accordion-down {\n  from {\n    height: 0;\n    opacity: 0;\n  }\n  to {\n    height: var(--reka-accordion-content-height);\n    opacity: 1;\n  }\n}\n\n@keyframes p0seid0n-accordion-up {\n  from {\n    height: var(--reka-accordion-content-height);\n    opacity: 1;\n  }\n  to {\n    height: 0;\n    opacity: 0;\n  }\n}\n\n@keyframes p0seid0n-sheet-in {\n  from {\n    transform: translate3d(var(--p0seid0n-sheet-x, 100%), var(--p0seid0n-sheet-y, 0), 0);\n  }\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes p0seid0n-sheet-out {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n  to {\n    transform: translate3d(var(--p0seid0n-sheet-x, 100%), var(--p0seid0n-sheet-y, 0), 0);\n  }\n}\n\n@keyframes p0seid0n-progress-indeterminate {\n  0% {\n    transform: translateX(-100%);\n  }\n  100% {\n    transform: translateX(250%);\n  }\n}\n",
           "target": "styles/p0seid0n.css"
         }
       ]
@@ -682,6 +682,909 @@
           "path": "ui/theme-switcher/index.ts",
           "type": "registry:ui",
           "content": "export { default as ThemeSwitcher } from './ThemeSwitcher.vue'\nexport type { ThemeSwitcherProps } from './ThemeSwitcher.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text field with a focus ring, an aria-driven invalid state and a disabled state.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model. Set invalid to render aria-invalid and the danger border. Pass rows to adjust the initial height and point a Label at its id so the two stay associated.",
+      "files": [
+        {
+          "path": "ui/textarea/Textarea.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest['aria-invalid']\n  return rest\n})\n\nexport type TextareaProps = {\n  /** Marks the field as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n  disabled?: boolean\n  id?: string\n  rows?: number\n}\n\nconst props = withDefaults(defineProps<TextareaProps>(), {\n  invalid: false,\n  disabled: false,\n  id: undefined,\n  rows: 4,\n})\n\nconst model = defineModel<string>({ default: '' })\n\nconst ariaInvalid = computed(() => {\n  if (props.invalid) return 'true'\n  return attrs['aria-invalid'] as 'true' | 'false' | 'grammar' | 'spelling' | undefined\n})\n</script>\n\n<template>\n  <textarea\n    v-bind=\"forwarded\"\n    :id=\"id\"\n    v-model=\"model\"\n    :rows=\"rows\"\n    :disabled=\"disabled\"\n    :aria-invalid=\"ariaInvalid\"\n    :class=\"\n      cn(\n        'min-h-24 w-full rounded-control border border-line bg-control px-3 py-2.5 text-[15px] leading-relaxed text-ink',\n        'placeholder:text-ink-muted',\n        'outline-none focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,color,border-color,outline-color,box-shadow] duration-[var(--p0seid0n-duration-normal)] ease-out-expo motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  />\n</template>\n"
+        },
+        {
+          "path": "ui/textarea/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Textarea } from './Textarea.vue'\nexport type { TextareaProps } from './Textarea.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checked, unchecked and indeterminate control built on reka-ui, with an optional indicator slot.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model (boolean or \"indeterminate\"). Space toggles it and aria-checked mirrors mixed when indeterminate. Pass invalid for the danger border, or replace the check mark through the indicator slot.",
+      "files": [
+        {
+          "path": "ui/checkbox/Checkbox.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { CheckboxIndicator, CheckboxRoot, type CheckboxCheckedState } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest['aria-invalid']\n  return rest\n})\n\nexport type CheckboxProps = {\n  defaultValue?: boolean | 'indeterminate'\n  disabled?: boolean\n  required?: boolean\n  name?: string\n  value?: string\n  id?: string\n  /** Marks the control as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n}\n\nconst props = withDefaults(defineProps<CheckboxProps>(), {\n  defaultValue: undefined,\n  disabled: false,\n  required: false,\n  name: undefined,\n  value: undefined,\n  id: undefined,\n  invalid: false,\n})\n\nconst model = defineModel<CheckboxCheckedState>()\n\nconst ariaInvalid = computed(() => {\n  if (props.invalid) return 'true'\n  return attrs['aria-invalid'] as 'true' | 'false' | 'grammar' | 'spelling' | undefined\n})\n</script>\n\n<template>\n  <CheckboxRoot\n    :id=\"id\"\n    v-slot=\"{ state }\"\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :default-value=\"defaultValue\"\n    :disabled=\"disabled\"\n    :required=\"required\"\n    :name=\"name\"\n    :value=\"value\"\n    :aria-invalid=\"ariaInvalid\"\n    :class=\"\n      cn(\n        'peer inline-flex size-5 shrink-0 items-center justify-center rounded-[6px] border border-line bg-control text-surface',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'data-[state=checked]:border-ink data-[state=checked]:bg-ink',\n        'data-[state=indeterminate]:border-ink data-[state=indeterminate]:bg-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,border-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <CheckboxIndicator\n      class=\"flex items-center justify-center text-current motion-safe:animate-check-in data-[state=unchecked]:motion-safe:animate-check-out\"\n    >\n      <slot name=\"indicator\" :state=\"state\">\n        <svg\n          v-if=\"state === 'indeterminate'\"\n          class=\"size-3\"\n          viewBox=\"0 0 12 12\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"M2.5 6h7\" />\n        </svg>\n        <svg\n          v-else\n          class=\"size-3\"\n          viewBox=\"0 0 12 12\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"M2.5 6.5 5 9l4.5-5.5\" />\n        </svg>\n      </slot>\n    </CheckboxIndicator>\n  </CheckboxRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/checkbox/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Checkbox } from './Checkbox.vue'\nexport type { CheckboxProps } from './Checkbox.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Single-choice option list built on reka-ui, supporting vertical and horizontal orientations.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind RadioGroup with v-model and give each RadioGroupItem a string value. Arrow keys move between items and loop by default; set orientation to horizontal to lay items out in a row.",
+      "files": [
+        {
+          "path": "ui/radio-group/RadioGroup.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { RadioGroupRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type RadioGroupProps = {\n  defaultValue?: string\n  disabled?: boolean\n  orientation?: 'horizontal' | 'vertical'\n  loop?: boolean\n  name?: string\n  required?: boolean\n}\n\nwithDefaults(defineProps<RadioGroupProps>(), {\n  defaultValue: undefined,\n  disabled: false,\n  orientation: 'vertical',\n  loop: true,\n  name: undefined,\n  required: false,\n})\n\nconst model = defineModel<string>()\n</script>\n\n<template>\n  <RadioGroupRoot\n    v-bind=\"forwarded\"\n    v-model=\"model\"\n    :default-value=\"defaultValue\"\n    :disabled=\"disabled\"\n    :orientation=\"orientation\"\n    :loop=\"loop\"\n    :name=\"name\"\n    :required=\"required\"\n    :class=\"\n      cn(\n        'grid gap-2.5',\n        'data-[orientation=horizontal]:grid-flow-col data-[orientation=horizontal]:auto-cols-max data-[orientation=horizontal]:items-center data-[orientation=horizontal]:gap-4',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </RadioGroupRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/radio-group/RadioGroupItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { RadioGroupIndicator, RadioGroupItem } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest['aria-invalid']\n  return rest\n})\n\nexport type RadioGroupItemProps = {\n  value: string\n  disabled?: boolean\n  id?: string\n  required?: boolean\n  /** Marks the control as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n}\n\nconst props = withDefaults(defineProps<RadioGroupItemProps>(), {\n  disabled: false,\n  id: undefined,\n  required: false,\n  invalid: false,\n})\n\nconst ariaInvalid = computed(() => {\n  if (props.invalid) return 'true'\n  return attrs['aria-invalid'] as 'true' | 'false' | 'grammar' | 'spelling' | undefined\n})\n</script>\n\n<template>\n  <RadioGroupItem\n    v-bind=\"forwarded\"\n    :id=\"id\"\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :required=\"required\"\n    :aria-invalid=\"ariaInvalid\"\n    :class=\"\n      cn(\n        'inline-flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-control text-surface',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'data-[state=checked]:border-ink data-[state=checked]:bg-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,border-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <RadioGroupIndicator\n      class=\"flex items-center justify-center motion-safe:animate-check-in data-[state=unchecked]:motion-safe:animate-check-out\"\n    >\n      <slot name=\"indicator\">\n        <span class=\"size-2 rounded-full bg-surface\" />\n      </slot>\n    </RadioGroupIndicator>\n  </RadioGroupItem>\n</template>\n"
+        },
+        {
+          "path": "ui/radio-group/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as RadioGroup } from './RadioGroup.vue'\nexport { default as RadioGroupItem } from './RadioGroupItem.vue'\n\nexport type { RadioGroupProps } from './RadioGroup.vue'\nexport type { RadioGroupItemProps } from './RadioGroupItem.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Accessible dropdown selector built on reka-ui, with groups, labels, separators and scroll buttons.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind Select with v-model and v-model:open when needed. Every SelectItem must receive a non-empty value string because empty strings clear the selection and show the placeholder. Set invalid on SelectTrigger for validation errors.",
+      "files": [
+        {
+          "path": "ui/select/Select.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { SelectRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SelectProps = {\n  /** Initial value when uncontrolled. */\n  defaultValue?: string\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n  disabled?: boolean\n  name?: string\n  required?: boolean\n  autocomplete?: string\n}\n\nwithDefaults(defineProps<SelectProps>(), {\n  defaultValue: undefined,\n  defaultOpen: undefined,\n  disabled: false,\n  name: undefined,\n  required: false,\n  autocomplete: undefined,\n})\n\nconst model = defineModel<string>()\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <SelectRoot\n    v-model=\"model\"\n    v-model:open=\"open\"\n    :default-value=\"defaultValue\"\n    :default-open=\"defaultOpen\"\n    :disabled=\"disabled\"\n    :name=\"name\"\n    :required=\"required\"\n    :autocomplete=\"autocomplete\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </SelectRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/select/SelectTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { SelectIcon, SelectTrigger } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest['aria-invalid']\n  return rest\n})\n\nexport type SelectTriggerProps = {\n  disabled?: boolean\n  /** Marks the control as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n  id?: string\n}\n\nconst props = withDefaults(defineProps<SelectTriggerProps>(), {\n  disabled: false,\n  invalid: false,\n  id: undefined,\n})\n\nconst ariaInvalid = computed(() => {\n  if (props.invalid) return 'true'\n  return attrs['aria-invalid'] as 'true' | 'false' | 'grammar' | 'spelling' | undefined\n})\n</script>\n\n<template>\n  <SelectTrigger\n    v-bind=\"forwarded\"\n    :id=\"id\"\n    :disabled=\"disabled\"\n    :aria-invalid=\"ariaInvalid\"\n    :class=\"\n      cn(\n        'inline-flex h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-control border border-line bg-control px-3 text-[15px] text-ink',\n        'data-[placeholder]:text-ink-muted [&>span]:line-clamp-1',\n        'outline-none focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,color,border-color,outline-color,box-shadow] duration-[var(--p0seid0n-duration-normal)] ease-out-expo motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n    <SelectIcon as-child>\n      <slot name=\"icon\">\n        <svg\n          class=\"size-4 shrink-0 text-ink-muted\"\n          viewBox=\"0 0 16 16\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"1.75\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"m4 6 4 4 4-4\" />\n        </svg>\n      </slot>\n    </SelectIcon>\n  </SelectTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/select/SelectValue.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { SelectValue } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SelectValueProps = {\n  placeholder?: string\n}\n\nwithDefaults(defineProps<SelectValueProps>(), {\n  placeholder: undefined,\n})\n</script>\n\n<template>\n  <SelectValue v-if=\"$slots.default\" v-slot=\"slotProps\" :placeholder=\"placeholder\" v-bind=\"$attrs\">\n    <slot v-bind=\"slotProps\" />\n  </SelectValue>\n  <SelectValue v-else :placeholder=\"placeholder\" v-bind=\"$attrs\" />\n</template>\n"
+        },
+        {
+          "path": "ui/select/SelectContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport {\n  SelectContent,\n  SelectPortal,\n  SelectScrollDownButton,\n  SelectScrollUpButton,\n  SelectViewport,\n} from 'reka-ui'\nimport { selectSurface } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SelectContentProps = {\n  position?: 'popper' | 'item-aligned'\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  sideOffset?: number\n  align?: 'start' | 'center' | 'end'\n}\n\nconst props = withDefaults(defineProps<SelectContentProps>(), {\n  position: 'popper',\n  side: 'bottom',\n  sideOffset: 6,\n  align: 'start',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SelectPortal>\n    <SelectContent\n      v-bind=\"forwarded\"\n      :position=\"props.position\"\n      :side=\"props.side\"\n      :side-offset=\"props.sideOffset\"\n      :align=\"props.align\"\n      :class=\"cn(selectSurface, attrs.class as ClassValue)\"\n    >\n      <SelectScrollUpButton\n        class=\"flex cursor-default items-center justify-center py-1 text-ink-muted\"\n      >\n        <svg\n          class=\"size-3.5\"\n          viewBox=\"0 0 16 16\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"1.75\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"m4 10 4-4 4 4\" />\n        </svg>\n      </SelectScrollUpButton>\n      <SelectViewport\n        :class=\"\n          cn(\n            'p-1.5',\n            props.position === 'popper' &&\n              'h-[var(--reka-select-trigger-height)] w-full min-w-[var(--reka-select-trigger-width)]',\n          )\n        \"\n      >\n        <slot />\n      </SelectViewport>\n      <SelectScrollDownButton\n        class=\"flex cursor-default items-center justify-center py-1 text-ink-muted\"\n      >\n        <svg\n          class=\"size-3.5\"\n          viewBox=\"0 0 16 16\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"1.75\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"m4 6 4 4 4-4\" />\n        </svg>\n      </SelectScrollDownButton>\n    </SelectContent>\n  </SelectPortal>\n</template>\n"
+        },
+        {
+          "path": "ui/select/SelectGroup.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { SelectGroup } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n</script>\n\n<template>\n  <SelectGroup v-bind=\"$attrs\">\n    <slot />\n  </SelectGroup>\n</template>\n"
+        },
+        {
+          "path": "ui/select/SelectItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { SelectItem, SelectItemIndicator, SelectItemText } from 'reka-ui'\nimport { selectItem } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SelectItemProps = {\n  value: string\n  disabled?: boolean\n  textValue?: string\n}\n\nwithDefaults(defineProps<SelectItemProps>(), {\n  disabled: false,\n  textValue: undefined,\n})\n\nconst emit = defineEmits<{ select: [event: Event] }>()\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SelectItem\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :text-value=\"textValue\"\n    :class=\"cn(selectItem, attrs.class as ClassValue)\"\n    @select=\"emit('select', $event)\"\n  >\n    <span class=\"flex size-3.5 shrink-0 items-center justify-center\">\n      <SelectItemIndicator\n        class=\"flex items-center justify-center text-ink motion-safe:animate-check-in data-[state=unchecked]:motion-safe:animate-check-out\"\n      >\n        <slot name=\"indicator\">\n          <span class=\"size-1.5 rounded-full bg-ink\" />\n        </slot>\n      </SelectItemIndicator>\n    </span>\n    <SelectItemText>\n      <slot />\n    </SelectItemText>\n  </SelectItem>\n</template>\n"
+        },
+        {
+          "path": "ui/select/SelectLabel.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { SelectLabel } from 'reka-ui'\nimport { selectLabel } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SelectLabel v-bind=\"forwarded\" :class=\"cn(selectLabel, attrs.class as ClassValue)\">\n    <slot />\n  </SelectLabel>\n</template>\n"
+        },
+        {
+          "path": "ui/select/SelectSeparator.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { SelectSeparator } from 'reka-ui'\nimport { selectSeparator } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SelectSeparator v-bind=\"forwarded\" :class=\"cn(selectSeparator, attrs.class as ClassValue)\" />\n</template>\n"
+        },
+        {
+          "path": "ui/select/styles.ts",
+          "type": "registry:ui",
+          "content": "export const selectSurface = [\n  'z-50 max-h-80 min-w-[8rem] overflow-hidden rounded-panel border border-line bg-raised text-ink shadow-popup outline-none',\n  'origin-[var(--reka-select-content-transform-origin)]',\n  'data-[side=bottom]:[--p0seid0n-pop-y:-4px]',\n  'data-[side=top]:[--p0seid0n-pop-y:4px]',\n  'data-[side=left]:[--p0seid0n-pop-x:4px] data-[side=left]:[--p0seid0n-pop-y:0px]',\n  'data-[side=right]:[--p0seid0n-pop-x:-4px] data-[side=right]:[--p0seid0n-pop-y:0px]',\n  'motion-safe:animate-pop-in data-[state=closed]:motion-safe:animate-pop-out',\n].join(' ')\n\nexport const selectItem = [\n  'relative flex h-9 cursor-pointer select-none items-center gap-2 rounded-[10px] px-3',\n  'text-[14px] font-medium text-ink-muted outline-none',\n  'transition-[background-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n  'hover:bg-control hover:text-ink',\n  'focus:bg-control focus:text-ink',\n  'data-[highlighted]:bg-control data-[highlighted]:text-ink',\n  'data-[disabled]:pointer-events-none data-[disabled]:opacity-55',\n].join(' ')\n\nexport const selectLabel = 'px-3 py-1.5 text-[12px] font-medium text-ink-faint'\n\nexport const selectSeparator = 'my-1 h-px bg-line'\n"
+        },
+        {
+          "path": "ui/select/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Select } from './Select.vue'\nexport { default as SelectTrigger } from './SelectTrigger.vue'\nexport { default as SelectValue } from './SelectValue.vue'\nexport { default as SelectContent } from './SelectContent.vue'\nexport { default as SelectGroup } from './SelectGroup.vue'\nexport { default as SelectItem } from './SelectItem.vue'\nexport { default as SelectLabel } from './SelectLabel.vue'\nexport { default as SelectSeparator } from './SelectSeparator.vue'\n\nexport type { SelectProps } from './Select.vue'\nexport type { SelectTriggerProps } from './SelectTrigger.vue'\nexport type { SelectValueProps } from './SelectValue.vue'\nexport type { SelectContentProps } from './SelectContent.vue'\nexport type { SelectItemProps } from './SelectItem.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Single-value and multi-thumb range slider built on reka-ui, with keyboard steps and vertical support.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model as a number array (for example [40] or [20, 80] for a range). Pass thumbLabels to give each thumb its own accessible name when using multiple thumbs, or aria-label for single-thumb sliders.",
+      "files": [
+        {
+          "path": "ui/slider/Slider.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest['aria-label']\n  delete rest['aria-labelledby']\n  return rest\n})\n\nexport type SliderProps = {\n  defaultValue?: number[]\n  min?: number\n  max?: number\n  step?: number\n  minStepsBetweenThumbs?: number\n  orientation?: 'horizontal' | 'vertical'\n  disabled?: boolean\n  inverted?: boolean\n  name?: string\n  /** Optional accessible labels per thumb; falls back to the root aria-label. */\n  thumbLabels?: string[]\n}\n\nconst props = withDefaults(defineProps<SliderProps>(), {\n  defaultValue: () => [0],\n  min: 0,\n  max: 100,\n  step: 1,\n  minStepsBetweenThumbs: 0,\n  orientation: 'horizontal',\n  disabled: false,\n  inverted: false,\n  name: undefined,\n  thumbLabels: undefined,\n})\n\nconst model = defineModel<number[]>()\nconst emit = defineEmits<{ valueCommit: [value: number[]] }>()\n\nfunction thumbAriaLabel(index: number): string | undefined {\n  const custom = props.thumbLabels?.[index]\n  if (custom !== undefined) return custom\n  const raw = attrs['aria-label']\n  return typeof raw === 'string' ? raw : undefined\n}\n\nconst thumbAriaLabelledby = computed(() => {\n  const raw = attrs['aria-labelledby']\n  return typeof raw === 'string' ? raw : undefined\n})\n</script>\n\n<template>\n  <SliderRoot\n    v-slot=\"{ modelValue: values }\"\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :default-value=\"defaultValue\"\n    :min=\"min\"\n    :max=\"max\"\n    :step=\"step\"\n    :min-steps-between-thumbs=\"minStepsBetweenThumbs\"\n    :orientation=\"orientation\"\n    :disabled=\"disabled\"\n    :inverted=\"inverted\"\n    :name=\"name\"\n    :class=\"\n      cn(\n        'relative flex w-full touch-none select-none items-center',\n        'data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',\n        'data-[disabled]:opacity-55',\n        attrs.class as ClassValue,\n      )\n    \"\n    @value-commit=\"emit('valueCommit', $event)\"\n  >\n    <SliderTrack\n      class=\"relative h-2 w-full grow overflow-hidden rounded-full bg-control data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2\"\n    >\n      <SliderRange\n        class=\"absolute bg-ink data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full\"\n      />\n    </SliderTrack>\n    <SliderThumb\n      v-for=\"(_, index) in values ?? defaultValue\"\n      :key=\"index\"\n      :aria-label=\"thumbAriaLabel(index)\"\n      :aria-labelledby=\"thumbAriaLabelledby\"\n      :class=\"\n        cn(\n          'block size-5 rounded-full border-2 border-ink bg-raised shadow-sm',\n          'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n          'transition-transform duration-[var(--p0seid0n-duration-fast)] ease-spring hover:scale-105 active:scale-95 motion-reduce:transition-none',\n          'data-[disabled]:pointer-events-none',\n        )\n      \"\n    />\n  </SliderRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/slider/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Slider } from './Slider.vue'\nexport type { SliderProps } from './Slider.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Anchored floating surface built on reka-ui, for rich interactive controls outside dialogs.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Control open state with v-model:open when needed. Use PopoverTrigger with as-child to wrap a Button. PopoverContent supports side, align, sideOffset and trapFocus, and renders at z-50 with the popup shadow.",
+      "files": [
+        {
+          "path": "ui/popover/Popover.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { PopoverRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n  /** Disables interaction with outside elements while open. */\n  modal?: boolean\n}\n\nwithDefaults(defineProps<PopoverProps>(), {\n  defaultOpen: undefined,\n  modal: false,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <PopoverRoot v-model:open=\"open\" :default-open=\"defaultOpen\" :modal=\"modal\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/popover/PopoverTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverTrigger, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverTriggerProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <PopoverTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/popover/PopoverAnchor.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverAnchor, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverAnchorProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverAnchorProps>(), {\n  as: 'div',\n  asChild: false,\n})\n</script>\n\n<template>\n  <PopoverAnchor :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverAnchor>\n</template>\n"
+        },
+        {
+          "path": "ui/popover/PopoverClose.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverClose, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverCloseProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverCloseProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <PopoverClose :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverClose>\n</template>\n"
+        },
+        {
+          "path": "ui/popover/PopoverContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PopoverContent, PopoverPortal } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverContentProps = {\n  align?: 'start' | 'center' | 'end'\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  sideOffset?: number\n  trapFocus?: boolean\n}\n\nwithDefaults(defineProps<PopoverContentProps>(), {\n  align: 'center',\n  side: 'bottom',\n  sideOffset: 8,\n  trapFocus: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PopoverPortal>\n    <PopoverContent\n      v-bind=\"forwarded\"\n      :align=\"align\"\n      :side=\"side\"\n      :side-offset=\"sideOffset\"\n      :trap-focus=\"trapFocus\"\n      :class=\"\n        cn(\n          'z-50 w-72 rounded-panel border border-line bg-raised p-4 text-[14px] text-ink shadow-popup outline-none',\n          'origin-[var(--reka-popover-content-transform-origin)]',\n          'data-[side=bottom]:[--p0seid0n-pop-y:-4px]',\n          'data-[side=top]:[--p0seid0n-pop-y:4px]',\n          'data-[side=left]:[--p0seid0n-pop-x:4px] data-[side=left]:[--p0seid0n-pop-y:0px]',\n          'data-[side=right]:[--p0seid0n-pop-x:-4px] data-[side=right]:[--p0seid0n-pop-y:0px]',\n          'motion-safe:animate-pop-in data-[state=closed]:motion-safe:animate-pop-out',\n          attrs.class as ClassValue,\n        )\n      \"\n    >\n      <slot />\n    </PopoverContent>\n  </PopoverPortal>\n</template>\n"
+        },
+        {
+          "path": "ui/popover/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Popover } from './Popover.vue'\nexport { default as PopoverTrigger } from './PopoverTrigger.vue'\nexport { default as PopoverAnchor } from './PopoverAnchor.vue'\nexport { default as PopoverClose } from './PopoverClose.vue'\nexport { default as PopoverContent } from './PopoverContent.vue'\n\nexport type { PopoverProps } from './Popover.vue'\nexport type { PopoverTriggerProps } from './PopoverTrigger.vue'\nexport type { PopoverAnchorProps } from './PopoverAnchor.vue'\nexport type { PopoverCloseProps } from './PopoverClose.vue'\nexport type { PopoverContentProps } from './PopoverContent.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Interruptive confirmation modal built on reka-ui that requires an explicit action or cancel.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "button"
+      ],
+      "docs": "Bind with v-model:open. Unlike Dialog, clicking outside does not close an AlertDialog; focus moves to AlertDialogCancel on open. Both AlertDialogAction and AlertDialogCancel accept variant and size props from buttonVariants.",
+      "files": [
+        {
+          "path": "ui/alert-dialog/AlertDialog.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { AlertDialogRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogProps>(), {\n  defaultOpen: undefined,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <AlertDialogRoot v-model:open=\"open\" :default-open=\"defaultOpen\" v-bind=\"$attrs\">\n    <slot />\n  </AlertDialogRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { AlertDialogTrigger, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogTriggerProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <AlertDialogTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </AlertDialogTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogContent, AlertDialogOverlay, AlertDialogPortal } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogPortal>\n    <AlertDialogOverlay\n      class=\"fixed inset-0 z-40 bg-[color-mix(in_oklab,var(--color-ink)_45%,transparent)] motion-safe:animate-fade-in data-[state=closed]:motion-safe:animate-fade-out\"\n    />\n    <AlertDialogContent\n      v-bind=\"forwarded\"\n      :class=\"\n        cn(\n          'fixed left-1/2 top-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2',\n          'rounded-panel border border-line bg-raised p-6 shadow-popup outline-none',\n          'motion-safe:animate-dialog-in data-[state=closed]:motion-safe:animate-dialog-out',\n          attrs.class as ClassValue,\n        )\n      \"\n    >\n      <slot />\n    </AlertDialogContent>\n  </AlertDialogPortal>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogHeader.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div v-bind=\"forwarded\" :class=\"cn('flex flex-col gap-1.5 text-left', attrs.class as ClassValue)\">\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogFooter.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', attrs.class as ClassValue)\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogTitle.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogTitle } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogTitle\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[17px] leading-snug font-semibold text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AlertDialogTitle>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogDescription.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogDescription } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogDescription\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[14px] leading-relaxed text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AlertDialogDescription>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogAction.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogAction } from 'reka-ui'\nimport { buttonVariants, type ButtonSize, type ButtonVariant } from '../button'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogActionProps = {\n  variant?: ButtonVariant\n  size?: ButtonSize\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogActionProps>(), {\n  variant: 'primary',\n  size: 'md',\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogAction\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"\n      asChild\n        ? cn(attrs.class as ClassValue)\n        : cn(buttonVariants({ variant, size }), attrs.class as ClassValue)\n    \"\n  >\n    <slot />\n  </AlertDialogAction>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogCancel.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogCancel } from 'reka-ui'\nimport { buttonVariants, type ButtonSize, type ButtonVariant } from '../button'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogCancelProps = {\n  variant?: ButtonVariant\n  size?: ButtonSize\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogCancelProps>(), {\n  variant: 'secondary',\n  size: 'md',\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogCancel\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"\n      asChild\n        ? cn(attrs.class as ClassValue)\n        : cn(buttonVariants({ variant, size }), attrs.class as ClassValue)\n    \"\n  >\n    <slot />\n  </AlertDialogCancel>\n</template>\n"
+        },
+        {
+          "path": "ui/alert-dialog/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as AlertDialog } from './AlertDialog.vue'\nexport { default as AlertDialogTrigger } from './AlertDialogTrigger.vue'\nexport { default as AlertDialogContent } from './AlertDialogContent.vue'\nexport { default as AlertDialogHeader } from './AlertDialogHeader.vue'\nexport { default as AlertDialogFooter } from './AlertDialogFooter.vue'\nexport { default as AlertDialogTitle } from './AlertDialogTitle.vue'\nexport { default as AlertDialogDescription } from './AlertDialogDescription.vue'\nexport { default as AlertDialogAction } from './AlertDialogAction.vue'\nexport { default as AlertDialogCancel } from './AlertDialogCancel.vue'\n\nexport type { AlertDialogProps } from './AlertDialog.vue'\nexport type { AlertDialogTriggerProps } from './AlertDialogTrigger.vue'\nexport type { AlertDialogActionProps } from './AlertDialogAction.vue'\nexport type { AlertDialogCancelProps } from './AlertDialogCancel.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Edge-anchored modal drawer sliding from top, right, bottom or left, built on reka-ui Dialog.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model:open and pick an edge with side (top, right, bottom or left). Always render SheetTitle inside SheetContent so screen readers announce the drawer. Set hideClose when supplying a custom dismiss button.",
+      "files": [
+        {
+          "path": "ui/sheet/Sheet.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { DialogRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n}\n\nwithDefaults(defineProps<SheetProps>(), {\n  defaultOpen: undefined,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <DialogRoot v-model:open=\"open\" :default-open=\"defaultOpen\" modal v-bind=\"$attrs\">\n    <slot />\n  </DialogRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/SheetTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { DialogTrigger, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetTriggerProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<SheetTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogTrigger>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/SheetClose.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { DialogClose, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetCloseProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<SheetCloseProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogClose :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogClose>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/SheetContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport {\n  DialogClose,\n  DialogContent,\n  DialogOverlay,\n  DialogPortal,\n  type PointerDownOutsideEvent,\n} from 'reka-ui'\nimport { sheetCloseButton, sheetVariants, type SheetSide } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetContentProps = {\n  side?: SheetSide\n  /** Hides the built-in close button when the panel supplies its own. */\n  hideClose?: boolean\n  closeOnEsc?: boolean\n  closeOnOutside?: boolean\n}\n\nconst props = withDefaults(defineProps<SheetContentProps>(), {\n  side: 'right',\n  hideClose: false,\n  closeOnEsc: true,\n  closeOnOutside: true,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nconst emit = defineEmits<{\n  escapeKeyDown: [event: KeyboardEvent]\n  pointerDownOutside: [event: PointerDownOutsideEvent]\n  interactOutside: [event: Event]\n}>()\n\nfunction onEscapeKeyDown(event: KeyboardEvent): void {\n  if (!props.closeOnEsc) event.preventDefault()\n  emit('escapeKeyDown', event)\n}\n\nfunction onPointerDownOutside(event: PointerDownOutsideEvent): void {\n  if (!props.closeOnOutside) event.preventDefault()\n  emit('pointerDownOutside', event)\n}\n\nfunction onInteractOutside(event: Event): void {\n  emit('interactOutside', event)\n}\n</script>\n\n<template>\n  <DialogPortal>\n    <DialogOverlay\n      class=\"fixed inset-0 z-40 bg-[color-mix(in_oklab,var(--color-ink)_45%,transparent)] motion-safe:animate-fade-in data-[state=closed]:motion-safe:animate-fade-out\"\n    />\n    <DialogContent\n      v-bind=\"forwarded\"\n      aria-modal=\"true\"\n      :class=\"cn(sheetVariants({ side }), attrs.class as ClassValue)\"\n      @escape-key-down=\"onEscapeKeyDown\"\n      @pointer-down-outside=\"onPointerDownOutside\"\n      @interact-outside=\"onInteractOutside\"\n    >\n      <slot />\n      <DialogClose v-if=\"!hideClose\" aria-label=\"Close\" :class=\"sheetCloseButton\">\n        <span aria-hidden=\"true\">&#215;</span>\n      </DialogClose>\n    </DialogContent>\n  </DialogPortal>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/SheetHeader.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div v-bind=\"forwarded\" :class=\"cn('flex flex-col gap-1.5 pr-8', attrs.class as ClassValue)\">\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/SheetFooter.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'mt-auto flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/SheetTitle.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { DialogTitle } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <DialogTitle\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[17px] leading-snug font-semibold text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </DialogTitle>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/SheetDescription.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { DialogDescription } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <DialogDescription\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[14px] leading-relaxed text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </DialogDescription>\n</template>\n"
+        },
+        {
+          "path": "ui/sheet/variants.ts",
+          "type": "registry:ui",
+          "content": "import { cva } from 'class-variance-authority'\n\nexport type SheetSide = 'top' | 'right' | 'bottom' | 'left'\n\nexport const sheetVariants = cva(\n  [\n    'fixed z-50 flex flex-col gap-4 border-line bg-raised p-6 shadow-popup outline-none',\n    'motion-safe:animate-sheet-in data-[state=closed]:motion-safe:animate-sheet-out',\n  ].join(' '),\n  {\n    variants: {\n      side: {\n        right:\n          'inset-y-0 right-0 h-full w-[min(24rem,calc(100vw-2rem))] border-l [--p0seid0n-sheet-x:100%] [--p0seid0n-sheet-y:0%]',\n        left: 'inset-y-0 left-0 h-full w-[min(24rem,calc(100vw-2rem))] border-r [--p0seid0n-sheet-x:-100%] [--p0seid0n-sheet-y:0%]',\n        top: 'inset-x-0 top-0 w-full border-b [--p0seid0n-sheet-x:0%] [--p0seid0n-sheet-y:-100%]',\n        bottom:\n          'inset-x-0 bottom-0 w-full border-t [--p0seid0n-sheet-x:0%] [--p0seid0n-sheet-y:100%]',\n      } satisfies Record<SheetSide, string>,\n    },\n    defaultVariants: {\n      side: 'right',\n    },\n  },\n)\n\nexport const sheetCloseButton = [\n  'absolute right-4 top-4 inline-flex size-8 items-center justify-center rounded-[10px]',\n  'text-[16px] leading-none text-ink-muted',\n  'hover:bg-control hover:text-ink active:scale-95 motion-reduce:active:scale-100',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'transition-[background-color,color,transform] duration-[var(--p0seid0n-duration-fast)] ease-spring motion-reduce:transition-none',\n].join(' ')\n"
+        },
+        {
+          "path": "ui/sheet/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Sheet } from './Sheet.vue'\nexport { default as SheetTrigger } from './SheetTrigger.vue'\nexport { default as SheetClose } from './SheetClose.vue'\nexport { default as SheetContent } from './SheetContent.vue'\nexport { default as SheetHeader } from './SheetHeader.vue'\nexport { default as SheetFooter } from './SheetFooter.vue'\nexport { default as SheetTitle } from './SheetTitle.vue'\nexport { default as SheetDescription } from './SheetDescription.vue'\nexport { sheetVariants } from './variants'\n\nexport type { SheetSide } from './variants'\nexport type { SheetProps } from './Sheet.vue'\nexport type { SheetTriggerProps } from './SheetTrigger.vue'\nexport type { SheetCloseProps } from './SheetClose.vue'\nexport type { SheetContentProps } from './SheetContent.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Vertically stacked collapsible disclosure panels built on reka-ui, with single or multiple open items.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Set type to single (default) or multiple and bind with v-model. collapsible defaults to true so the active single item can be closed again. Content height animates via --reka-accordion-content-height under motion-safe.",
+      "files": [
+        {
+          "path": "ui/accordion/Accordion.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AccordionProps = {\n  /** Whether one item or several items can stay open at once. */\n  type?: 'single' | 'multiple'\n  /** Allows closing the active item when `type` is `\"single\"`. */\n  collapsible?: boolean\n  defaultValue?: string | string[]\n  disabled?: boolean\n  unmountOnHide?: boolean\n}\n\nwithDefaults(defineProps<AccordionProps>(), {\n  type: 'single',\n  collapsible: true,\n  defaultValue: undefined,\n  disabled: false,\n  unmountOnHide: true,\n})\n\nconst model = defineModel<string | string[]>()\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionRoot\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :type=\"type\"\n    :collapsible=\"collapsible\"\n    :default-value=\"defaultValue\"\n    :disabled=\"disabled\"\n    :unmount-on-hide=\"unmountOnHide\"\n    :class=\"cn('w-full', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AccordionRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/accordion/AccordionItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionItem } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AccordionItemProps = {\n  value: string\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<AccordionItemProps>(), {\n  disabled: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionItem\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :class=\"cn('border-b border-line last:border-b-0', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AccordionItem>\n</template>\n"
+        },
+        {
+          "path": "ui/accordion/AccordionTrigger.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionHeader, AccordionTrigger } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionHeader class=\"flex\">\n    <AccordionTrigger\n      v-bind=\"forwarded\"\n      :class=\"\n        cn(\n          'group flex flex-1 cursor-pointer items-center justify-between gap-4 rounded-[6px] py-4 text-left text-[15px] font-medium text-ink',\n          'outline-none hover:text-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n          'disabled:pointer-events-none disabled:opacity-55',\n          attrs.class as ClassValue,\n        )\n      \"\n    >\n      <slot />\n      <slot name=\"icon\">\n        <svg\n          class=\"size-4 shrink-0 text-ink-muted transition-transform duration-[var(--p0seid0n-duration-normal)] ease-out-expo group-data-[state=open]:rotate-180 motion-reduce:transition-none\"\n          viewBox=\"0 0 16 16\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"1.75\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"m4 6 4 4 4-4\" />\n        </svg>\n      </slot>\n    </AccordionTrigger>\n  </AccordionHeader>\n</template>\n"
+        },
+        {
+          "path": "ui/accordion/AccordionContent.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionContent } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionContent\n    v-bind=\"forwarded\"\n    class=\"overflow-hidden text-[14px] leading-relaxed text-ink-muted data-[state=open]:motion-safe:animate-accordion-down data-[state=closed]:motion-safe:animate-accordion-up\"\n  >\n    <div :class=\"cn('pt-0 pb-4', attrs.class as ClassValue)\">\n      <slot />\n    </div>\n  </AccordionContent>\n</template>\n"
+        },
+        {
+          "path": "ui/accordion/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Accordion } from './Accordion.vue'\nexport { default as AccordionItem } from './AccordionItem.vue'\nexport { default as AccordionTrigger } from './AccordionTrigger.vue'\nexport { default as AccordionContent } from './AccordionContent.vue'\n\nexport type { AccordionProps } from './Accordion.vue'\nexport type { AccordionItemProps } from './AccordionItem.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Hierarchical navigation trail with links, separators, ellipsis and current-page indicator.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Compose BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator and BreadcrumbPage inside Breadcrumb. Pass as-child on BreadcrumbLink to wrap a router link component.",
+      "files": [
+        {
+          "path": "ui/breadcrumb/Breadcrumb.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <nav aria-label=\"Breadcrumb\" v-bind=\"forwarded\" :class=\"cn(attrs.class as ClassValue)\">\n    <slot />\n  </nav>\n</template>\n"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbList.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <ol\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex flex-wrap items-center gap-1.5 text-[13px] break-words text-ink-muted sm:gap-2',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </ol>\n</template>\n"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <li v-bind=\"forwarded\" :class=\"cn('inline-flex items-center gap-1.5', attrs.class as ClassValue)\">\n    <slot />\n  </li>\n</template>\n"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbLink.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs, type Component } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { Primitive, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BreadcrumbLinkProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<BreadcrumbLinkProps>(), {\n  as: 'a',\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <Primitive\n    v-bind=\"forwarded\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        'rounded-[6px] text-ink-muted transition-colors duration-[var(--p0seid0n-duration-fast)] ease-out-expo hover:text-ink',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbPage.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <span\n    role=\"link\"\n    aria-disabled=\"true\"\n    aria-current=\"page\"\n    v-bind=\"forwarded\"\n    :class=\"cn('font-medium text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </span>\n</template>\n"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbSeparator.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <li\n    role=\"presentation\"\n    aria-hidden=\"true\"\n    v-bind=\"forwarded\"\n    :class=\"cn('text-ink-faint select-none', attrs.class as ClassValue)\"\n  >\n    <slot>/</slot>\n  </li>\n</template>\n"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbEllipsis.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <span\n    role=\"presentation\"\n    aria-hidden=\"true\"\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('inline-flex size-7 items-center justify-center text-ink-faint', attrs.class as ClassValue)\n    \"\n  >\n    <slot>\n      <svg class=\"size-4\" viewBox=\"0 0 16 16\" fill=\"currentColor\" aria-hidden=\"true\">\n        <circle cx=\"3.5\" cy=\"8\" r=\"1.25\" />\n        <circle cx=\"8\" cy=\"8\" r=\"1.25\" />\n        <circle cx=\"12.5\" cy=\"8\" r=\"1.25\" />\n      </svg>\n    </slot>\n    <span class=\"sr-only\">More</span>\n  </span>\n</template>\n"
+        },
+        {
+          "path": "ui/breadcrumb/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Breadcrumb } from './Breadcrumb.vue'\nexport { default as BreadcrumbList } from './BreadcrumbList.vue'\nexport { default as BreadcrumbItem } from './BreadcrumbItem.vue'\nexport { default as BreadcrumbLink } from './BreadcrumbLink.vue'\nexport { default as BreadcrumbPage } from './BreadcrumbPage.vue'\nexport { default as BreadcrumbSeparator } from './BreadcrumbSeparator.vue'\nexport { default as BreadcrumbEllipsis } from './BreadcrumbEllipsis.vue'\n\nexport type { BreadcrumbLinkProps } from './BreadcrumbLink.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Page navigation controls built on reka-ui, with condensed tabular page numbers and edge buttons.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Pass total and itemsPerPage, and bind v-model:page (or defaultPage for uncontrolled usage). PaginationList exposes the computed items array of page and ellipsis entries through its scoped slot.",
+      "files": [
+        {
+          "path": "ui/pagination/Pagination.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationProps = {\n  total?: number\n  itemsPerPage?: number\n  siblingCount?: number\n  showEdges?: boolean\n  defaultPage?: number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<PaginationProps>(), {\n  total: 0,\n  itemsPerPage: 10,\n  siblingCount: 1,\n  showEdges: true,\n  defaultPage: 1,\n  disabled: false,\n})\n\nconst page = defineModel<number>('page')\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationRoot\n    v-slot=\"slotProps\"\n    v-model:page=\"page\"\n    aria-label=\"Pagination\"\n    v-bind=\"forwarded\"\n    :default-page=\"defaultPage\"\n    :total=\"total\"\n    :items-per-page=\"itemsPerPage\"\n    :sibling-count=\"siblingCount\"\n    :show-edges=\"showEdges\"\n    :disabled=\"disabled\"\n    :class=\"cn('mx-auto flex w-full justify-center', attrs.class as ClassValue)\"\n  >\n    <slot v-bind=\"slotProps\" />\n  </PaginationRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/PaginationList.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationList } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationList\n    v-slot=\"{ items }\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex flex-wrap items-center gap-1', attrs.class as ClassValue)\"\n  >\n    <slot :items=\"items\" />\n  </PaginationList>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/PaginationListItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationListItem } from 'reka-ui'\nimport { paginationItemButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationListItemProps = {\n  value: number\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationListItemProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationListItem\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationItemButton, attrs.class as ClassValue)\"\n  >\n    <slot>{{ value }}</slot>\n  </PaginationListItem>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/PaginationFirst.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationFirst } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationFirstProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationFirstProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationFirst\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M11 12 7 8l4-4\" />\n        <path d=\"M6 12 2 8l4-4\" />\n      </svg>\n    </slot>\n  </PaginationFirst>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/PaginationPrev.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationPrev } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationPrevProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationPrevProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationPrev\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M10 12 6 8l4-4\" />\n      </svg>\n    </slot>\n  </PaginationPrev>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/PaginationNext.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationNext } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationNextProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationNextProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationNext\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"m6 12 4-4-4-4\" />\n      </svg>\n    </slot>\n  </PaginationNext>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/PaginationLast.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationLast } from 'reka-ui'\nimport { paginationButton } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PaginationLastProps = {\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PaginationLastProps>(), {\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationLast\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"cn(paginationButton, attrs.class as ClassValue)\"\n  >\n    <slot>\n      <svg\n        class=\"size-3.5\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"m5 12 4-4-4-4\" />\n        <path d=\"m10 12 4-4-4-4\" />\n      </svg>\n    </slot>\n  </PaginationLast>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/PaginationEllipsis.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PaginationEllipsis } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PaginationEllipsis\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'inline-flex size-9 items-center justify-center text-ink-faint select-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot>\n      <svg class=\"size-4\" viewBox=\"0 0 16 16\" fill=\"currentColor\" aria-hidden=\"true\">\n        <circle cx=\"3.5\" cy=\"8\" r=\"1.25\" />\n        <circle cx=\"8\" cy=\"8\" r=\"1.25\" />\n        <circle cx=\"12.5\" cy=\"8\" r=\"1.25\" />\n      </svg>\n    </slot>\n  </PaginationEllipsis>\n</template>\n"
+        },
+        {
+          "path": "ui/pagination/styles.ts",
+          "type": "registry:ui",
+          "content": "export const paginationButton = [\n  'inline-flex h-9 min-w-9 cursor-pointer select-none items-center justify-center gap-1 rounded-control px-2.5',\n  'text-[13px] font-medium text-ink-muted',\n  'outline-none hover:bg-control hover:text-ink',\n  'focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'disabled:pointer-events-none disabled:opacity-55',\n  'transition-[background-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n].join(' ')\n\nexport const paginationItemButton = [\n  paginationButton,\n  'font-condensed text-[15px] tracking-[-0.01em] tabular-nums',\n  'data-[selected]:bg-ink data-[selected]:text-surface data-[selected]:hover:bg-ink data-[selected]:hover:text-surface',\n].join(' ')\n"
+        },
+        {
+          "path": "ui/pagination/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Pagination } from './Pagination.vue'\nexport { default as PaginationList } from './PaginationList.vue'\nexport { default as PaginationListItem } from './PaginationListItem.vue'\nexport { default as PaginationFirst } from './PaginationFirst.vue'\nexport { default as PaginationPrev } from './PaginationPrev.vue'\nexport { default as PaginationNext } from './PaginationNext.vue'\nexport { default as PaginationLast } from './PaginationLast.vue'\nexport { default as PaginationEllipsis } from './PaginationEllipsis.vue'\n\nexport type { PaginationProps } from './Pagination.vue'\nexport type { PaginationListItemProps } from './PaginationListItem.vue'\nexport type { PaginationFirstProps } from './PaginationFirst.vue'\nexport type { PaginationPrevProps } from './PaginationPrev.vue'\nexport type { PaginationNextProps } from './PaginationNext.vue'\nexport type { PaginationLastProps } from './PaginationLast.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Inline callout banner in neutral, accent and danger variants with title, description and icon slot.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Choose variant neutral, accent or danger. Danger alerts default to role=\"alert\" while neutral and accent default to role=\"status\". Pass an SVG or marker in the icon slot.",
+      "files": [
+        {
+          "path": "ui/alert/Alert.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { alertVariants, type AlertVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertProps = {\n  variant?: AlertVariant\n}\n\nconst props = withDefaults(defineProps<AlertProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest.role\n  return rest\n})\n\nconst role = computed(() => {\n  return (attrs.role as string | undefined) ?? (props.variant === 'danger' ? 'alert' : 'status')\n})\n\nconst iconTone = computed(() => {\n  if (props.variant === 'danger') return 'text-danger'\n  if (props.variant === 'accent') return 'text-accent'\n  return 'text-ink-muted'\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :role=\"role\"\n    :class=\"cn(alertVariants({ variant }), attrs.class as ClassValue)\"\n  >\n    <span v-if=\"$slots.icon\" :class=\"cn('mt-0.5 shrink-0', iconTone)\">\n      <slot name=\"icon\" />\n    </span>\n    <div class=\"flex min-w-0 flex-1 flex-col gap-1\">\n      <slot />\n    </div>\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/alert/AlertTitle.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <h5\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[14px] leading-snug font-semibold text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </h5>\n</template>\n"
+        },
+        {
+          "path": "ui/alert/AlertDescription.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[13px] leading-relaxed text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/alert/variants.ts",
+          "type": "registry:ui",
+          "content": "import { cva } from 'class-variance-authority'\n\nexport type AlertVariant = 'neutral' | 'accent' | 'danger'\n\nexport const alertVariants = cva(\n  'relative flex w-full items-start gap-3 rounded-panel border p-4 text-[14px]',\n  {\n    variants: {\n      variant: {\n        neutral: 'border-line bg-raised text-ink',\n        accent:\n          'border-[color-mix(in_oklab,var(--color-accent)_40%,var(--color-line))] bg-[color-mix(in_oklab,var(--color-accent)_8%,var(--color-raised))] text-ink',\n        danger:\n          'border-[color-mix(in_oklab,var(--color-danger)_45%,var(--color-line))] bg-[color-mix(in_oklab,var(--color-danger)_8%,var(--color-raised))] text-ink',\n      } satisfies Record<AlertVariant, string>,\n    },\n    defaultVariants: {\n      variant: 'neutral',\n    },\n  },\n)\n"
+        },
+        {
+          "path": "ui/alert/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Alert } from './Alert.vue'\nexport { default as AlertTitle } from './AlertTitle.vue'\nexport { default as AlertDescription } from './AlertDescription.vue'\nexport { alertVariants } from './variants'\n\nexport type { AlertVariant } from './variants'\nexport type { AlertProps } from './Alert.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Determinate and indeterminate progress bar built on reka-ui, in default, accent and danger tones.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Pass a numeric modelValue between 0 and max for a determinate bar, or omit it (or pass null) for an indeterminate animation. Give it an accessible name with aria-label or aria-labelledby.",
+      "files": [
+        {
+          "path": "ui/progress/Progress.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { ProgressIndicator, ProgressRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type ProgressTone = 'default' | 'accent' | 'danger'\n\nexport type ProgressProps = {\n  /** Current value; omit or pass `null` for an indeterminate bar. */\n  modelValue?: number | null\n  max?: number\n  tone?: ProgressTone\n}\n\nconst props = withDefaults(defineProps<ProgressProps>(), {\n  modelValue: null,\n  max: 100,\n  tone: 'default',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nconst safeMax = computed(() =>\n  typeof props.max === 'number' && Number.isFinite(props.max) && props.max > 0 ? props.max : 100,\n)\n\nconst isIndeterminate = computed(\n  () =>\n    props.modelValue === null ||\n    props.modelValue === undefined ||\n    !Number.isFinite(props.modelValue),\n)\n\nconst percentage = computed(() => {\n  if (isIndeterminate.value || typeof props.modelValue !== 'number') return 0\n  return Math.min(100, Math.max(0, (props.modelValue / safeMax.value) * 100))\n})\n\nconst toneClass = computed(() => {\n  if (props.tone === 'accent') return 'bg-accent'\n  if (props.tone === 'danger') return 'bg-danger'\n  return 'bg-ink'\n})\n</script>\n\n<template>\n  <ProgressRoot\n    :model-value=\"modelValue\"\n    :max=\"safeMax\"\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('relative h-2.5 w-full overflow-hidden rounded-full bg-control', attrs.class as ClassValue)\n    \"\n  >\n    <ProgressIndicator\n      :class=\"\n        cn(\n          'h-full rounded-full',\n          toneClass,\n          isIndeterminate\n            ? 'w-2/5 motion-safe:animate-progress-indeterminate motion-reduce:translate-x-3/4'\n            : 'w-full flex-1 transition-transform duration-[var(--p0seid0n-duration-slow)] ease-out-expo motion-reduce:transition-none',\n        )\n      \"\n      :style=\"isIndeterminate ? undefined : { transform: `translateX(-${100 - percentage}%)` }\"\n    />\n  </ProgressRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/progress/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Progress } from './Progress.vue'\nexport type { ProgressProps, ProgressTone } from './Progress.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Animated placeholder block that marks loading layout regions without colour literals.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Size Skeleton with utility classes such as h-4 w-48 or size-10 rounded-full. The element is aria-hidden by default and disables its pulse under prefers-reduced-motion.",
+      "files": [
+        {
+          "path": "ui/skeleton/Skeleton.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    aria-hidden=\"true\"\n    v-bind=\"forwarded\"\n    :class=\"cn('rounded-control bg-control motion-safe:animate-pulse', attrs.class as ClassValue)\"\n  />\n</template>\n"
+        },
+        {
+          "path": "ui/skeleton/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Skeleton } from './Skeleton.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Image and delayed fallback wrapper built on reka-ui, in sm, md and lg sizes with circle or square shape.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Render AvatarImage and AvatarFallback inside Avatar. AvatarFallback stays visible while loading or when an image fails; pass delayMs to delay the fallback on fast connections.",
+      "files": [
+        {
+          "path": "ui/avatar/Avatar.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarRoot } from 'reka-ui'\nimport { avatarVariants, type AvatarShape, type AvatarSize } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarProps = {\n  size?: AvatarSize\n  shape?: AvatarShape\n}\n\nwithDefaults(defineProps<AvatarProps>(), {\n  size: 'md',\n  shape: 'circle',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarRoot\n    v-bind=\"forwarded\"\n    :class=\"cn(avatarVariants({ size, shape }), attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AvatarRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/avatar/AvatarImage.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarImage } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarImageProps = {\n  src: string\n  alt?: string\n}\n\nwithDefaults(defineProps<AvatarImageProps>(), {\n  alt: '',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarImage\n    v-bind=\"forwarded\"\n    :src=\"src\"\n    :alt=\"alt\"\n    :class=\"cn('aspect-square size-full object-cover', attrs.class as ClassValue)\"\n  />\n</template>\n"
+        },
+        {
+          "path": "ui/avatar/AvatarFallback.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarFallback } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarFallbackProps = {\n  delayMs?: number\n}\n\nwithDefaults(defineProps<AvatarFallbackProps>(), {\n  delayMs: undefined,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarFallback\n    v-bind=\"forwarded\"\n    :delay-ms=\"delayMs\"\n    :class=\"\n      cn(\n        'flex size-full items-center justify-center bg-control font-medium text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </AvatarFallback>\n</template>\n"
+        },
+        {
+          "path": "ui/avatar/variants.ts",
+          "type": "registry:ui",
+          "content": "import { cva } from 'class-variance-authority'\n\nexport type AvatarSize = 'sm' | 'md' | 'lg'\nexport type AvatarShape = 'circle' | 'square'\n\nexport const avatarVariants = cva(\n  'relative inline-flex shrink-0 items-center justify-center overflow-hidden border border-line bg-control font-medium text-ink-muted select-none',\n  {\n    variants: {\n      size: {\n        sm: 'size-8 text-[12px]',\n        md: 'size-10 text-[13px]',\n        lg: 'size-12 text-[15px]',\n      } satisfies Record<AvatarSize, string>,\n      shape: {\n        circle: 'rounded-full',\n        square: 'rounded-control',\n      } satisfies Record<AvatarShape, string>,\n    },\n    defaultVariants: {\n      size: 'md',\n      shape: 'circle',\n    },\n  },\n)\n"
+        },
+        {
+          "path": "ui/avatar/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Avatar } from './Avatar.vue'\nexport { default as AvatarImage } from './AvatarImage.vue'\nexport { default as AvatarFallback } from './AvatarFallback.vue'\nexport { avatarVariants } from './variants'\n\nexport type { AvatarShape, AvatarSize } from './variants'\nexport type { AvatarProps } from './Avatar.vue'\nexport type { AvatarImageProps } from './AvatarImage.vue'\nexport type { AvatarFallbackProps } from './AvatarFallback.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Responsive HTML table primitives with condensed tabular numeric columns and hoverable rows.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Set numeric on TableHead and TableCell to right-align metrics and render cell numerals in the condensed tabular font. Mark selected rows with data-state=\"selected\".",
+      "files": [
+        {
+          "path": "ui/table/Table.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div class=\"relative w-full overflow-x-auto\">\n    <table\n      v-bind=\"forwarded\"\n      :class=\"\n        cn('w-full caption-bottom border-collapse text-[14px] text-ink', attrs.class as ClassValue)\n      \"\n    >\n      <slot />\n    </table>\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/table/TableHeader.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <thead\n    v-bind=\"forwarded\"\n    :class=\"cn('[&_tr]:border-b [&_tr]:border-line', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </thead>\n</template>\n"
+        },
+        {
+          "path": "ui/table/TableBody.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <tbody v-bind=\"forwarded\" :class=\"cn('[&_tr:last-child]:border-0', attrs.class as ClassValue)\">\n    <slot />\n  </tbody>\n</template>\n"
+        },
+        {
+          "path": "ui/table/TableFooter.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <tfoot\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'border-t border-line bg-control font-medium [&>tr]:last:border-b-0',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </tfoot>\n</template>\n"
+        },
+        {
+          "path": "ui/table/TableRow.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <tr\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'border-b border-line transition-colors duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n        'hover:bg-[color-mix(in_oklab,var(--color-control)_55%,transparent)] data-[state=selected]:bg-control',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </tr>\n</template>\n"
+        },
+        {
+          "path": "ui/table/TableHead.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TableHeadProps = {\n  /** Aligns the column header to the right for numeric values. */\n  numeric?: boolean\n}\n\nwithDefaults(defineProps<TableHeadProps>(), {\n  numeric: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <th\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'h-10 px-3 text-left align-middle text-[12px] font-medium text-ink-muted [&:has([role=checkbox])]:pr-0',\n        numeric && 'text-right',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </th>\n</template>\n"
+        },
+        {
+          "path": "ui/table/TableCell.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TableCellProps = {\n  /** Right-aligns the cell and renders numerals in the condensed tabular font. */\n  numeric?: boolean\n}\n\nwithDefaults(defineProps<TableCellProps>(), {\n  numeric: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <td\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'p-3 align-middle [&:has([role=checkbox])]:pr-0',\n        numeric &&\n          'text-right font-condensed text-[15px] font-medium tracking-[-0.01em] tabular-nums',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </td>\n</template>\n"
+        },
+        {
+          "path": "ui/table/TableCaption.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <caption\n    v-bind=\"forwarded\"\n    :class=\"cn('mt-3 text-[12px] text-ink-faint', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </caption>\n</template>\n"
+        },
+        {
+          "path": "ui/table/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Table } from './Table.vue'\nexport { default as TableHeader } from './TableHeader.vue'\nexport { default as TableBody } from './TableBody.vue'\nexport { default as TableFooter } from './TableFooter.vue'\nexport { default as TableRow } from './TableRow.vue'\nexport { default as TableHead } from './TableHead.vue'\nexport { default as TableCell } from './TableCell.vue'\nexport { default as TableCaption } from './TableCaption.vue'\n\nexport type { TableHeadProps } from './TableHead.vue'\nexport type { TableCellProps } from './TableCell.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Two-state pressed button built on reka-ui, in default and outline variants across three sizes.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Bind with v-model or defaultValue. variant supports default and outline; size supports sm, md and lg. aria-pressed and data-state mirror the pressed boolean.",
+      "files": [
+        {
+          "path": "ui/toggle/Toggle.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { Toggle as ToggleRoot } from 'reka-ui'\nimport { toggleVariants, type ToggleSize, type ToggleVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type ToggleProps = {\n  /** Initial pressed state when uncontrolled. */\n  defaultValue?: boolean\n  disabled?: boolean\n  variant?: ToggleVariant\n  size?: ToggleSize\n  name?: string\n  required?: boolean\n}\n\nwithDefaults(defineProps<ToggleProps>(), {\n  defaultValue: false,\n  disabled: false,\n  variant: 'default',\n  size: 'md',\n  name: undefined,\n  required: false,\n})\n\nconst model = defineModel<boolean>()\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <ToggleRoot\n    v-slot=\"slotProps\"\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :default-value=\"defaultValue\"\n    :disabled=\"disabled\"\n    :name=\"name\"\n    :required=\"required\"\n    :class=\"cn(toggleVariants({ variant, size }), attrs.class as ClassValue)\"\n  >\n    <slot v-bind=\"slotProps\" />\n  </ToggleRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/toggle/variants.ts",
+          "type": "registry:ui",
+          "content": "import { cva } from 'class-variance-authority'\n\nexport type ToggleVariant = 'default' | 'outline'\nexport type ToggleSize = 'sm' | 'md' | 'lg'\n\nexport const toggleVariants = cva(\n  [\n    'inline-flex shrink-0 cursor-pointer select-none items-center justify-center gap-2 rounded-control font-medium whitespace-nowrap',\n    'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n    'transition-[background-color,color,border-color,transform] duration-[var(--p0seid0n-duration-fast)] ease-spring motion-reduce:transition-none',\n    'active:scale-[0.98] motion-reduce:active:scale-100',\n    'disabled:pointer-events-none disabled:opacity-55',\n  ].join(' '),\n  {\n    variants: {\n      variant: {\n        default:\n          'bg-transparent text-ink-muted hover:bg-[color-mix(in_oklab,var(--color-control)_65%,transparent)] hover:text-ink data-[state=on]:bg-control data-[state=on]:text-ink',\n        outline:\n          'border border-line bg-transparent text-ink-muted hover:bg-control hover:text-ink data-[state=on]:border-ink data-[state=on]:bg-ink data-[state=on]:text-surface',\n      } satisfies Record<ToggleVariant, string>,\n      size: {\n        sm: 'min-h-8 px-2.5 text-[13px]',\n        md: 'min-h-10 px-3.5 text-[14px]',\n        lg: 'min-h-11 px-4 text-[15px]',\n      } satisfies Record<ToggleSize, string>,\n    },\n    defaultVariants: {\n      variant: 'default',\n      size: 'md',\n    },\n  },\n)\n"
+        },
+        {
+          "path": "ui/toggle/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Toggle } from './Toggle.vue'\nexport { toggleVariants } from './variants'\n\nexport type { ToggleSize, ToggleVariant } from './variants'\nexport type { ToggleProps } from './Toggle.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Searchable command palette and modal dialog built on reka-ui Listbox and Dialog.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "dialog"
+      ],
+      "docs": "Compose CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandSeparator and CommandShortcut inside Command or CommandDialog. Use keywords on CommandItem to match synonyms without changing the visible label.",
+      "files": [
+        {
+          "path": "ui/command/Command.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, reactive, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { ListboxRoot, useFilter } from 'reka-ui'\nimport { matchesCommandItem, provideCommandContext, type CommandItemMeta } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type CommandProps = {\n  filterDisabled?: boolean\n  loop?: boolean\n  multiple?: boolean\n  disabled?: boolean\n}\n\nconst props = withDefaults(defineProps<CommandProps>(), {\n  filterDisabled: false,\n  loop: true,\n  multiple: false,\n  disabled: false,\n})\n\nconst model = defineModel<string | string[]>()\nconst searchTerm = defineModel<string>('searchTerm', { default: '' })\n\nconst { contains } = useFilter({ sensitivity: 'base' })\nconst items = reactive(new Map<string, CommandItemMeta>())\n\nconst filterDisabled = computed(() => props.filterDisabled)\n\nconst visibleIds = computed(() => {\n  const set = new Set<string>()\n  const query = searchTerm.value.trim()\n  for (const [id, meta] of items) {\n    if (\n      props.filterDisabled ||\n      query === '' ||\n      matchesCommandItem(meta.value, meta.keywords, query, contains)\n    ) {\n      set.add(id)\n    }\n  }\n  return set\n})\n\nprovideCommandContext({\n  search: searchTerm,\n  filterDisabled,\n  visibleIds,\n  registerItem: (id, meta) => {\n    items.set(id, meta)\n  },\n  unregisterItem: (id) => {\n    items.delete(id)\n  },\n  matches: (value, keywords) => {\n    if (props.filterDisabled) return true\n    return matchesCommandItem(value, keywords, searchTerm.value, contains)\n  },\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <ListboxRoot\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :loop=\"loop\"\n    :multiple=\"multiple\"\n    :disabled=\"disabled\"\n    highlight-on-hover\n    selection-behavior=\"replace\"\n    :class=\"\n      cn(\n        'flex h-full w-full flex-col overflow-hidden rounded-panel border border-line bg-raised text-ink',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </ListboxRoot>\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandDialog.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { Dialog, DialogContent, DialogDescription, DialogTitle } from '../dialog'\nimport Command from './Command.vue'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type CommandDialogProps = {\n  defaultOpen?: boolean\n  title?: string\n  description?: string\n  closeOnEsc?: boolean\n  closeOnOutside?: boolean\n}\n\nwithDefaults(defineProps<CommandDialogProps>(), {\n  defaultOpen: undefined,\n  title: 'Command menu',\n  description: 'Search for a command to run.',\n  closeOnEsc: true,\n  closeOnOutside: true,\n})\n\nconst open = defineModel<boolean>('open')\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <Dialog\n    v-model:open=\"open\"\n    :default-open=\"defaultOpen\"\n    :close-on-esc=\"closeOnEsc\"\n    :close-on-outside=\"closeOnOutside\"\n  >\n    <DialogContent\n      v-bind=\"forwarded\"\n      hide-close\n      :class=\"cn('overflow-hidden p-0', attrs.class as ClassValue)\"\n    >\n      <DialogTitle class=\"sr-only\">{{ title }}</DialogTitle>\n      <DialogDescription class=\"sr-only\">{{ description }}</DialogDescription>\n      <Command class=\"rounded-none border-0 bg-transparent\">\n        <slot />\n      </Command>\n    </DialogContent>\n  </Dialog>\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandInput.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { ListboxFilter } from 'reka-ui'\nimport { useCommandContext } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type CommandInputProps = {\n  autoFocus?: boolean\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<CommandInputProps>(), {\n  autoFocus: false,\n  disabled: false,\n})\n\nconst { search } = useCommandContext()\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div class=\"flex items-center gap-2 border-b border-line px-3\">\n    <slot name=\"icon\">\n      <svg\n        class=\"size-4 shrink-0 text-ink-muted\"\n        viewBox=\"0 0 16 16\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"1.75\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <circle cx=\"7\" cy=\"7\" r=\"4.5\" />\n        <path d=\"m10.5 10.5 3 3\" />\n      </svg>\n    </slot>\n    <ListboxFilter\n      v-model=\"search\"\n      v-bind=\"forwarded\"\n      :auto-focus=\"autoFocus\"\n      :disabled=\"disabled\"\n      :class=\"\n        cn(\n          'flex h-11 w-full bg-transparent py-2.5 text-[14px] text-ink placeholder:text-ink-muted',\n          'outline-none disabled:cursor-default disabled:opacity-55',\n          attrs.class as ClassValue,\n        )\n      \"\n    />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandList.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { ListboxContent } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <ListboxContent\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('max-h-72 overflow-x-hidden overflow-y-auto p-1.5 outline-none', attrs.class as ClassValue)\n    \"\n  >\n    <slot />\n  </ListboxContent>\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandEmpty.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { useCommandContext } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nconst context = useCommandContext()\n\nconst isEmpty = computed(\n  () =>\n    !context.filterDisabled.value &&\n    context.search.value.trim().length > 0 &&\n    context.visibleIds.value.size === 0,\n)\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-if=\"isEmpty\"\n    role=\"presentation\"\n    v-bind=\"forwarded\"\n    :class=\"cn('py-6 text-center text-[13px] text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandGroup.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, reactive, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { ListboxGroup, ListboxGroupLabel } from 'reka-ui'\nimport { provideCommandGroupContext, useCommandContext } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type CommandGroupProps = {\n  heading?: string\n}\n\nwithDefaults(defineProps<CommandGroupProps>(), {\n  heading: undefined,\n})\n\nconst context = useCommandContext()\nconst groupIds = reactive(new Set<string>())\n\nprovideCommandGroupContext({\n  registerGroupItem: (id) => {\n    groupIds.add(id)\n  },\n  unregisterGroupItem: (id) => {\n    groupIds.delete(id)\n  },\n})\n\nconst isVisible = computed(() => {\n  if (context.filterDisabled.value || context.search.value.trim() === '') return true\n  if (groupIds.size === 0) return false\n  for (const id of groupIds) {\n    if (context.visibleIds.value.has(id)) return true\n  }\n  return false\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <ListboxGroup\n    v-show=\"isVisible\"\n    v-bind=\"forwarded\"\n    :class=\"cn('overflow-hidden text-ink [&+&]:mt-1', attrs.class as ClassValue)\"\n  >\n    <ListboxGroupLabel\n      v-if=\"heading || $slots.heading\"\n      class=\"px-2.5 py-1.5 text-[12px] font-medium text-ink-faint\"\n    >\n      <slot name=\"heading\">{{ heading }}</slot>\n    </ListboxGroupLabel>\n    <slot />\n  </ListboxGroup>\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandItem.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, onBeforeUnmount, useAttrs, useId, watch } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { ListboxItem } from 'reka-ui'\nimport { useCommandContext, useCommandGroupContext } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type CommandItemProps = {\n  value: string\n  /** Extra search terms matched alongside `value`. */\n  keywords?: readonly string[]\n  disabled?: boolean\n}\n\nconst props = withDefaults(defineProps<CommandItemProps>(), {\n  keywords: undefined,\n  disabled: false,\n})\n\nconst emit = defineEmits<{ select: [event: Event] }>()\n\nconst context = useCommandContext()\nconst groupContext = useCommandGroupContext()\nconst id = useId()\n\nwatch(\n  () => [props.value, props.keywords] as const,\n  ([value, keywords]) => {\n    context.registerItem(id, { value, keywords })\n    groupContext?.registerGroupItem(id)\n  },\n  { immediate: true },\n)\n\nonBeforeUnmount(() => {\n  context.unregisterItem(id)\n  groupContext?.unregisterGroupItem(id)\n})\n\nconst isVisible = computed(\n  () => context.visibleIds.value.has(id) || context.matches(props.value, props.keywords),\n)\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <ListboxItem\n    v-if=\"isVisible\"\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :class=\"\n      cn(\n        'relative flex min-h-9 cursor-pointer select-none items-center gap-2 rounded-[10px] px-2.5 py-1.5',\n        'text-[14px] font-medium text-ink-muted outline-none',\n        'transition-[background-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n        'data-[highlighted]:bg-control data-[highlighted]:text-ink',\n        'data-[disabled]:pointer-events-none data-[disabled]:opacity-55',\n        attrs.class as ClassValue,\n      )\n    \"\n    @select=\"emit('select', $event)\"\n  >\n    <slot />\n  </ListboxItem>\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandSeparator.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    role=\"separator\"\n    v-bind=\"forwarded\"\n    :class=\"cn('my-1 h-px bg-line', attrs.class as ClassValue)\"\n  />\n</template>\n"
+        },
+        {
+          "path": "ui/command/CommandShortcut.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <kbd\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'ml-auto rounded-[6px] border border-line px-1.5 py-0.5 font-sans text-[11px] text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </kbd>\n</template>\n"
+        },
+        {
+          "path": "ui/command/context.ts",
+          "type": "registry:ui",
+          "content": "import { inject, provide, type ComputedRef, type InjectionKey, type Ref } from 'vue'\n\nexport type CommandItemMeta = {\n  value: string\n  keywords?: readonly string[]\n}\n\nexport type CommandContext = {\n  search: Ref<string>\n  filterDisabled: ComputedRef<boolean>\n  visibleIds: ComputedRef<Set<string>>\n  registerItem: (id: string, meta: CommandItemMeta) => void\n  unregisterItem: (id: string) => void\n  matches: (value: string, keywords?: readonly string[]) => boolean\n}\n\nexport type CommandGroupContext = {\n  registerGroupItem: (id: string) => void\n  unregisterGroupItem: (id: string) => void\n}\n\nconst COMMAND_CONTEXT_KEY: InjectionKey<CommandContext> = Symbol('p0seid0n-command')\nconst COMMAND_GROUP_CONTEXT_KEY: InjectionKey<CommandGroupContext> =\n  Symbol('p0seid0n-command-group')\n\n/**\n * Pure matching predicate shared by Command filtering and unit tests.\n */\nexport function matchesCommandItem(\n  value: string,\n  keywords: readonly string[] | undefined,\n  query: string,\n  contains: (text: string, sub: string) => boolean,\n): boolean {\n  const trimmed = query.trim()\n  if (trimmed === '') return true\n  if (contains(value, trimmed)) return true\n  if (!keywords || keywords.length === 0) return false\n  return keywords.some((keyword) => contains(keyword, trimmed))\n}\n\nexport function provideCommandContext(context: CommandContext): void {\n  provide(COMMAND_CONTEXT_KEY, context)\n}\n\nexport function useCommandContext(): CommandContext {\n  const context = inject(COMMAND_CONTEXT_KEY)\n  if (!context) {\n    throw new Error('Command components must be used inside a <Command> root.')\n  }\n  return context\n}\n\nexport function provideCommandGroupContext(context: CommandGroupContext): void {\n  provide(COMMAND_GROUP_CONTEXT_KEY, context)\n}\n\nexport function useCommandGroupContext(): CommandGroupContext | null {\n  return inject(COMMAND_GROUP_CONTEXT_KEY, null)\n}\n"
+        },
+        {
+          "path": "ui/command/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as Command } from './Command.vue'\nexport { default as CommandDialog } from './CommandDialog.vue'\nexport { default as CommandInput } from './CommandInput.vue'\nexport { default as CommandList } from './CommandList.vue'\nexport { default as CommandEmpty } from './CommandEmpty.vue'\nexport { default as CommandGroup } from './CommandGroup.vue'\nexport { default as CommandItem } from './CommandItem.vue'\nexport { default as CommandSeparator } from './CommandSeparator.vue'\nexport { default as CommandShortcut } from './CommandShortcut.vue'\nexport { matchesCommandItem } from './context'\n\nexport type { CommandProps } from './Command.vue'\nexport type { CommandDialogProps } from './CommandDialog.vue'\nexport type { CommandInputProps } from './CommandInput.vue'\nexport type { CommandGroupProps } from './CommandGroup.vue'\nexport type { CommandItemProps } from './CommandItem.vue'\n"
+        }
+      ]
+    },
+    {
+      "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+      "name": "area-chart",
+      "type": "registry:ui",
+      "title": "Area Chart",
+      "description": "Hand-written SVG area chart with monotone or linear curves, multi-series data and pointer tooltip.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ],
+      "docs": "Pass either a single values number array or tabular data rows with categories and index. Monotone curves preserve local extrema without overshoot, and hover scrubs a vertical crosshair with condensed tabular values.",
+      "files": [
+        {
+          "path": "ui/area-chart/AreaChart.vue",
+          "type": "registry:ui",
+          "content": "<script setup lang=\"ts\">\nimport { computed, ref, useAttrs, useId, type StyleValue } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { areaPaths, niceMax, normalizeAreaData, type AreaCurve, type AreaTone } from './geometry'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AreaChartProps = {\n  /** Single-series numeric input. Ignored when `data` is non-empty. */\n  values?: readonly number[]\n  /** Tabular multi-series rows. */\n  data?: readonly Record<string, unknown>[]\n  /** Keys from `data` to plot as areas. */\n  categories?: readonly string[]\n  /** Key in `data` used for axis and tooltip labels. */\n  index?: string\n  tone?: AreaTone\n  tones?: readonly AreaTone[]\n  curve?: AreaCurve\n  max?: number\n  height?: string\n  showGrid?: boolean\n  showXAxis?: boolean\n  showLegend?: boolean\n  showTooltip?: boolean\n  valueFormatter?: (value: number) => string\n  ariaLabel?: string\n}\n\nconst props = withDefaults(defineProps<AreaChartProps>(), {\n  values: undefined,\n  data: undefined,\n  categories: undefined,\n  index: undefined,\n  tone: 'accent',\n  tones: undefined,\n  curve: 'monotone',\n  max: undefined,\n  height: '12rem',\n  showGrid: true,\n  showXAxis: false,\n  showLegend: undefined,\n  showTooltip: true,\n  valueFormatter: undefined,\n  ariaLabel: undefined,\n})\n\nconst chartId = useId()\nconst activeIndex = ref<number | null>(null)\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest.style\n  return rest\n})\n\nconst normalised = computed(() =>\n  normalizeAreaData({\n    values: props.values,\n    data: props.data,\n    categories: props.categories,\n    index: props.index,\n    tone: props.tone,\n    tones: props.tones,\n  }),\n)\n\nconst sharedTop = computed(() => {\n  const combined: number[] = []\n  for (const item of normalised.value.series) {\n    for (const val of item.values) combined.push(val)\n  }\n  return niceMax(combined, props.max)\n})\n\nconst renderedSeries = computed(() =>\n  normalised.value.series.map((item, idx) => ({\n    ...item,\n    gradientId: `${chartId}-fill-${idx}`,\n    ...areaPaths(item.values, {\n      max: sharedTop.value,\n      curve: props.curve,\n      width: 100,\n      height: 100,\n    }),\n  })),\n)\n\nconst legendVisible = computed(() =>\n  props.showLegend !== undefined ? props.showLegend : renderedSeries.value.length > 1,\n)\n\nconst activeX = computed(() => {\n  if (activeIndex.value === null) return 0\n  const firstSeries = renderedSeries.value[0]\n  return firstSeries?.points[activeIndex.value]?.x ?? 0\n})\n\nconst activeLabel = computed(() => {\n  if (activeIndex.value === null) return ''\n  return normalised.value.labels[activeIndex.value] ?? ''\n})\n\nconst gridLines = [4, 36, 68, 100] as const\n\nfunction toneTextClass(tone: AreaTone): string {\n  if (tone === 'accent-alt') return 'text-accent-alt'\n  if (tone === 'danger') return 'text-danger'\n  if (tone === 'default') return 'text-ink'\n  return 'text-accent'\n}\n\nfunction toneBgClass(tone: AreaTone): string {\n  if (tone === 'accent-alt') return 'bg-accent-alt'\n  if (tone === 'danger') return 'bg-danger'\n  if (tone === 'default') return 'bg-ink'\n  return 'bg-accent'\n}\n\nfunction formatValue(value: number): string {\n  return props.valueFormatter ? props.valueFormatter(value) : String(value)\n}\n\nfunction onPointerMove(event: PointerEvent): void {\n  if (!props.showTooltip || normalised.value.pointCount === 0) return\n  const target = event.currentTarget as HTMLElement | null\n  if (!target) return\n  const rect = target.getBoundingClientRect()\n  if (rect.width <= 0) return\n  const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width))\n  const count = normalised.value.pointCount\n  activeIndex.value = count <= 1 ? 0 : Math.round(ratio * (count - 1))\n}\n\nfunction onPointerLeave(): void {\n  activeIndex.value = null\n}\n\nconst labelled = computed(() => props.ariaLabel !== undefined)\nconst xAxisLabels = computed(() => {\n  const labels = normalised.value.labels\n  if (labels.length === 0) return []\n  if (labels.length <= 5) return labels\n  const mid = Math.floor((labels.length - 1) / 2)\n  return [labels[0], labels[mid], labels[labels.length - 1]]\n})\n</script>\n\n<template>\n  <div v-bind=\"forwarded\" :class=\"cn('flex w-full flex-col gap-3', attrs.class as ClassValue)\">\n    <div\n      v-if=\"legendVisible && renderedSeries.length > 0\"\n      class=\"flex flex-wrap items-center gap-4\"\n    >\n      <div\n        v-for=\"item in renderedSeries\"\n        :key=\"item.name\"\n        class=\"inline-flex items-center gap-1.5 text-[12px] font-medium text-ink-muted\"\n      >\n        <span :class=\"cn('size-2 rounded-full', toneBgClass(item.tone))\" aria-hidden=\"true\" />\n        <span>{{ item.name }}</span>\n      </div>\n    </div>\n\n    <div\n      class=\"relative w-full select-none\"\n      :style=\"[{ height: props.height }, attrs.style as StyleValue]\"\n      @pointermove=\"onPointerMove\"\n      @pointerleave=\"onPointerLeave\"\n    >\n      <svg\n        viewBox=\"0 0 100 100\"\n        preserveAspectRatio=\"none\"\n        class=\"block size-full overflow-visible\"\n        :role=\"labelled ? 'img' : undefined\"\n        :aria-label=\"ariaLabel\"\n        :aria-hidden=\"labelled ? undefined : 'true'\"\n      >\n        <defs>\n          <linearGradient\n            v-for=\"item in renderedSeries\"\n            :id=\"item.gradientId\"\n            :key=\"item.gradientId\"\n            x1=\"0\"\n            y1=\"0\"\n            x2=\"0\"\n            y2=\"1\"\n          >\n            <stop offset=\"0%\" stop-color=\"currentColor\" stop-opacity=\"0.28\" />\n            <stop offset=\"100%\" stop-color=\"currentColor\" stop-opacity=\"0.02\" />\n          </linearGradient>\n        </defs>\n\n        <g v-if=\"showGrid\" class=\"text-line\">\n          <line\n            v-for=\"y in gridLines\"\n            :key=\"y\"\n            x1=\"0\"\n            :y1=\"y\"\n            x2=\"100\"\n            :y2=\"y\"\n            stroke=\"currentColor\"\n            stroke-width=\"1\"\n            vector-effect=\"non-scaling-stroke\"\n          />\n        </g>\n\n        <g v-for=\"item in renderedSeries\" :key=\"item.name\" :class=\"toneTextClass(item.tone)\">\n          <path v-if=\"item.areaPath\" :d=\"item.areaPath\" :fill=\"`url(#${item.gradientId})`\" />\n          <path\n            v-if=\"item.linePath\"\n            :d=\"item.linePath\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            stroke-width=\"2\"\n            stroke-linecap=\"round\"\n            stroke-linejoin=\"round\"\n            vector-effect=\"non-scaling-stroke\"\n          />\n        </g>\n      </svg>\n\n      <template v-if=\"showTooltip && activeIndex !== null && renderedSeries.length > 0\">\n        <div\n          class=\"pointer-events-none absolute inset-y-0 border-l border-line\"\n          :style=\"{ left: `${activeX}%` }\"\n        />\n        <span\n          v-for=\"item in renderedSeries\"\n          :key=\"item.name\"\n          :class=\"\n            cn(\n              'pointer-events-none absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-raised',\n              toneBgClass(item.tone),\n            )\n          \"\n          :style=\"{\n            left: `${item.points[activeIndex]?.x ?? 0}%`,\n            top: `${item.points[activeIndex]?.y ?? 0}%`,\n          }\"\n        />\n        <div\n          class=\"pointer-events-none absolute top-2 z-10 min-w-28 rounded-[10px] border border-line bg-raised px-2.5 py-1.5 text-[12px] shadow-popup\"\n          :style=\"\n            activeX > 60\n              ? { right: `${100 - activeX}%`, marginRight: '8px' }\n              : { left: `${activeX}%`, marginLeft: '8px' }\n          \"\n        >\n          <div class=\"mb-1 text-[11px] font-medium text-ink-faint\">{{ activeLabel }}</div>\n          <div\n            v-for=\"item in renderedSeries\"\n            :key=\"item.name\"\n            class=\"flex items-center justify-between gap-3\"\n          >\n            <span class=\"inline-flex items-center gap-1.5 text-ink-muted\">\n              <span :class=\"cn('size-1.5 rounded-full', toneBgClass(item.tone))\" />\n              {{ item.name }}\n            </span>\n            <span\n              class=\"font-condensed text-[13px] font-medium tracking-[-0.01em] tabular-nums text-ink\"\n            >\n              {{ formatValue(item.values[activeIndex] ?? 0) }}\n            </span>\n          </div>\n        </div>\n      </template>\n    </div>\n\n    <div\n      v-if=\"showXAxis && xAxisLabels.length > 0\"\n      class=\"flex items-center justify-between text-[11px] text-ink-faint\"\n    >\n      <span v-for=\"(label, idx) in xAxisLabels\" :key=\"`${label}-${idx}`\">{{ label }}</span>\n    </div>\n  </div>\n</template>\n"
+        },
+        {
+          "path": "ui/area-chart/geometry.ts",
+          "type": "registry:ui",
+          "content": "export type AreaTone = 'accent' | 'accent-alt' | 'default' | 'danger'\nexport type AreaCurve = 'monotone' | 'linear'\n\nexport type AreaPoint = {\n  x: number\n  y: number\n  value: number\n}\n\nexport type AreaPathResult = {\n  linePath: string\n  areaPath: string\n  points: AreaPoint[]\n}\n\nexport type NormalizedSeries = {\n  name: string\n  values: number[]\n  tone: AreaTone\n}\n\nconst DEFAULT_TONES: readonly AreaTone[] = ['accent', 'accent-alt', 'default', 'danger']\n\nfunction sanitizeValue(value: unknown): number {\n  return typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : 0\n}\n\nfunction clamp(value: number, min: number, max: number): number {\n  return Math.min(max, Math.max(min, value))\n}\n\nfunction round(value: number): number {\n  return Math.round(value * 1000) / 1000\n}\n\n/**\n * Computes a shared upper bound across one or more series without spreading\n * huge arrays into `Math.max(...)`.\n */\nexport function niceMax(values: readonly number[], explicitMax?: number): number {\n  if (explicitMax !== undefined && Number.isFinite(explicitMax) && explicitMax > 0) {\n    return explicitMax\n  }\n  let highest = 0\n  for (let index = 0; index < values.length; index += 1) {\n    const current = sanitizeValue(values[index])\n    if (current > highest) highest = current\n  }\n  return highest > 0 ? highest : 1\n}\n\n/**\n * Builds SVG line and closed area paths inside a `0 0 width height` viewBox.\n * Uses Fritsch-Carlson monotone cubic tangents when `curve === 'monotone'` so\n * curves never overshoot local extrema.\n */\nexport function areaPaths(\n  values: readonly number[],\n  options: { max?: number; curve?: AreaCurve; width?: number; height?: number } = {},\n): AreaPathResult {\n  const width = options.width ?? 100\n  const height = options.height ?? 100\n  const curve = options.curve ?? 'monotone'\n\n  if (values.length === 0) {\n    return { linePath: '', areaPath: '', points: [] }\n  }\n\n  const top = niceMax(values, options.max)\n  const padTop = 4\n  const usableHeight = Math.max(1, height - padTop)\n\n  if (values.length === 1) {\n    const v = sanitizeValue(values[0])\n    const y = round(padTop + usableHeight * (1 - clamp(v / top, 0, 1)))\n    const linePath = `M0,${y}L${round(width)},${y}`\n    const areaPath = `${linePath}L${round(width)},${round(height)}L0,${round(height)}Z`\n    return {\n      linePath,\n      areaPath,\n      points: [{ x: round(width / 2), y, value: v }],\n    }\n  }\n\n  const points: AreaPoint[] = new Array(values.length)\n  for (let index = 0; index < values.length; index += 1) {\n    const v = sanitizeValue(values[index])\n    const x = round((index / (values.length - 1)) * width)\n    const y = round(padTop + usableHeight * (1 - clamp(v / top, 0, 1)))\n    points[index] = { x, y, value: v }\n  }\n\n  let linePath = `M${points[0].x},${points[0].y}`\n\n  if (curve === 'linear' || points.length === 2) {\n    for (let index = 1; index < points.length; index += 1) {\n      linePath += `L${points[index].x},${points[index].y}`\n    }\n  } else {\n    const count = points.length\n    const slopes = new Array<number>(count - 1)\n    for (let index = 0; index < count - 1; index += 1) {\n      const dx = points[index + 1].x - points[index].x || 1\n      slopes[index] = (points[index + 1].y - points[index].y) / dx\n    }\n\n    const tangents = new Array<number>(count)\n    tangents[0] = slopes[0]\n    tangents[count - 1] = slopes[count - 2]\n\n    for (let index = 1; index < count - 1; index += 1) {\n      const prev = slopes[index - 1]\n      const next = slopes[index]\n      if (prev * next <= 0) {\n        tangents[index] = 0\n      } else {\n        tangents[index] = (2 * prev * next) / (prev + next)\n      }\n    }\n\n    for (let index = 0; index < count - 1; index += 1) {\n      const p0 = points[index]\n      const p1 = points[index + 1]\n      const dx = p1.x - p0.x\n      const cp1x = round(p0.x + dx / 3)\n      const cp1y = round(p0.y + (tangents[index] * dx) / 3)\n      const cp2x = round(p1.x - dx / 3)\n      const cp2y = round(p1.y - (tangents[index + 1] * dx) / 3)\n      linePath += `C${cp1x},${cp1y},${cp2x},${cp2y},${p1.x},${p1.y}`\n    }\n  }\n\n  const first = points[0]\n  const last = points[points.length - 1]\n  const areaPath = `${linePath}L${last.x},${round(height)}L${first.x},${round(height)}Z`\n\n  return { linePath, areaPath, points }\n}\n\n/**\n * Normalises either a single `values` array or tabular `data` rows + `categories`\n * into uniform series descriptors for AreaChart.\n */\nexport function normalizeAreaData(input: {\n  values?: readonly number[]\n  data?: readonly Record<string, unknown>[]\n  categories?: readonly string[]\n  index?: string\n  tone?: AreaTone\n  tones?: readonly AreaTone[]\n}): { labels: string[]; series: NormalizedSeries[]; pointCount: number } {\n  if (input.data && input.data.length > 0) {\n    const rows = input.data\n    const explicitCategories = input.categories?.filter((c) => c.length > 0)\n    const inferredCategories =\n      explicitCategories && explicitCategories.length > 0\n        ? explicitCategories\n        : Object.keys(rows[0]).filter(\n            (key) => key !== input.index && typeof rows[0][key] === 'number',\n          )\n\n    const palette = input.tones && input.tones.length > 0 ? input.tones : DEFAULT_TONES\n    const labels = rows.map((row, idx) =>\n      input.index && row[input.index] != null ? String(row[input.index]) : String(idx + 1),\n    )\n    const series: NormalizedSeries[] = inferredCategories.map((name, idx) => ({\n      name,\n      values: rows.map((row) => sanitizeValue(row[name])),\n      tone:\n        inferredCategories.length === 1 && input.tone ? input.tone : palette[idx % palette.length],\n    }))\n\n    return { labels, series, pointCount: rows.length }\n  }\n\n  const values = input.values ?? []\n  const cleaned = values.map((value) => sanitizeValue(value))\n  return {\n    labels: cleaned.map((_, idx) => String(idx + 1)),\n    series:\n      cleaned.length > 0 ? [{ name: 'Value', values: cleaned, tone: input.tone ?? 'accent' }] : [],\n    pointCount: cleaned.length,\n  }\n}\n"
+        },
+        {
+          "path": "ui/area-chart/index.ts",
+          "type": "registry:ui",
+          "content": "export { default as AreaChart } from './AreaChart.vue'\nexport { areaPaths, niceMax, normalizeAreaData } from './geometry'\n\nexport type { AreaChartProps } from './AreaChart.vue'\nexport type { AreaCurve, AreaPoint, AreaTone, NormalizedSeries } from './geometry'\n"
         }
       ]
     }

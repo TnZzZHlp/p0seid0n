@@ -4,6 +4,8 @@ import { dirname, join, resolve } from 'node:path'
 import { describe, it } from 'node:test'
 import { fileURLToPath } from 'node:url'
 
+import { areaPaths, niceMax, normalizeAreaData } from '../registry/ui/area-chart/geometry.ts'
+import { matchesCommandItem } from '../registry/ui/command/context.ts'
 import { median, scaleTop, sparklinePath } from '../registry/ui/sparkline/geometry.ts'
 import { readStoredTheme, themeScript } from '../registry/ui/theme-provider/theme.ts'
 import { createToastStack } from '../registry/ui/toast/stack.ts'
@@ -130,17 +132,98 @@ describe('theme-provider storage and inline script', () => {
   })
 })
 
+describe('area-chart geometry', () => {
+  it('handles empty, single-point and all-zero inputs deterministically', () => {
+    const empty = areaPaths([])
+    assert.equal(empty.linePath, '')
+    assert.equal(empty.areaPath, '')
+    assert.equal(empty.points.length, 0)
+
+    const single = areaPaths([42])
+    assert.equal(single.linePath, 'M0,4L100,4')
+    assert.equal(single.areaPath, 'M0,4L100,4L100,100L0,100Z')
+    assert.deepEqual(single.points, [{ x: 50, y: 4, value: 42 }])
+
+    const zeros = areaPaths([0, 0, 0], { curve: 'linear' })
+    assert.equal(zeros.linePath, 'M0,100L50,100L100,100')
+    assert.equal(zeros.areaPath, 'M0,100L50,100L100,100L100,100L0,100Z')
+  })
+
+  it('builds monotone cubic curves without overshoot and linear segments when requested', () => {
+    const mono = areaPaths([0, 100, 0, 80], { curve: 'monotone' })
+    assert.equal(mono.linePath.includes('NaN'), false)
+    assert.match(mono.linePath, /^M0,100C/)
+    assert.match(mono.areaPath, /L100,100L0,100Z$/)
+
+    // Every cubic control point y must stay within the [4, 100] plot range.
+    const matches = [...mono.linePath.matchAll(/C([^L]+)/g)]
+    assert.equal(matches.length, 1)
+    const coords = mono.linePath.slice(1).split(/[MC,]/).map(Number)
+    for (let i = 1; i < coords.length; i += 2) {
+      assert.ok(coords[i] >= 4 && coords[i] <= 100, `unexpected y coordinate ${coords[i]}`)
+    }
+
+    const lin = areaPaths([10, 50, 25], { curve: 'linear', max: 100 })
+    assert.equal(lin.linePath, 'M0,90.4L50,52L100,76')
+    assert.equal(niceMax([Number.NaN, -5, 42]), 42)
+  })
+
+  it('normalises tabular multi-series data and categories', () => {
+    const norm = normalizeAreaData({
+      data: [
+        { ts: '10:00', down: 120, up: 40 },
+        { ts: '10:05', down: 150, up: 55 },
+      ],
+      categories: ['down', 'up'],
+      index: 'ts',
+    })
+    assert.deepEqual(norm.labels, ['10:00', '10:05'])
+    assert.equal(norm.pointCount, 2)
+    assert.equal(norm.series.length, 2)
+    assert.deepEqual(norm.series[0], { name: 'down', values: [120, 150], tone: 'accent' })
+    assert.deepEqual(norm.series[1], { name: 'up', values: [40, 55], tone: 'accent-alt' })
+  })
+})
+
+describe('command filtering predicate', () => {
+  const contains = (text: string, sub: string) => text.toLowerCase().includes(sub.toLowerCase())
+
+  it('matches empty queries, values and keywords without matching unrelated entries', () => {
+    assert.equal(matchesCommandItem('Run latency check', ['ping', 'rtt'], '', contains), true)
+    assert.equal(matchesCommandItem('Run latency check', ['ping', 'rtt'], '   ', contains), true)
+    assert.equal(matchesCommandItem('Run latency check', ['ping', 'rtt'], 'LAT', contains), true)
+    assert.equal(matchesCommandItem('Run latency check', ['ping', 'rtt'], 'rtt', contains), true)
+    assert.equal(matchesCommandItem('Run latency check', ['ping', 'rtt'], 'dns', contains), false)
+    assert.equal(matchesCommandItem('Export CSV', undefined, 'json', contains), false)
+  })
+})
+
 describe('component SFC regression contracts', () => {
-  it('binds v-model:open on Dialog, DropdownMenu and Tooltip without forcing false', () => {
+  it('binds v-model:open and v-model:page without forcing defaults', () => {
     for (const rel of [
       'registry/ui/dialog/Dialog.vue',
       'registry/ui/dropdown-menu/DropdownMenu.vue',
       'registry/ui/tooltip/Tooltip.vue',
+      'registry/ui/popover/Popover.vue',
+      'registry/ui/alert-dialog/AlertDialog.vue',
+      'registry/ui/sheet/Sheet.vue',
+      'registry/ui/select/Select.vue',
+      'registry/ui/command/CommandDialog.vue',
     ]) {
       const content = readFileSync(join(repoRoot, rel), 'utf8')
       assert.match(content, /defineModel<boolean>\('open'\)/)
       assert.match(content, /v-model:open="open"/)
     }
+
+    const pagination = readFileSync(join(repoRoot, 'registry/ui/pagination/Pagination.vue'), 'utf8')
+    assert.match(pagination, /defineModel<number>\('page'\)/)
+    assert.match(pagination, /v-model:page="page"/)
+  })
+
+  it('forwards aria-label to SliderThumb in Slider', () => {
+    const slider = readFileSync(join(repoRoot, 'registry/ui/slider/Slider.vue'), 'utf8')
+    assert.match(slider, /function thumbAriaLabel/)
+    assert.match(slider, /:aria-label="thumbAriaLabel\(index\)"/)
   })
 
   it('handles merged array onClick listeners in Button and border-line in Card', () => {
@@ -169,6 +252,11 @@ describe('component SFC regression contracts', () => {
       '@keyframes p0seid0n-pop-out',
       '@keyframes p0seid0n-toast-in',
       '@keyframes p0seid0n-toast-out',
+      '@keyframes p0seid0n-accordion-down',
+      '@keyframes p0seid0n-accordion-up',
+      '@keyframes p0seid0n-sheet-in',
+      '@keyframes p0seid0n-sheet-out',
+      '@keyframes p0seid0n-progress-indeterminate',
     ]) {
       assert.ok(css.includes(token), `expected p0seid0n.css to declare ${token}`)
     }
@@ -187,5 +275,21 @@ describe('component SFC regression contracts', () => {
     )
     assert.match(dialogContent, /motion-safe:animate-dialog-in/)
     assert.match(dialogContent, /data-\[state=closed\]:motion-safe:animate-dialog-out/)
+
+    const accordionContent = readFileSync(
+      join(repoRoot, 'registry/ui/accordion/AccordionContent.vue'),
+      'utf8',
+    )
+    assert.match(accordionContent, /motion-safe:animate-accordion-down/)
+    assert.match(accordionContent, /data-\[state=closed\]:motion-safe:animate-accordion-up/)
+
+    const sheetContent = readFileSync(join(repoRoot, 'registry/ui/sheet/SheetContent.vue'), 'utf8')
+    assert.match(sheetContent, /sheetVariants/)
+    const sheetVariants = readFileSync(join(repoRoot, 'registry/ui/sheet/variants.ts'), 'utf8')
+    assert.match(sheetVariants, /motion-safe:animate-sheet-in/)
+    assert.match(sheetVariants, /data-\[state=closed\]:motion-safe:animate-sheet-out/)
+
+    const progress = readFileSync(join(repoRoot, 'registry/ui/progress/Progress.vue'), 'utf8')
+    assert.match(progress, /motion-safe:animate-progress-indeterminate/)
   })
 })

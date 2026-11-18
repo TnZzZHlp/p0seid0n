@@ -1,0 +1,70 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "sheet",
+  "type": "registry:ui",
+  "title": "Sheet",
+  "description": "Edge-anchored modal drawer sliding from top, right, bottom or left, built on reka-ui Dialog.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Bind with v-model:open and pick an edge with side (top, right, bottom or left). Always render SheetTitle inside SheetContent so screen readers announce the drawer. Set hideClose when supplying a custom dismiss button.",
+  "files": [
+    {
+      "path": "ui/sheet/Sheet.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { DialogRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n}\n\nwithDefaults(defineProps<SheetProps>(), {\n  defaultOpen: undefined,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <DialogRoot v-model:open=\"open\" :default-open=\"defaultOpen\" modal v-bind=\"$attrs\">\n    <slot />\n  </DialogRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/SheetTrigger.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { DialogTrigger, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetTriggerProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<SheetTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogTrigger>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/SheetClose.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { DialogClose, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetCloseProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<SheetCloseProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <DialogClose :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </DialogClose>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/SheetContent.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport {\n  DialogClose,\n  DialogContent,\n  DialogOverlay,\n  DialogPortal,\n  type PointerDownOutsideEvent,\n} from 'reka-ui'\nimport { sheetCloseButton, sheetVariants, type SheetSide } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type SheetContentProps = {\n  side?: SheetSide\n  /** Hides the built-in close button when the panel supplies its own. */\n  hideClose?: boolean\n  closeOnEsc?: boolean\n  closeOnOutside?: boolean\n}\n\nconst props = withDefaults(defineProps<SheetContentProps>(), {\n  side: 'right',\n  hideClose: false,\n  closeOnEsc: true,\n  closeOnOutside: true,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nconst emit = defineEmits<{\n  escapeKeyDown: [event: KeyboardEvent]\n  pointerDownOutside: [event: PointerDownOutsideEvent]\n  interactOutside: [event: Event]\n}>()\n\nfunction onEscapeKeyDown(event: KeyboardEvent): void {\n  if (!props.closeOnEsc) event.preventDefault()\n  emit('escapeKeyDown', event)\n}\n\nfunction onPointerDownOutside(event: PointerDownOutsideEvent): void {\n  if (!props.closeOnOutside) event.preventDefault()\n  emit('pointerDownOutside', event)\n}\n\nfunction onInteractOutside(event: Event): void {\n  emit('interactOutside', event)\n}\n</script>\n\n<template>\n  <DialogPortal>\n    <DialogOverlay\n      class=\"fixed inset-0 z-40 bg-[color-mix(in_oklab,var(--color-ink)_45%,transparent)] motion-safe:animate-fade-in data-[state=closed]:motion-safe:animate-fade-out\"\n    />\n    <DialogContent\n      v-bind=\"forwarded\"\n      aria-modal=\"true\"\n      :class=\"cn(sheetVariants({ side }), attrs.class as ClassValue)\"\n      @escape-key-down=\"onEscapeKeyDown\"\n      @pointer-down-outside=\"onPointerDownOutside\"\n      @interact-outside=\"onInteractOutside\"\n    >\n      <slot />\n      <DialogClose v-if=\"!hideClose\" aria-label=\"Close\" :class=\"sheetCloseButton\">\n        <span aria-hidden=\"true\">&#215;</span>\n      </DialogClose>\n    </DialogContent>\n  </DialogPortal>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/SheetHeader.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div v-bind=\"forwarded\" :class=\"cn('flex flex-col gap-1.5 pr-8', attrs.class as ClassValue)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/SheetFooter.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'mt-auto flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/SheetTitle.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { DialogTitle } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <DialogTitle\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[17px] leading-snug font-semibold text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </DialogTitle>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/SheetDescription.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { DialogDescription } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <DialogDescription\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[14px] leading-relaxed text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </DialogDescription>\n</template>\n"
+    },
+    {
+      "path": "ui/sheet/variants.ts",
+      "type": "registry:ui",
+      "content": "import { cva } from 'class-variance-authority'\n\nexport type SheetSide = 'top' | 'right' | 'bottom' | 'left'\n\nexport const sheetVariants = cva(\n  [\n    'fixed z-50 flex flex-col gap-4 border-line bg-raised p-6 shadow-popup outline-none',\n    'motion-safe:animate-sheet-in data-[state=closed]:motion-safe:animate-sheet-out',\n  ].join(' '),\n  {\n    variants: {\n      side: {\n        right:\n          'inset-y-0 right-0 h-full w-[min(24rem,calc(100vw-2rem))] border-l [--p0seid0n-sheet-x:100%] [--p0seid0n-sheet-y:0%]',\n        left: 'inset-y-0 left-0 h-full w-[min(24rem,calc(100vw-2rem))] border-r [--p0seid0n-sheet-x:-100%] [--p0seid0n-sheet-y:0%]',\n        top: 'inset-x-0 top-0 w-full border-b [--p0seid0n-sheet-x:0%] [--p0seid0n-sheet-y:-100%]',\n        bottom:\n          'inset-x-0 bottom-0 w-full border-t [--p0seid0n-sheet-x:0%] [--p0seid0n-sheet-y:100%]',\n      } satisfies Record<SheetSide, string>,\n    },\n    defaultVariants: {\n      side: 'right',\n    },\n  },\n)\n\nexport const sheetCloseButton = [\n  'absolute right-4 top-4 inline-flex size-8 items-center justify-center rounded-[10px]',\n  'text-[16px] leading-none text-ink-muted',\n  'hover:bg-control hover:text-ink active:scale-95 motion-reduce:active:scale-100',\n  'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n  'transition-[background-color,color,transform] duration-[var(--p0seid0n-duration-fast)] ease-spring motion-reduce:transition-none',\n].join(' ')\n"
+    },
+    {
+      "path": "ui/sheet/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Sheet } from './Sheet.vue'\nexport { default as SheetTrigger } from './SheetTrigger.vue'\nexport { default as SheetClose } from './SheetClose.vue'\nexport { default as SheetContent } from './SheetContent.vue'\nexport { default as SheetHeader } from './SheetHeader.vue'\nexport { default as SheetFooter } from './SheetFooter.vue'\nexport { default as SheetTitle } from './SheetTitle.vue'\nexport { default as SheetDescription } from './SheetDescription.vue'\nexport { sheetVariants } from './variants'\n\nexport type { SheetSide } from './variants'\nexport type { SheetProps } from './Sheet.vue'\nexport type { SheetTriggerProps } from './SheetTrigger.vue'\nexport type { SheetCloseProps } from './SheetClose.vue'\nexport type { SheetContentProps } from './SheetContent.vue'\n"
+    }
+  ]
+}

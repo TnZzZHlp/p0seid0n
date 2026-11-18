@@ -1,0 +1,45 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "avatar",
+  "type": "registry:ui",
+  "title": "Avatar",
+  "description": "Image and delayed fallback wrapper built on reka-ui, in sm, md and lg sizes with circle or square shape.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Render AvatarImage and AvatarFallback inside Avatar. AvatarFallback stays visible while loading or when an image fails; pass delayMs to delay the fallback on fast connections.",
+  "files": [
+    {
+      "path": "ui/avatar/Avatar.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarRoot } from 'reka-ui'\nimport { avatarVariants, type AvatarShape, type AvatarSize } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarProps = {\n  size?: AvatarSize\n  shape?: AvatarShape\n}\n\nwithDefaults(defineProps<AvatarProps>(), {\n  size: 'md',\n  shape: 'circle',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarRoot\n    v-bind=\"forwarded\"\n    :class=\"cn(avatarVariants({ size, shape }), attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AvatarRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/avatar/AvatarImage.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarImage } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarImageProps = {\n  src: string\n  alt?: string\n}\n\nwithDefaults(defineProps<AvatarImageProps>(), {\n  alt: '',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarImage\n    v-bind=\"forwarded\"\n    :src=\"src\"\n    :alt=\"alt\"\n    :class=\"cn('aspect-square size-full object-cover', attrs.class as ClassValue)\"\n  />\n</template>\n"
+    },
+    {
+      "path": "ui/avatar/AvatarFallback.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarFallback } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarFallbackProps = {\n  delayMs?: number\n}\n\nwithDefaults(defineProps<AvatarFallbackProps>(), {\n  delayMs: undefined,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarFallback\n    v-bind=\"forwarded\"\n    :delay-ms=\"delayMs\"\n    :class=\"\n      cn(\n        'flex size-full items-center justify-center bg-control font-medium text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </AvatarFallback>\n</template>\n"
+    },
+    {
+      "path": "ui/avatar/variants.ts",
+      "type": "registry:ui",
+      "content": "import { cva } from 'class-variance-authority'\n\nexport type AvatarSize = 'sm' | 'md' | 'lg'\nexport type AvatarShape = 'circle' | 'square'\n\nexport const avatarVariants = cva(\n  'relative inline-flex shrink-0 items-center justify-center overflow-hidden border border-line bg-control font-medium text-ink-muted select-none',\n  {\n    variants: {\n      size: {\n        sm: 'size-8 text-[12px]',\n        md: 'size-10 text-[13px]',\n        lg: 'size-12 text-[15px]',\n      } satisfies Record<AvatarSize, string>,\n      shape: {\n        circle: 'rounded-full',\n        square: 'rounded-control',\n      } satisfies Record<AvatarShape, string>,\n    },\n    defaultVariants: {\n      size: 'md',\n      shape: 'circle',\n    },\n  },\n)\n"
+    },
+    {
+      "path": "ui/avatar/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Avatar } from './Avatar.vue'\nexport { default as AvatarImage } from './AvatarImage.vue'\nexport { default as AvatarFallback } from './AvatarFallback.vue'\nexport { avatarVariants } from './variants'\n\nexport type { AvatarShape, AvatarSize } from './variants'\nexport type { AvatarProps } from './Avatar.vue'\nexport type { AvatarImageProps } from './AvatarImage.vue'\nexport type { AvatarFallbackProps } from './AvatarFallback.vue'\n"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "alert-dialog",
+  "type": "registry:ui",
+  "title": "Alert Dialog",
+  "description": "Interruptive confirmation modal built on reka-ui that requires an explicit action or cancel.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme",
+    "button"
+  ],
+  "docs": "Bind with v-model:open. Unlike Dialog, clicking outside does not close an AlertDialog; focus moves to AlertDialogCancel on open. Both AlertDialogAction and AlertDialogCancel accept variant and size props from buttonVariants.",
+  "files": [
+    {
+      "path": "ui/alert-dialog/AlertDialog.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { AlertDialogRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogProps>(), {\n  defaultOpen: undefined,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <AlertDialogRoot v-model:open=\"open\" :default-open=\"defaultOpen\" v-bind=\"$attrs\">\n    <slot />\n  </AlertDialogRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogTrigger.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { AlertDialogTrigger, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogTriggerProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <AlertDialogTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </AlertDialogTrigger>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogContent.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogContent, AlertDialogOverlay, AlertDialogPortal } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogPortal>\n    <AlertDialogOverlay\n      class=\"fixed inset-0 z-40 bg-[color-mix(in_oklab,var(--color-ink)_45%,transparent)] motion-safe:animate-fade-in data-[state=closed]:motion-safe:animate-fade-out\"\n    />\n    <AlertDialogContent\n      v-bind=\"forwarded\"\n      :class=\"\n        cn(\n          'fixed left-1/2 top-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2',\n          'rounded-panel border border-line bg-raised p-6 shadow-popup outline-none',\n          'motion-safe:animate-dialog-in data-[state=closed]:motion-safe:animate-dialog-out',\n          attrs.class as ClassValue,\n        )\n      \"\n    >\n      <slot />\n    </AlertDialogContent>\n  </AlertDialogPortal>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogHeader.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div v-bind=\"forwarded\" :class=\"cn('flex flex-col gap-1.5 text-left', attrs.class as ClassValue)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogFooter.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', attrs.class as ClassValue)\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogTitle.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogTitle } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogTitle\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[17px] leading-snug font-semibold text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AlertDialogTitle>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogDescription.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogDescription } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogDescription\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[14px] leading-relaxed text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AlertDialogDescription>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogAction.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogAction } from 'reka-ui'\nimport { buttonVariants, type ButtonSize, type ButtonVariant } from '../button'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogActionProps = {\n  variant?: ButtonVariant\n  size?: ButtonSize\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogActionProps>(), {\n  variant: 'primary',\n  size: 'md',\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogAction\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"\n      asChild\n        ? cn(attrs.class as ClassValue)\n        : cn(buttonVariants({ variant, size }), attrs.class as ClassValue)\n    \"\n  >\n    <slot />\n  </AlertDialogAction>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/AlertDialogCancel.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDialogCancel } from 'reka-ui'\nimport { buttonVariants, type ButtonSize, type ButtonVariant } from '../button'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogCancelProps = {\n  variant?: ButtonVariant\n  size?: ButtonSize\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogCancelProps>(), {\n  variant: 'secondary',\n  size: 'md',\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDialogCancel\n    v-bind=\"forwarded\"\n    :as-child=\"asChild\"\n    :class=\"\n      asChild\n        ? cn(attrs.class as ClassValue)\n        : cn(buttonVariants({ variant, size }), attrs.class as ClassValue)\n    \"\n  >\n    <slot />\n  </AlertDialogCancel>\n</template>\n"
+    },
+    {
+      "path": "ui/alert-dialog/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as AlertDialog } from './AlertDialog.vue'\nexport { default as AlertDialogTrigger } from './AlertDialogTrigger.vue'\nexport { default as AlertDialogContent } from './AlertDialogContent.vue'\nexport { default as AlertDialogHeader } from './AlertDialogHeader.vue'\nexport { default as AlertDialogFooter } from './AlertDialogFooter.vue'\nexport { default as AlertDialogTitle } from './AlertDialogTitle.vue'\nexport { default as AlertDialogDescription } from './AlertDialogDescription.vue'\nexport { default as AlertDialogAction } from './AlertDialogAction.vue'\nexport { default as AlertDialogCancel } from './AlertDialogCancel.vue'\n\nexport type { AlertDialogProps } from './AlertDialog.vue'\nexport type { AlertDialogTriggerProps } from './AlertDialogTrigger.vue'\nexport type { AlertDialogActionProps } from './AlertDialogAction.vue'\nexport type { AlertDialogCancelProps } from './AlertDialogCancel.vue'\n"
+    }
+  ]
+}

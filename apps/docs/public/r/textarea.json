@@ -1,0 +1,28 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "textarea",
+  "type": "registry:ui",
+  "title": "Textarea",
+  "description": "Multi-line text field with a focus ring, an aria-driven invalid state and a disabled state.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Bind with v-model. Set invalid to render aria-invalid and the danger border. Pass rows to adjust the initial height and point a Label at its id so the two stay associated.",
+  "files": [
+    {
+      "path": "ui/textarea/Textarea.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest['aria-invalid']\n  return rest\n})\n\nexport type TextareaProps = {\n  /** Marks the field as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n  disabled?: boolean\n  id?: string\n  rows?: number\n}\n\nconst props = withDefaults(defineProps<TextareaProps>(), {\n  invalid: false,\n  disabled: false,\n  id: undefined,\n  rows: 4,\n})\n\nconst model = defineModel<string>({ default: '' })\n\nconst ariaInvalid = computed(() => {\n  if (props.invalid) return 'true'\n  return attrs['aria-invalid'] as 'true' | 'false' | 'grammar' | 'spelling' | undefined\n})\n</script>\n\n<template>\n  <textarea\n    v-bind=\"forwarded\"\n    :id=\"id\"\n    v-model=\"model\"\n    :rows=\"rows\"\n    :disabled=\"disabled\"\n    :aria-invalid=\"ariaInvalid\"\n    :class=\"\n      cn(\n        'min-h-24 w-full rounded-control border border-line bg-control px-3 py-2.5 text-[15px] leading-relaxed text-ink',\n        'placeholder:text-ink-muted',\n        'outline-none focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,color,border-color,outline-color,box-shadow] duration-[var(--p0seid0n-duration-normal)] ease-out-expo motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  />\n</template>\n"
+    },
+    {
+      "path": "ui/textarea/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Textarea } from './Textarea.vue'\nexport type { TextareaProps } from './Textarea.vue'\n"
+    }
+  ]
+}

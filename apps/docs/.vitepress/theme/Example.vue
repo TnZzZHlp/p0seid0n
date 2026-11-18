@@ -24,6 +24,25 @@ import sparklineTone from '../../src/examples/sparkline-tone.vue?raw'
 import sparklineEdges from '../../src/examples/sparkline-edges.vue?raw'
 import themeSwitcherBasic from '../../src/examples/theme-switcher-basic.vue?raw'
 import motionInspector from '../../src/examples/motion-inspector.vue?raw'
+import textareaStates from '../../src/examples/textarea-states.vue?raw'
+import checkboxStates from '../../src/examples/checkbox-states.vue?raw'
+import radioGroupBasic from '../../src/examples/radio-group-basic.vue?raw'
+import selectBasic from '../../src/examples/select-basic.vue?raw'
+import sliderRange from '../../src/examples/slider-range.vue?raw'
+import popoverBasic from '../../src/examples/popover-basic.vue?raw'
+import alertDialogBasic from '../../src/examples/alert-dialog-basic.vue?raw'
+import sheetSides from '../../src/examples/sheet-sides.vue?raw'
+import accordionBasic from '../../src/examples/accordion-basic.vue?raw'
+import breadcrumbBasic from '../../src/examples/breadcrumb-basic.vue?raw'
+import paginationBasic from '../../src/examples/pagination-basic.vue?raw'
+import alertVariants from '../../src/examples/alert-variants.vue?raw'
+import progressStates from '../../src/examples/progress-states.vue?raw'
+import skeletonCard from '../../src/examples/skeleton-card.vue?raw'
+import avatarSizes from '../../src/examples/avatar-sizes.vue?raw'
+import tableBasic from '../../src/examples/table-basic.vue?raw'
+import toggleVariants from '../../src/examples/toggle-variants.vue?raw'
+import commandBasic from '../../src/examples/command-basic.vue?raw'
+import areaChartSeries from '../../src/examples/area-chart-series.vue?raw'
 
 const props = defineProps<{
   /** File name inside `src/examples`, without the extension. */
@@ -57,6 +76,25 @@ const sources: Record<string, string> = {
   'sparkline-edges': sparklineEdges,
   'theme-switcher-basic': themeSwitcherBasic,
   'motion-inspector': motionInspector,
+  'textarea-states': textareaStates,
+  'checkbox-states': checkboxStates,
+  'radio-group-basic': radioGroupBasic,
+  'select-basic': selectBasic,
+  'slider-range': sliderRange,
+  'popover-basic': popoverBasic,
+  'alert-dialog-basic': alertDialogBasic,
+  'sheet-sides': sheetSides,
+  'accordion-basic': accordionBasic,
+  'breadcrumb-basic': breadcrumbBasic,
+  'pagination-basic': paginationBasic,
+  'alert-variants': alertVariants,
+  'progress-states': progressStates,
+  'skeleton-card': skeletonCard,
+  'avatar-sizes': avatarSizes,
+  'table-basic': tableBasic,
+  'toggle-variants': toggleVariants,
+  'command-basic': commandBasic,
+  'area-chart-series': areaChartSeries,
 }
 
 type CodeToken = {

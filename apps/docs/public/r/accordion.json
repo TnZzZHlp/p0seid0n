@@ -1,0 +1,44 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "accordion",
+  "type": "registry:ui",
+  "title": "Accordion",
+  "description": "Vertically stacked collapsible disclosure panels built on reka-ui, with single or multiple open items.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Set type to single (default) or multiple and bind with v-model. collapsible defaults to true so the active single item can be closed again. Content height animates via --reka-accordion-content-height under motion-safe.",
+  "files": [
+    {
+      "path": "ui/accordion/Accordion.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AccordionProps = {\n  /** Whether one item or several items can stay open at once. */\n  type?: 'single' | 'multiple'\n  /** Allows closing the active item when `type` is `\"single\"`. */\n  collapsible?: boolean\n  defaultValue?: string | string[]\n  disabled?: boolean\n  unmountOnHide?: boolean\n}\n\nwithDefaults(defineProps<AccordionProps>(), {\n  type: 'single',\n  collapsible: true,\n  defaultValue: undefined,\n  disabled: false,\n  unmountOnHide: true,\n})\n\nconst model = defineModel<string | string[]>()\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionRoot\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :type=\"type\"\n    :collapsible=\"collapsible\"\n    :default-value=\"defaultValue\"\n    :disabled=\"disabled\"\n    :unmount-on-hide=\"unmountOnHide\"\n    :class=\"cn('w-full', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AccordionRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/accordion/AccordionItem.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionItem } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AccordionItemProps = {\n  value: string\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<AccordionItemProps>(), {\n  disabled: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionItem\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :class=\"cn('border-b border-line last:border-b-0', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AccordionItem>\n</template>\n"
+    },
+    {
+      "path": "ui/accordion/AccordionTrigger.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionHeader, AccordionTrigger } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionHeader class=\"flex\">\n    <AccordionTrigger\n      v-bind=\"forwarded\"\n      :class=\"\n        cn(\n          'group flex flex-1 cursor-pointer items-center justify-between gap-4 rounded-[6px] py-4 text-left text-[15px] font-medium text-ink',\n          'outline-none hover:text-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n          'disabled:pointer-events-none disabled:opacity-55',\n          attrs.class as ClassValue,\n        )\n      \"\n    >\n      <slot />\n      <slot name=\"icon\">\n        <svg\n          class=\"size-4 shrink-0 text-ink-muted transition-transform duration-[var(--p0seid0n-duration-normal)] ease-out-expo group-data-[state=open]:rotate-180 motion-reduce:transition-none\"\n          viewBox=\"0 0 16 16\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"1.75\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"m4 6 4 4 4-4\" />\n        </svg>\n      </slot>\n    </AccordionTrigger>\n  </AccordionHeader>\n</template>\n"
+    },
+    {
+      "path": "ui/accordion/AccordionContent.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AccordionContent } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AccordionContent\n    v-bind=\"forwarded\"\n    class=\"overflow-hidden text-[14px] leading-relaxed text-ink-muted data-[state=open]:motion-safe:animate-accordion-down data-[state=closed]:motion-safe:animate-accordion-up\"\n  >\n    <div :class=\"cn('pt-0 pb-4', attrs.class as ClassValue)\">\n      <slot />\n    </div>\n  </AccordionContent>\n</template>\n"
+    },
+    {
+      "path": "ui/accordion/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Accordion } from './Accordion.vue'\nexport { default as AccordionItem } from './AccordionItem.vue'\nexport { default as AccordionTrigger } from './AccordionTrigger.vue'\nexport { default as AccordionContent } from './AccordionContent.vue'\n\nexport type { AccordionProps } from './Accordion.vue'\nexport type { AccordionItemProps } from './AccordionItem.vue'\n"
+    }
+  ]
+}

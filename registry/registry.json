@@ -490,6 +490,647 @@
         }
       ],
       "docs": "Requires a ThemeProvider above it and uses useTheme(), so the menu, the html class and localStorage always agree. The icon slot receives the current choice for rendering a matching icon. Labels default to System, Light and Dark and can be overridden per locale."
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text field with a focus ring, an aria-driven invalid state and a disabled state.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/textarea/Textarea.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/textarea/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model. Set invalid to render aria-invalid and the danger border. Pass rows to adjust the initial height and point a Label at its id so the two stay associated."
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checked, unchecked and indeterminate control built on reka-ui, with an optional indicator slot.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/checkbox/Checkbox.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/checkbox/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model (boolean or \"indeterminate\"). Space toggles it and aria-checked mirrors mixed when indeterminate. Pass invalid for the danger border, or replace the check mark through the indicator slot."
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Single-choice option list built on reka-ui, supporting vertical and horizontal orientations.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/radio-group/RadioGroup.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/radio-group/RadioGroupItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/radio-group/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind RadioGroup with v-model and give each RadioGroupItem a string value. Arrow keys move between items and loop by default; set orientation to horizontal to lay items out in a row."
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Accessible dropdown selector built on reka-ui, with groups, labels, separators and scroll buttons.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/select/Select.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectValue.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectGroup.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectLabel.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectSeparator.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind Select with v-model and v-model:open when needed. Every SelectItem must receive a non-empty value string because empty strings clear the selection and show the placeholder. Set invalid on SelectTrigger for validation errors."
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Single-value and multi-thumb range slider built on reka-ui, with keyboard steps and vertical support.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/slider/Slider.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/slider/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model as a number array (for example [40] or [20, 80] for a range). Pass thumbLabels to give each thumb its own accessible name when using multiple thumbs, or aria-label for single-thumb sliders."
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Anchored floating surface built on reka-ui, for rich interactive controls outside dialogs.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/popover/Popover.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/popover/PopoverTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/popover/PopoverAnchor.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/popover/PopoverClose.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/popover/PopoverContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/popover/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Control open state with v-model:open when needed. Use PopoverTrigger with as-child to wrap a Button. PopoverContent supports side, align, sideOffset and trapFocus, and renders at z-50 with the popup shadow."
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Interruptive confirmation modal built on reka-ui that requires an explicit action or cancel.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "ui/alert-dialog/AlertDialog.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogHeader.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogFooter.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogTitle.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogDescription.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogAction.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/AlertDialogCancel.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert-dialog/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model:open. Unlike Dialog, clicking outside does not close an AlertDialog; focus moves to AlertDialogCancel on open. Both AlertDialogAction and AlertDialogCancel accept variant and size props from buttonVariants."
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Edge-anchored modal drawer sliding from top, right, bottom or left, built on reka-ui Dialog.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/sheet/Sheet.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/SheetTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/SheetClose.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/SheetContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/SheetHeader.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/SheetFooter.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/SheetTitle.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/SheetDescription.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sheet/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model:open and pick an edge with side (top, right, bottom or left). Always render SheetTitle inside SheetContent so screen readers announce the drawer. Set hideClose when supplying a custom dismiss button."
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Vertically stacked collapsible disclosure panels built on reka-ui, with single or multiple open items.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/accordion/Accordion.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/accordion/AccordionItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/accordion/AccordionTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/accordion/AccordionContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/accordion/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Set type to single (default) or multiple and bind with v-model. collapsible defaults to true so the active single item can be closed again. Content height animates via --reka-accordion-content-height under motion-safe."
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Hierarchical navigation trail with links, separators, ellipsis and current-page indicator.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/breadcrumb/Breadcrumb.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbList.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbLink.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbPage.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbSeparator.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/breadcrumb/BreadcrumbEllipsis.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/breadcrumb/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Compose BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator and BreadcrumbPage inside Breadcrumb. Pass as-child on BreadcrumbLink to wrap a router link component."
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Page navigation controls built on reka-ui, with condensed tabular page numbers and edge buttons.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/pagination/Pagination.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/PaginationList.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/PaginationListItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/PaginationFirst.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/PaginationPrev.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/PaginationNext.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/PaginationLast.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/PaginationEllipsis.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/pagination/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pass total and itemsPerPage, and bind v-model:page (or defaultPage for uncontrolled usage). PaginationList exposes the computed items array of page and ellipsis entries through its scoped slot."
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Inline callout banner in neutral, accent and danger variants with title, description and icon slot.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/alert/Alert.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert/AlertTitle.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert/AlertDescription.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/alert/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Choose variant neutral, accent or danger. Danger alerts default to role=\"alert\" while neutral and accent default to role=\"status\". Pass an SVG or marker in the icon slot."
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Determinate and indeterminate progress bar built on reka-ui, in default, accent and danger tones.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/progress/Progress.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/progress/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pass a numeric modelValue between 0 and max for a determinate bar, or omit it (or pass null) for an indeterminate animation. Give it an accessible name with aria-label or aria-labelledby."
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Animated placeholder block that marks loading layout regions without colour literals.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/skeleton/Skeleton.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/skeleton/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Size Skeleton with utility classes such as h-4 w-48 or size-10 rounded-full. The element is aria-hidden by default and disables its pulse under prefers-reduced-motion."
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Image and delayed fallback wrapper built on reka-ui, in sm, md and lg sizes with circle or square shape.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/avatar/Avatar.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/avatar/AvatarImage.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/avatar/AvatarFallback.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/avatar/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/avatar/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Render AvatarImage and AvatarFallback inside Avatar. AvatarFallback stays visible while loading or when an image fails; pass delayMs to delay the fallback on fast connections."
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Responsive HTML table primitives with condensed tabular numeric columns and hoverable rows.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/table/Table.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/TableHeader.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/TableBody.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/TableFooter.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/TableRow.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/TableHead.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/TableCell.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/TableCaption.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/table/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Set numeric on TableHead and TableCell to right-align metrics and render cell numerals in the condensed tabular font. Mark selected rows with data-state=\"selected\"."
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Two-state pressed button built on reka-ui, in default and outline variants across three sizes.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/toggle/Toggle.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toggle/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toggle/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Bind with v-model or defaultValue. variant supports default and outline; size supports sm, md and lg. aria-pressed and data-state mirror the pressed boolean."
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Searchable command palette and modal dialog built on reka-ui Listbox and Dialog.",
+      "dependencies": ["clsx", "tailwind-merge", "reka-ui"],
+      "registryDependencies": ["utils", "theme", "dialog"],
+      "files": [
+        {
+          "path": "ui/command/Command.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandDialog.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandInput.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandList.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandEmpty.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandGroup.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandSeparator.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/CommandShortcut.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/command/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Compose CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandSeparator and CommandShortcut inside Command or CommandDialog. Use keywords on CommandItem to match synonyms without changing the visible label."
+    },
+    {
+      "name": "area-chart",
+      "type": "registry:ui",
+      "title": "Area Chart",
+      "description": "Hand-written SVG area chart with monotone or linear curves, multi-series data and pointer tooltip.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "ui/area-chart/AreaChart.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/area-chart/geometry.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/area-chart/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pass either a single values number array or tabular data rows with categories and index. Monotone curves preserve local extrema without overshoot, and hover scrubs a vertical crosshair with condensed tabular values."
     }
   ]
 }

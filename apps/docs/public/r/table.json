@@ -1,0 +1,63 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "table",
+  "type": "registry:ui",
+  "title": "Table",
+  "description": "Responsive HTML table primitives with condensed tabular numeric columns and hoverable rows.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Set numeric on TableHead and TableCell to right-align metrics and render cell numerals in the condensed tabular font. Mark selected rows with data-state=\"selected\".",
+  "files": [
+    {
+      "path": "ui/table/Table.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div class=\"relative w-full overflow-x-auto\">\n    <table\n      v-bind=\"forwarded\"\n      :class=\"\n        cn('w-full caption-bottom border-collapse text-[14px] text-ink', attrs.class as ClassValue)\n      \"\n    >\n      <slot />\n    </table>\n  </div>\n</template>\n"
+    },
+    {
+      "path": "ui/table/TableHeader.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <thead\n    v-bind=\"forwarded\"\n    :class=\"cn('[&_tr]:border-b [&_tr]:border-line', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </thead>\n</template>\n"
+    },
+    {
+      "path": "ui/table/TableBody.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <tbody v-bind=\"forwarded\" :class=\"cn('[&_tr:last-child]:border-0', attrs.class as ClassValue)\">\n    <slot />\n  </tbody>\n</template>\n"
+    },
+    {
+      "path": "ui/table/TableFooter.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <tfoot\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'border-t border-line bg-control font-medium [&>tr]:last:border-b-0',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </tfoot>\n</template>\n"
+    },
+    {
+      "path": "ui/table/TableRow.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <tr\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'border-b border-line transition-colors duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n        'hover:bg-[color-mix(in_oklab,var(--color-control)_55%,transparent)] data-[state=selected]:bg-control',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </tr>\n</template>\n"
+    },
+    {
+      "path": "ui/table/TableHead.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TableHeadProps = {\n  /** Aligns the column header to the right for numeric values. */\n  numeric?: boolean\n}\n\nwithDefaults(defineProps<TableHeadProps>(), {\n  numeric: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <th\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'h-10 px-3 text-left align-middle text-[12px] font-medium text-ink-muted [&:has([role=checkbox])]:pr-0',\n        numeric && 'text-right',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </th>\n</template>\n"
+    },
+    {
+      "path": "ui/table/TableCell.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TableCellProps = {\n  /** Right-aligns the cell and renders numerals in the condensed tabular font. */\n  numeric?: boolean\n}\n\nwithDefaults(defineProps<TableCellProps>(), {\n  numeric: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <td\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'p-3 align-middle [&:has([role=checkbox])]:pr-0',\n        numeric &&\n          'text-right font-condensed text-[15px] font-medium tracking-[-0.01em] tabular-nums',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </td>\n</template>\n"
+    },
+    {
+      "path": "ui/table/TableCaption.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <caption\n    v-bind=\"forwarded\"\n    :class=\"cn('mt-3 text-[12px] text-ink-faint', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </caption>\n</template>\n"
+    },
+    {
+      "path": "ui/table/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Table } from './Table.vue'\nexport { default as TableHeader } from './TableHeader.vue'\nexport { default as TableBody } from './TableBody.vue'\nexport { default as TableFooter } from './TableFooter.vue'\nexport { default as TableRow } from './TableRow.vue'\nexport { default as TableHead } from './TableHead.vue'\nexport { default as TableCell } from './TableCell.vue'\nexport { default as TableCaption } from './TableCaption.vue'\n\nexport type { TableHeadProps } from './TableHead.vue'\nexport type { TableCellProps } from './TableCell.vue'\n"
+    }
+  ]
+}

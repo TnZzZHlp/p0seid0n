@@ -33,7 +33,36 @@ describe('registry manifest and build pipeline', () => {
   it('validates the repository manifest and emits upstream $schema fields', () => {
     const raw = JSON.parse(readFileSync(join(registryRoot, 'registry.json'), 'utf8')) as unknown
     const manifest = validateManifest(raw, registryRoot)
-    assert.ok(manifest.items.length >= 19)
+    assert.ok(manifest.items.length >= 38)
+
+    const expectedNewItems = [
+      'textarea',
+      'checkbox',
+      'radio-group',
+      'select',
+      'slider',
+      'popover',
+      'alert-dialog',
+      'sheet',
+      'accordion',
+      'breadcrumb',
+      'pagination',
+      'alert',
+      'progress',
+      'skeleton',
+      'avatar',
+      'table',
+      'toggle',
+      'command',
+      'area-chart',
+    ]
+    for (const name of expectedNewItems) {
+      const entry = manifest.items.find((item) => item.name === name)
+      assert.ok(entry, `expected manifest to include "${name}"`)
+      const first = serialize(buildItemPayload(entry, registryRoot))
+      const second = serialize(buildItemPayload(entry, registryRoot))
+      assert.equal(first, second, `expected deterministic serialization for "${name}"`)
+    }
 
     const summary = buildRegistrySummary(manifest)
     assert.equal(summary.$schema, REGISTRY_SCHEMA)

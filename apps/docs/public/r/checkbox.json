@@ -1,0 +1,29 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "Checked, unchecked and indeterminate control built on reka-ui, with an optional indicator slot.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils",
+    "theme"
+  ],
+  "docs": "Bind with v-model (boolean or \"indeterminate\"). Space toggles it and aria-checked mirrors mixed when indeterminate. Pass invalid for the danger border, or replace the check mark through the indicator slot.",
+  "files": [
+    {
+      "path": "ui/checkbox/Checkbox.vue",
+      "type": "registry:ui",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { CheckboxIndicator, CheckboxRoot, type CheckboxCheckedState } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest['aria-invalid']\n  return rest\n})\n\nexport type CheckboxProps = {\n  defaultValue?: boolean | 'indeterminate'\n  disabled?: boolean\n  required?: boolean\n  name?: string\n  value?: string\n  id?: string\n  /** Marks the control as invalid and paints the border with the danger colour. */\n  invalid?: boolean\n}\n\nconst props = withDefaults(defineProps<CheckboxProps>(), {\n  defaultValue: undefined,\n  disabled: false,\n  required: false,\n  name: undefined,\n  value: undefined,\n  id: undefined,\n  invalid: false,\n})\n\nconst model = defineModel<CheckboxCheckedState>()\n\nconst ariaInvalid = computed(() => {\n  if (props.invalid) return 'true'\n  return attrs['aria-invalid'] as 'true' | 'false' | 'grammar' | 'spelling' | undefined\n})\n</script>\n\n<template>\n  <CheckboxRoot\n    :id=\"id\"\n    v-slot=\"{ state }\"\n    v-model=\"model\"\n    v-bind=\"forwarded\"\n    :default-value=\"defaultValue\"\n    :disabled=\"disabled\"\n    :required=\"required\"\n    :name=\"name\"\n    :value=\"value\"\n    :aria-invalid=\"ariaInvalid\"\n    :class=\"\n      cn(\n        'peer inline-flex size-5 shrink-0 items-center justify-center rounded-[6px] border border-line bg-control text-surface',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',\n        'data-[state=checked]:border-ink data-[state=checked]:bg-ink',\n        'data-[state=indeterminate]:border-ink data-[state=indeterminate]:bg-ink',\n        'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',\n        'disabled:cursor-default disabled:opacity-55',\n        'transition-[background-color,border-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <CheckboxIndicator\n      class=\"flex items-center justify-center text-current motion-safe:animate-check-in data-[state=unchecked]:motion-safe:animate-check-out\"\n    >\n      <slot name=\"indicator\" :state=\"state\">\n        <svg\n          v-if=\"state === 'indeterminate'\"\n          class=\"size-3\"\n          viewBox=\"0 0 12 12\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"M2.5 6h7\" />\n        </svg>\n        <svg\n          v-else\n          class=\"size-3\"\n          viewBox=\"0 0 12 12\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"M2.5 6.5 5 9l4.5-5.5\" />\n        </svg>\n      </slot>\n    </CheckboxIndicator>\n  </CheckboxRoot>\n</template>\n"
+    },
+    {
+      "path": "ui/checkbox/index.ts",
+      "type": "registry:ui",
+      "content": "export { default as Checkbox } from './Checkbox.vue'\nexport type { CheckboxProps } from './Checkbox.vue'\n"
+    }
+  ]
+}
