@@ -153,4 +153,39 @@ describe('component SFC regression contracts', () => {
     const input = readFileSync(join(repoRoot, 'registry/ui/input/Input.vue'), 'utf8')
     assert.equal(input.includes('@input="onInput"'), false)
   })
+
+  it('wires paired enter/exit motion tokens and reduced-motion guards across components', () => {
+    const css = readFileSync(join(repoRoot, 'registry/styles/p0seid0n.css'), 'utf8')
+    for (const token of [
+      '--p0seid0n-ease-out',
+      '--p0seid0n-ease-in',
+      '--p0seid0n-ease-spring',
+      '--p0seid0n-duration-fast',
+      '--p0seid0n-duration-normal',
+      '--p0seid0n-duration-slow',
+      '@keyframes p0seid0n-dialog-in',
+      '@keyframes p0seid0n-dialog-out',
+      '@keyframes p0seid0n-pop-in',
+      '@keyframes p0seid0n-pop-out',
+      '@keyframes p0seid0n-toast-in',
+      '@keyframes p0seid0n-toast-out',
+    ]) {
+      assert.ok(css.includes(token), `expected p0seid0n.css to declare ${token}`)
+    }
+
+    const tabsList = readFileSync(join(repoRoot, 'registry/ui/tabs/TabsList.vue'), 'utf8')
+    assert.match(tabsList, /<TabsIndicator/)
+
+    const toaster = readFileSync(join(repoRoot, 'registry/ui/toast/Toaster.vue'), 'utf8')
+    assert.match(toaster, /<TransitionGroup/)
+    assert.match(toaster, /motion-safe:animate-toast-in/)
+    assert.match(toaster, /motion-safe:animate-toast-out/)
+
+    const dialogContent = readFileSync(
+      join(repoRoot, 'registry/ui/dialog/DialogContent.vue'),
+      'utf8',
+    )
+    assert.match(dialogContent, /motion-safe:animate-dialog-in/)
+    assert.match(dialogContent, /data-\[state=closed\]:motion-safe:animate-dialog-out/)
+  })
 })

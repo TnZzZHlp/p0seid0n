@@ -5,13 +5,19 @@
  * opened from inside a dialog stack above that dialog.
  */
 export const popupSurface = [
-  'z-50 overflow-hidden rounded-panel border border-line bg-raised p-1.5 shadow-popup',
-  'outline-none',
+  'z-50 overflow-hidden rounded-panel border border-line bg-raised p-1.5 shadow-popup outline-none',
+  'origin-[var(--reka-dropdown-menu-content-transform-origin)]',
+  'data-[side=bottom]:[--p0seid0n-pop-y:-4px]',
+  'data-[side=top]:[--p0seid0n-pop-y:4px]',
+  'data-[side=left]:[--p0seid0n-pop-x:4px] data-[side=left]:[--p0seid0n-pop-y:0px]',
+  'data-[side=right]:[--p0seid0n-pop-x:-4px] data-[side=right]:[--p0seid0n-pop-y:0px]',
+  'motion-safe:animate-pop-in data-[state=closed]:motion-safe:animate-pop-out',
 ].join(' ')
 
 export const menuItem = [
   'relative flex h-9 cursor-pointer select-none items-center gap-2 rounded-[10px] px-3',
   'text-[14px] font-medium text-ink-muted outline-none',
+  'transition-[background-color,color] duration-[var(--p0seid0n-duration-fast)] ease-out-expo motion-reduce:transition-none',
   'hover:bg-control hover:text-ink',
   'focus:bg-control focus:text-ink',
   'data-[highlighted]:bg-control data-[highlighted]:text-ink',

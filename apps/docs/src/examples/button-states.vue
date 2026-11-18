@@ -17,7 +17,14 @@ async function run(): Promise<void> {
   <div class="flex flex-wrap items-center gap-3">
     <Button :loading="loading" @click="run">
       <template #progress>
-        <span class="absolute inset-0 -z-10 bg-[color-mix(in_oklab,var(--color-surface)_18%,transparent)]" />
+        <span
+          :class="[
+            'absolute inset-0 -z-10 origin-left bg-[color-mix(in_oklab,var(--color-surface)_22%,transparent)]',
+            loading
+              ? 'scale-x-100 transition-transform duration-[1200ms] ease-linear motion-reduce:transition-none'
+              : 'scale-x-0',
+          ]"
+        />
       </template>
       {{ loading ? 'Working' : 'Start' }}
     </Button>

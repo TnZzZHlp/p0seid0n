@@ -63,9 +63,12 @@ at `z-50`, so a notification raised from inside a dialog stays visible.
 
 ## Motion
 
-Entry runs for 150ms and is removed under `prefers-reduced-motion: reduce`. The
-keyframes live in the theme item, so installing `toast` without `theme` degrades
-to no animation rather than a layout shift.
+Notifications enter with a 200ms upward lift (`animate-toast-in`), dismiss with a
+160ms rightward fade (`animate-toast-out`), and glide into place via FLIP
+transforms when neighbours enter or leave. Hovering or focusing a notification
+pauses its countdown. All animations are dropped under
+`prefers-reduced-motion: reduce`. The keyframes live in the theme item, so
+installing `toast` without `theme` degrades cleanly to instant mount and unmount.
 
 ## API
 

@@ -40,6 +40,12 @@ const forwarded = computed(() => {
         cn(
           'z-50 flex items-center gap-2 rounded-[10px] border border-line bg-raised px-2.5 py-1.5',
           'text-[12px] font-medium text-ink shadow-popup',
+          'origin-[var(--reka-tooltip-content-transform-origin)]',
+          'data-[side=bottom]:[--p0seid0n-pop-y:-4px]',
+          'data-[side=top]:[--p0seid0n-pop-y:4px]',
+          'data-[side=left]:[--p0seid0n-pop-x:4px] data-[side=left]:[--p0seid0n-pop-y:0px]',
+          'data-[side=right]:[--p0seid0n-pop-x:-4px] data-[side=right]:[--p0seid0n-pop-y:0px]',
+          'motion-safe:animate-pop-in data-[state=closed]:motion-safe:animate-pop-out',
           attrs.class as ClassValue,
         )
       "

@@ -43,6 +43,7 @@ export default defineConfig({
             { text: 'Install', link: '/guide/install' },
             { text: 'Theme and tokens', link: '/guide/theme' },
             { text: 'Typography and breakpoints', link: '/guide/typography' },
+            { text: 'Motion', link: '/guide/motion' },
           ],
         },
       ],

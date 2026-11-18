@@ -66,5 +66,5 @@ Control surfaces use `leading-none` for values and default leading for prose. Th
 base `font-sans` stack is used for everything that is not a numeral, which keeps
 labels at a consistent rhythm with surrounding text.
 
-Next: pick a component from the sidebar, starting with
+Next: [motion](/guide/motion), or pick a component from the sidebar starting with
 [Button](/components/button).

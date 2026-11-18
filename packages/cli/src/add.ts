@@ -14,7 +14,7 @@ import {
 import { parseRef, resolvePlan, type ItemRef } from './resolve.ts'
 import { rewriteImports } from './transform.ts'
 
-export const DEFAULT_REGISTRY = 'https://p0seid0n.example.com'
+export const DEFAULT_REGISTRY = 'https://p0seid0n.tnzzzhlp.workers.dev'
 
 export type AddOptions = {
   cwd: string

@@ -72,7 +72,7 @@ const labelled = computed(() => props.ariaLabel !== undefined)
     preserveAspectRatio="none"
     :class="
       cn(
-        'block w-full',
+        'block w-full transition-colors duration-[var(--p0seid0n-duration-normal)] ease-out-expo motion-reduce:transition-none',
         props.baseline ? 'border-b border-line' : undefined,
         toneClass,
         attrs.class as ClassValue,

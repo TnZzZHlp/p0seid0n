@@ -28,7 +28,9 @@ Disabled triggers are skipped by the arrow keys. `activationMode` defaults to
 
 By default inactive panels remain in the DOM (hidden), so form state and scroll
 position survive a tab change. Set `unmount-on-hide` to drop them instead, which
-trades that for a smaller tree.
+trades that for a smaller tree. Switching triggers glides the raised pill along
+the track and fades the incoming panel in; both drop to instant under
+`prefers-reduced-motion: reduce`.
 
 ## API
 

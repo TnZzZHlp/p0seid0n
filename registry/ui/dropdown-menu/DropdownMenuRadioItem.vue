@@ -38,7 +38,9 @@ const forwarded = computed(() => {
     @select="emit('select', $event)"
   >
     <span class="flex size-3.5 shrink-0 items-center justify-center">
-      <DropdownMenuItemIndicator class="flex items-center justify-center text-ink">
+      <DropdownMenuItemIndicator
+        class="flex items-center justify-center text-ink motion-safe:animate-check-in data-[state=unchecked]:motion-safe:animate-check-out"
+      >
         <slot name="indicator">
           <span class="size-1.5 rounded-full bg-ink" />
         </slot>

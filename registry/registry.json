@@ -1,12 +1,12 @@
 {
   "name": "p0seid0n",
-  "homepage": "https://p0seid0n.example.com",
+  "homepage": "https://p0seid0n.tnzzzhlp.workers.dev",
   "items": [
     {
       "name": "theme",
       "type": "registry:theme",
       "title": "Theme",
-      "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge.",
+      "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, motion curves and durations, keyframes, and the Tailwind v4 @theme inline bridge.",
       "files": [
         {
           "path": "styles/p0seid0n.css",

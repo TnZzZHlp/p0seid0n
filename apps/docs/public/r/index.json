@@ -3,7 +3,7 @@
     "name": "theme",
     "type": "registry:theme",
     "title": "Theme",
-    "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge."
+    "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, motion curves and durations, keyframes, and the Tailwind v4 @theme inline bridge."
   },
   {
     "name": "theme-shadcn",

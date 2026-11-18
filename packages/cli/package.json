@@ -2,6 +2,7 @@
   "name": "p0seid0n",
   "version": "0.1.0",
   "description": "Install p0seid0n UI components into a Vue and Tailwind project.",
+  "homepage": "https://p0seid0n.tnzzzhlp.workers.dev",
   "license": "MIT",
   "type": "module",
   "bin": {

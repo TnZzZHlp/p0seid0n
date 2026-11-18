@@ -49,7 +49,7 @@ Every item in `/r/*.json` also conforms to the upstream `registry-item.json`
 schema:
 
 ```bash
-npx shadcn-vue@latest add <registry-url>/r/button.json
+npx shadcn-vue@latest add https://p0seid0n.tnzzzhlp.workers.dev/r/button.json
 ```
 
 Items listed by bare name resolve to the registry that served the entry, which is

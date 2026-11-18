@@ -23,6 +23,7 @@ import statFigure from '../../src/examples/stat-figure.vue?raw'
 import sparklineTone from '../../src/examples/sparkline-tone.vue?raw'
 import sparklineEdges from '../../src/examples/sparkline-edges.vue?raw'
 import themeSwitcherBasic from '../../src/examples/theme-switcher-basic.vue?raw'
+import motionInspector from '../../src/examples/motion-inspector.vue?raw'
 
 const props = defineProps<{
   /** File name inside `src/examples`, without the extension. */
@@ -55,6 +56,7 @@ const sources: Record<string, string> = {
   'sparkline-tone': sparklineTone,
   'sparkline-edges': sparklineEdges,
   'theme-switcher-basic': themeSwitcherBasic,
+  'motion-inspector': motionInspector,
 }
 
 type CodeToken = {

@@ -38,13 +38,13 @@ guessed directory.
 
 ## Options
 
-| Option             | Effect                                                                 |
-| ------------------ | ---------------------------------------------------------------------- |
-| `--cwd <dir>`      | project directory, defaults to the current one                         |
-| `--registry <url>` | base used for item names; a directory works for offline runs           |
-| `--overwrite`      | replace files whose content differs                                    |
-| `--no-install`     | write files but skip the package manager; the command is still printed |
-| `--force`          | replace an existing `components.json` (init only)                      |
+| Option             | Effect                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `--cwd <dir>`      | project directory, defaults to the current one                                                                  |
+| `--registry <url>` | base used for item names (default: `https://p0seid0n.tnzzzhlp.workers.dev`); a directory works for offline runs |
+| `--overwrite`      | replace files whose content differs                                                                             |
+| `--no-install`     | write files but skip the package manager; the command is still printed                                          |
+| `--force`          | replace an existing `components.json` (init only)                                                               |
 
 ## What gets written
 

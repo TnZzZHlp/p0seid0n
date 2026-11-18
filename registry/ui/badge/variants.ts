@@ -9,7 +9,10 @@ export type BadgeVariant = 'neutral' | 'accent' | 'accent-alt' | 'outline'
 const accentFill = 'bg-[color-mix(in_oklab,var(--color-accent)_88%,var(--color-ink))]'
 
 export const badgeVariants = cva(
-  'inline-flex items-center gap-1 rounded-[10px] px-2 py-0.5 text-[12px] font-medium whitespace-nowrap',
+  [
+    'inline-flex items-center gap-1 rounded-[10px] px-2 py-0.5 text-[12px] font-medium whitespace-nowrap',
+    'transition-[background-color,color,border-color] duration-[var(--p0seid0n-duration-normal)] ease-out-expo motion-reduce:transition-none',
+  ].join(' '),
   {
     variants: {
       variant: {

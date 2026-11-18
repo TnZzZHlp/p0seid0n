@@ -48,7 +48,7 @@ const ariaInvalid = computed(() => {
         'outline-none focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',
         'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',
         'disabled:cursor-default disabled:opacity-55',
-        'transition-[background-color,color,border-color,box-shadow] duration-150 motion-reduce:transition-none',
+        'transition-[background-color,color,border-color,outline-color,box-shadow] duration-[var(--p0seid0n-duration-normal)] ease-out-expo motion-reduce:transition-none',
         attrs.class as ClassValue,
       )
     "

@@ -19,6 +19,14 @@
   --p0seid0n-radius-panel-lg: 20px;
 
   --p0seid0n-shadow-popup: 0 12px 32px -8px light-dark(rgba(26, 36, 34, 0.18), rgba(0, 0, 0, 0.6));
+
+  --p0seid0n-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --p0seid0n-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --p0seid0n-ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --p0seid0n-duration-fast: 120ms;
+  --p0seid0n-duration-normal: 160ms;
+  --p0seid0n-duration-slow: 200ms;
 }
 
 :root.light {
@@ -51,15 +59,137 @@
     system-ui, sans-serif;
 
   --shadow-popup: var(--p0seid0n-shadow-popup);
+
+  --ease-out-expo: var(--p0seid0n-ease-out);
+  --ease-in-quad: var(--p0seid0n-ease-in);
+  --ease-spring: var(--p0seid0n-ease-spring);
+
+  --animate-fade-in: p0seid0n-fade-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);
+  --animate-fade-out: p0seid0n-fade-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
+  --animate-dialog-in: p0seid0n-dialog-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);
+  --animate-dialog-out: p0seid0n-dialog-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
+  --animate-pop-in: p0seid0n-pop-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);
+  --animate-pop-out: p0seid0n-pop-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
+  --animate-panel-in: p0seid0n-panel-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);
+  --animate-toast-in: p0seid0n-toast-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);
+  --animate-toast-out: p0seid0n-toast-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in);
+  --animate-check-in: p0seid0n-check-in var(--p0seid0n-duration-fast) var(--p0seid0n-ease-spring);
+  --animate-check-out: p0seid0n-check-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
+}
+
+@keyframes p0seid0n-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes p0seid0n-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes p0seid0n-dialog-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes p0seid0n-dialog-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 4px, 0) scale(0.97);
+  }
+}
+
+@keyframes p0seid0n-pop-in {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--p0seid0n-pop-x, 0px), var(--p0seid0n-pop-y, -4px), 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes p0seid0n-pop-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(var(--p0seid0n-pop-x, 0px), var(--p0seid0n-pop-y, -3px), 0) scale(0.97);
+  }
+}
+
+@keyframes p0seid0n-panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 3px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes p0seid0n-toast-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translate3d(0, 10px, 0) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes p0seid0n-toast-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(16px, 0, 0) scale(0.97);
+  }
+}
+
+@keyframes p0seid0n-check-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes p0seid0n-check-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.4);
   }
 }
