@@ -1,96 +1,580 @@
 {
+  "$schema": "https://shadcn-vue.com/schema/registry.json",
   "name": "p0seid0n",
   "homepage": "https://p0seid0n.example.com",
   "items": [
     {
       "name": "theme",
       "type": "registry:theme",
-      "title": "Theme"
+      "files": [
+        {
+          "path": "styles/p0seid0n.css",
+          "type": "registry:file",
+          "target": "styles/p0seid0n.css"
+        }
+      ],
+      "title": "Theme",
+      "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge."
+    },
+    {
+      "name": "theme-shadcn",
+      "type": "registry:theme",
+      "files": [
+        {
+          "path": "styles/p0seid0n-shadcn.css",
+          "type": "registry:file",
+          "target": "styles/p0seid0n-shadcn.css"
+        }
+      ],
+      "title": "Theme (shadcn aliases)",
+      "description": "Optional compatibility stylesheet mapping standard shadcn CSS variables and Tailwind v4 colour tokens onto --p0seid0n-* variables.",
+      "registryDependencies": [
+        "theme"
+      ]
     },
     {
       "name": "utils",
       "type": "registry:lib",
-      "title": "Utils"
+      "files": [
+        {
+          "path": "lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "title": "Utils",
+      "description": "The cn() class merge helper built on clsx and tailwind-merge.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ]
     },
     {
       "name": "button",
       "type": "registry:ui",
-      "title": "Button"
+      "files": [
+        {
+          "path": "ui/button/Button.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/button/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/button/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Button",
+      "description": "Ink-filled primary, control-grey secondary, transparent ghost and danger button in three sizes, with loading and leading/trailing slots.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "badge",
       "type": "registry:ui",
-      "title": "Badge"
+      "files": [
+        {
+          "path": "ui/badge/Badge.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/badge/variants.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/badge/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Badge",
+      "description": "Small labelling chip in neutral, accent, accent-alt and outline variants.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "separator",
       "type": "registry:ui",
-      "title": "Separator"
+      "files": [
+        {
+          "path": "ui/separator/Separator.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/separator/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Separator",
+      "description": "One-pixel rule in a line colour, horizontal or vertical.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "card",
       "type": "registry:ui",
-      "title": "Card"
+      "files": [
+        {
+          "path": "ui/card/Card.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/CardHeader.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/CardContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/CardFooter.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/card/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Card",
+      "description": "Panel container with a raised or surface appearance, plus header, content and footer sections.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "input",
       "type": "registry:ui",
-      "title": "Input"
+      "files": [
+        {
+          "path": "ui/input/Input.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/input/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Input",
+      "description": "Text field with a focus ring, an aria-driven invalid state and a disabled state.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "label",
       "type": "registry:ui",
-      "title": "Label"
+      "files": [
+        {
+          "path": "ui/label/Label.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/label/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Label",
+      "description": "Caption that associates with a control through its for attribute, with an optional required marker.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "switch",
       "type": "registry:ui",
-      "title": "Switch"
+      "files": [
+        {
+          "path": "ui/switch/Switch.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/switch/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Switch",
+      "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "dropdown-menu",
       "type": "registry:ui",
-      "title": "Dropdown Menu"
+      "files": [
+        {
+          "path": "ui/dropdown-menu/DropdownMenu.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuCheckboxItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuRadioGroup.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuRadioItem.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuLabel.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuSeparator.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/DropdownMenuGroup.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dropdown-menu/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Dropdown Menu",
+      "description": "Menu root, trigger and popup with plain, checkbox and radio items, labels, separators and groups.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "tooltip",
       "type": "registry:ui",
-      "title": "Tooltip"
+      "files": [
+        {
+          "path": "ui/tooltip/Tooltip.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tooltip/TooltipTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tooltip/TooltipContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tooltip/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Tooltip",
+      "description": "Delayed hover and focus hint with four sides and an optional shortcut hint.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "dialog",
       "type": "registry:ui",
-      "title": "Dialog"
+      "files": [
+        {
+          "path": "ui/dialog/Dialog.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogTitle.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogDescription.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/DialogClose.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/behaviour.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/dialog/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Dialog",
+      "description": "Centered modal with overlay, title, description and a built-in close control.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "tabs",
       "type": "registry:ui",
-      "title": "Tabs"
+      "files": [
+        {
+          "path": "ui/tabs/Tabs.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/TabsList.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/TabsTrigger.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/TabsContent.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/tabs/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Tabs",
+      "description": "Trigger strip and panels with arrow key navigation.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "toast",
       "type": "registry:ui",
-      "title": "Toast"
+      "files": [
+        {
+          "path": "ui/toast/ToastProvider.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/Toaster.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/Toast.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/stack.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/toast/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Toast",
+      "description": "Self-contained notification stack with a provider, useToast composable and three variants.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "sparkline",
       "type": "registry:ui",
-      "title": "Sparkline"
+      "files": [
+        {
+          "path": "ui/sparkline/Sparkline.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sparkline/geometry.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/sparkline/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Sparkline",
+      "description": "Hand-written SVG bar strip for a numeric series, with median-based scaling and an optional baseline.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "stat",
       "type": "registry:ui",
-      "title": "Stat"
+      "files": [
+        {
+          "path": "ui/stat/Stat.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/stat/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Stat",
+      "description": "Label, condensed tabular value and unit, with an inline figure slot for a sparkline.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "theme"
+      ]
     },
     {
       "name": "theme-provider",
       "type": "registry:ui",
-      "title": "Theme Provider"
+      "files": [
+        {
+          "path": "ui/theme-provider/ThemeProvider.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-provider/theme.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-provider/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-provider/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Theme Provider",
+      "description": "Three-state theme state (system, light, dark) with a matching inline script for the first paint.",
+      "registryDependencies": [
+        "theme"
+      ]
     },
     {
       "name": "theme-switcher",
       "type": "registry:ui",
-      "title": "Theme Switcher"
+      "files": [
+        {
+          "path": "ui/theme-switcher/ThemeSwitcher.vue",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/theme-switcher/index.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "title": "Theme Switcher",
+      "description": "Ghost button opening a radio menu with system, light and dark choices.",
+      "registryDependencies": [
+        "theme",
+        "theme-provider",
+        "button",
+        "dropdown-menu"
+      ]
     }
   ]
 }

@@ -3,15 +3,15 @@ export type ResolvedTheme = 'light' | 'dark'
 
 export const DEFAULT_STORAGE_KEY = 'p0seid0n-theme'
 
-/** Reads the stored choice; anything unrecognised falls back to `system`. */
-export function readStoredTheme(storageKey: string): ThemeChoice {
+/** Reads the stored choice; anything unrecognised falls back to `fallback`. */
+export function readStoredTheme(storageKey: string, fallback: ThemeChoice = 'system'): ThemeChoice {
   try {
     const stored = localStorage.getItem(storageKey)
-    if (stored === 'light' || stored === 'dark') return stored
+    if (stored === 'light' || stored === 'dark' || stored === 'system') return stored
   } catch {
-    // Storage can be blocked (private mode, third-party context); system is the safe answer.
+    // Storage can be blocked (private mode, third-party context); fallback is the safe answer.
   }
-  return 'system'
+  return fallback
 }
 
 export function systemTheme(): ResolvedTheme {
@@ -43,6 +43,7 @@ export function applyThemeToDocument(choice: ThemeChoice, attribute: string): Re
 export function themeScript(
   storageKey: string = DEFAULT_STORAGE_KEY,
   attribute: string = 'data-theme',
+  defaultTheme: ThemeChoice = 'system',
 ): string {
-  return `(()=>{try{var r=document.documentElement,k=${JSON.stringify(storageKey)},a=${JSON.stringify(attribute)},s=localStorage.getItem(k);r.classList.remove("light","dark");if(s==="light"||s==="dark"){r.classList.add(s);r.setAttribute(a,s)}else{r.removeAttribute(a)}}catch(e){}})()`
+  return `(()=>{try{var r=document.documentElement,k=${JSON.stringify(storageKey)},a=${JSON.stringify(attribute)},d=${JSON.stringify(defaultTheme)},s=localStorage.getItem(k),c=s==="light"||s==="dark"||s==="system"?s:d;r.classList.remove("light","dark");if(c==="light"||c==="dark"){r.classList.add(c);r.setAttribute(a,c)}else{r.removeAttribute(a)}}catch(e){}})()`
 }

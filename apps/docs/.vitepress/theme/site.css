@@ -23,9 +23,8 @@
 
 /*
  * VitePress switches its chrome with a `.dark` class on <html>, while p0seid0n
- * relies on color-scheme. Adding `.dark` already flips the tokens (001 wires
- * `:root.dark`), so the two mechanisms agree; these variables only restyle the
- * site chrome. Layout, spacing and component internals stay upstream.
+ * relies on color-scheme. Mapping VitePress variables and Shiki tokens onto
+ * light-dark() keeps both mechanisms aligned even under `system` mode.
  */
 :root {
   --vp-c-bg: var(--p0seid0n-surface);
@@ -47,6 +46,10 @@
   --vp-code-block-bg: var(--p0seid0n-raised);
   --vp-custom-block-tip-bg: var(--p0seid0n-control);
   --vp-custom-block-tip-border: var(--p0seid0n-line);
+}
+
+html .vp-code span {
+  color: light-dark(var(--shiki-light), var(--shiki-dark)) !important;
 }
 
 body {

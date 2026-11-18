@@ -31,7 +31,12 @@ export function resolveAlias(alias: string, mappings: PathMapping[]): string {
 function nestedPath(filePath: string, config: ComponentsConfig): string {
   const normalized = filePath.replace(/^\/+|\/+$/g, '')
   const tails = Object.values(config.aliases)
-    .map((alias) => alias.replace(/^@[^/]*\//, '').replace(/^\/+|\/+$/g, ''))
+    .map((alias) =>
+      alias
+        .replace(/^@[^/]*\//, '')
+        .replace(/^~[^/]*\//, '')
+        .replace(/^\/+|\/+$/g, ''),
+    )
     .filter((tail) => tail.length > 0)
     .sort((a, b) => b.length - a.length)
   for (const tail of tails) {
@@ -63,8 +68,8 @@ export type Destination = {
 
 /**
  * Mirrors upstream `resolveFilePath`: an explicit `target` wins, a leading `~/`
- * means the project root, and a bare target is relative to `src/` when the
- * components alias already lives under it.
+ * means the project root, and a bare target is relative to the alias root so it
+ * lands beside the components even when the source directory is not named `src`.
  */
 export function destinationFor(
   file: RegistryFile,
@@ -77,12 +82,11 @@ export function destinationFor(
     if (file.target.startsWith('~/')) {
       absolute = join(cwd, file.target.slice(2))
     } else {
-      // A target such as `styles/p0seid0n.css` is relative to the alias root, so
-      // it lands beside the components the tokens are meant for. Upstream joins
-      // it onto the project root instead, which breaks as soon as the source
-      // folder is not literally named `src`.
       absolute = join(aliasRoot(mappings), file.target.replace(/^src\//, ''))
     }
+  } else if (file.type === 'registry:lib' && file.path === 'lib/utils.ts' && config.aliases.utils) {
+    const resolvedUtils = resolveAlias(config.aliases.utils, mappings)
+    absolute = /\.[a-z]+$/i.test(resolvedUtils) ? resolvedUtils : `${resolvedUtils}.ts`
   } else {
     const directory = directoryForType(file.type, config, mappings)
     const rest = nestedPath(file.path, config)

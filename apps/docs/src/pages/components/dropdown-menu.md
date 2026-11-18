@@ -4,6 +4,7 @@ title: Dropdown menu
 
 <script setup lang="ts">
 import DropdownMenuItems from '../../examples/dropdown-menu-items.vue'
+import DropdownMenuSelection from '../../examples/dropdown-menu-selection.vue'
 </script>
 
 # Dropdown menu
@@ -12,6 +13,20 @@ A menu built on reka-ui, styled to the reference popup: 16px radius, 1px border,
 6px inset and the popup shadow.
 
 <Example name="dropdown-menu-items"><DropdownMenuItems /></Example>
+
+## Checkbox and radio items
+
+<Example name="dropdown-menu-selection"><DropdownMenuSelection /></Example>
+
+| Component | Role | Selection |
+| --- | --- | --- |
+| `DropdownMenuItem` | `menuitem` | fires `select` |
+| `DropdownMenuCheckboxItem` | `menuitemcheckbox` | `v-model` boolean |
+| `DropdownMenuRadioItem` | `menuitemradio` | inside `DropdownMenuRadioGroup` |
+
+Checkbox and radio items reserve a fixed indicator column on the left so labels
+stay aligned whether an item is checked or unchecked. Override the marker with the
+`indicator` slot.
 
 ## Keyboard
 
@@ -23,18 +38,6 @@ A menu built on reka-ui, styled to the reference popup: 16px radius, 1px border,
 | Escape | closes and returns focus to the trigger |
 
 Clicking outside closes it too, and focus goes back to the trigger.
-
-## Item types
-
-| Component | Role | Selection |
-| --- | --- | --- |
-| `DropdownMenuItem` | `menuitem` | fires `select` |
-| `DropdownMenuCheckboxItem` | `menuitemcheckbox` | `v-model` boolean |
-| `DropdownMenuRadioItem` | `menuitemradio` | inside `DropdownMenuRadioGroup` |
-
-The checkbox and radio items render an indicator on the left through
-`DropdownMenuItemIndicator`, mounted only while checked. Override it with the
-`indicator` slot.
 
 ## Trigger
 
@@ -50,6 +53,8 @@ Use `as-child` to wrap an existing control instead of rendering a bare button:
 
 | Prop | On | Type | Default |
 | --- | --- | --- | --- |
+| `open` (`v-model:open`) | `DropdownMenu` | boolean | — |
+| `defaultOpen` | `DropdownMenu` | boolean | — |
 | `modal` | `DropdownMenu` | boolean | `false` |
 | `as` / `asChild` | `DropdownMenuTrigger` | element | `button` |
 | `align` | `DropdownMenuContent` | `start` \| `center` \| `end` | `start` |

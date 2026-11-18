@@ -1,7 +1,8 @@
-import { join } from 'node:path'
+import { existsSync, statSync } from 'node:fs'
+import { dirname, join, resolve } from 'node:path'
 
 import { CliError } from './errors.ts'
-import { readJson } from './fs.ts'
+import { readJson, readJsonc } from './fs.ts'
 
 export type Aliases = {
   components: string
@@ -56,7 +57,7 @@ export function readConfig(cwd: string): ComponentsConfig {
       components: aliases.components ?? DEFAULT_CONFIG.aliases.components,
       ui: aliases.ui,
       lib: aliases.lib,
-      utils: aliases.utils ?? DEFAULT_CONFIG.aliases.utils,
+      utils: aliases.utils ?? `${aliases.lib.replace(/\/+$/, '')}/utils`,
     },
     ...(parsed.registries ? { registries: parsed.registries } : {}),
   }
@@ -65,6 +66,7 @@ export function readConfig(cwd: string): ComponentsConfig {
 type TsConfigShape = {
   compilerOptions?: { baseUrl?: string; paths?: Record<string, string[]> }
   extends?: string | string[]
+  references?: { path?: string }[]
 }
 
 export type PathMapping = {
@@ -74,21 +76,49 @@ export type PathMapping = {
   directory: string
 }
 
-/**
- * Reads `compilerOptions.paths` so `@/components/ui` can be turned into a real
- * directory. Only the single-target, prefix-plus-wildcard form is supported,
- * which is what every Vue starter uses; anything else is reported instead of
- * guessed.
- */
-export function readPathMapping(cwd: string): PathMapping[] {
-  const json =
-    readJson<TsConfigShape>(join(cwd, 'tsconfig.json')) ??
-    readJson<TsConfigShape>(join(cwd, 'jsconfig.json'))
+function resolveTsConfigCandidate(baseDir: string, specifier: string): string | null {
+  if (!specifier.startsWith('.') && !specifier.startsWith('/')) return null
+  const direct = resolve(baseDir, specifier)
+  if (existsSync(direct)) {
+    try {
+      if (statSync(direct).isDirectory()) {
+        const nested = join(direct, 'tsconfig.json')
+        return existsSync(nested) ? nested : null
+      }
+    } catch {
+      return null
+    }
+    return direct
+  }
+  if (!direct.endsWith('.json') && existsSync(`${direct}.json`)) {
+    return `${direct}.json`
+  }
+  return null
+}
+
+function extractMappingsFromFile(configFile: string, seen: Set<string>): PathMapping[] {
+  const normalized = resolve(configFile)
+  if (seen.has(normalized)) return []
+  seen.add(normalized)
+
+  const json = readJsonc<TsConfigShape>(normalized)
   if (!json) return []
+
+  const configDir = dirname(normalized)
+  const collected = new Map<string, string>()
+
+  const parents = Array.isArray(json.extends) ? json.extends : json.extends ? [json.extends] : []
+  for (const parentSpec of parents) {
+    const parentPath = resolveTsConfigCandidate(configDir, parentSpec)
+    if (!parentPath) continue
+    for (const entry of extractMappingsFromFile(parentPath, seen)) {
+      collected.set(entry.prefix, entry.directory)
+    }
+  }
+
   const compilerOptions = json.compilerOptions ?? {}
   const baseUrl = compilerOptions.baseUrl ?? '.'
   const paths = compilerOptions.paths ?? {}
-  const mappings: PathMapping[] = []
   for (const [pattern, targets] of Object.entries(paths)) {
     const target = targets[0]
     if (!target || targets.length > 1) continue
@@ -96,8 +126,40 @@ export function readPathMapping(cwd: string): PathMapping[] {
     if (!prefixMatch) continue
     const prefix = prefixMatch[1]
     const directory = target.replace(/\*$/, '')
-    mappings.push({ prefix, directory: join(cwd, baseUrl, directory) })
+    collected.set(prefix, resolve(configDir, baseUrl, directory))
   }
-  // Longest prefix first so `@/components/ui` wins over `@/`.
-  return mappings.sort((a, b) => b.prefix.length - a.prefix.length)
+
+  if (collected.size === 0 && Array.isArray(json.references)) {
+    for (const ref of json.references) {
+      if (!ref?.path) continue
+      const refPath = resolveTsConfigCandidate(configDir, ref.path)
+      if (!refPath) continue
+      for (const entry of extractMappingsFromFile(refPath, seen)) {
+        if (!collected.has(entry.prefix)) {
+          collected.set(entry.prefix, entry.directory)
+        }
+      }
+    }
+  }
+
+  return [...collected.entries()]
+    .map(([prefix, directory]) => ({ prefix, directory }))
+    .sort((a, b) => b.prefix.length - a.prefix.length)
+}
+
+/**
+ * Reads `compilerOptions.paths` so `@/components/ui` can be turned into a real
+ * directory. Supports JSONC comments, relative `extends`, and solution-style
+ * `references` (such as `create-vue`'s `tsconfig.app.json`).
+ */
+export function readPathMapping(cwd: string): PathMapping[] {
+  const tsPath = join(cwd, 'tsconfig.json')
+  if (existsSync(tsPath)) {
+    return extractMappingsFromFile(tsPath, new Set())
+  }
+  const jsPath = join(cwd, 'jsconfig.json')
+  if (existsSync(jsPath)) {
+    return extractMappingsFromFile(jsPath, new Set())
+  }
+  return []
 }

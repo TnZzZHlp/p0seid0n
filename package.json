@@ -7,13 +7,16 @@
   "scripts": {
     "build:registry": "node scripts/build-registry/index.ts",
     "ui:install": "node scripts/install-ui.ts",
+    "ui:sync": "pnpm build:registry && node scripts/install-ui.ts --overwrite",
     "docs:dev": "pnpm ui:install && pnpm -C apps/docs dev",
     "docs:build": "pnpm ui:install && pnpm -C apps/docs build",
+    "docs:preview": "pnpm -C apps/docs preview",
+    "cli:build": "pnpm -C packages/cli build",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json && vue-tsc --noEmit -p apps/docs/tsconfig.json && tsc -p packages/cli/tsconfig.json --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "docs:preview": "pnpm -C apps/docs preview",
-    "cli:build": "pnpm -C packages/cli build"
+    "test": "node --test tests/*.test.ts",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm cli:build && pnpm docs:build"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

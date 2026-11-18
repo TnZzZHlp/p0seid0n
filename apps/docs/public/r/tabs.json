@@ -1,4 +1,5 @@
 {
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
   "name": "tabs",
   "type": "registry:ui",
   "title": "Tabs",
@@ -22,17 +23,17 @@
     {
       "path": "ui/tabs/TabsList.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsList } from 'reka-ui'\nimport { tabList } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsListProps = {\n  /** Wraps focus from the last trigger to the first. */\n  loop?: boolean\n}\n\nwithDefaults(defineProps<TabsListProps>(), {\n  loop: true,\n})\n</script>\n\n<template>\n  <TabsList :loop=\"loop\" :class=\"cn(tabList, $attrs.class as string | undefined)\" v-bind=\"$attrs\">\n    <slot />\n  </TabsList>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { TabsList } from 'reka-ui'\nimport { tabList } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsListProps = {\n  /** Wraps focus from the last trigger to the first. */\n  loop?: boolean\n}\n\nwithDefaults(defineProps<TabsListProps>(), {\n  loop: true,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <TabsList v-bind=\"forwarded\" :loop=\"loop\" :class=\"cn(tabList, attrs.class as ClassValue)\">\n    <slot />\n  </TabsList>\n</template>\n"
     },
     {
       "path": "ui/tabs/TabsTrigger.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsTrigger } from 'reka-ui'\nimport { tabTrigger } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsTriggerProps = {\n  value: string | number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TabsTriggerProps>(), {\n  disabled: false,\n})\n</script>\n\n<template>\n  <TabsTrigger\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :class=\"cn(tabTrigger, $attrs.class as string | undefined)\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </TabsTrigger>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { TabsTrigger } from 'reka-ui'\nimport { tabTrigger } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsTriggerProps = {\n  value: string | number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TabsTriggerProps>(), {\n  disabled: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <TabsTrigger\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :disabled=\"disabled\"\n    :class=\"cn(tabTrigger, attrs.class as ClassValue)\"\n  >\n    <slot />\n  </TabsTrigger>\n</template>\n"
     },
     {
       "path": "ui/tabs/TabsContent.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TabsContent } from 'reka-ui'\nimport { tabPanel } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsContentProps = {\n  value: string | number\n  forceMount?: boolean\n}\n\nwithDefaults(defineProps<TabsContentProps>(), {\n  forceMount: false,\n})\n</script>\n\n<template>\n  <TabsContent\n    :value=\"value\"\n    :force-mount=\"forceMount\"\n    :class=\"cn(tabPanel, $attrs.class as string | undefined)\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </TabsContent>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { TabsContent } from 'reka-ui'\nimport { tabPanel } from './styles'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TabsContentProps = {\n  value: string | number\n  forceMount?: boolean\n}\n\nwithDefaults(defineProps<TabsContentProps>(), {\n  forceMount: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <TabsContent\n    v-bind=\"forwarded\"\n    :value=\"value\"\n    :force-mount=\"forceMount\"\n    :class=\"cn(tabPanel, attrs.class as ClassValue)\"\n  >\n    <slot />\n  </TabsContent>\n</template>\n"
     },
     {
       "path": "ui/tabs/styles.ts",

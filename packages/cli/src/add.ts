@@ -3,9 +3,16 @@ import { spawnSync } from 'node:child_process'
 import { readConfig, readPathMapping } from './config.ts'
 import { CliError } from './errors.ts'
 import { displayPath, writeFileChecked } from './fs.ts'
-import { destinationFor } from './place.ts'
-import { detectPackageManager, formatCommand, installCommand } from './pm.ts'
+import { destinationFor, type Destination } from './place.ts'
+import {
+  assertSafePackages,
+  detectPackageManager,
+  formatCommand,
+  installCommand,
+  missingPackages,
+} from './pm.ts'
 import { parseRef, resolvePlan, type ItemRef } from './resolve.ts'
+import { rewriteImports } from './transform.ts'
 
 export const DEFAULT_REGISTRY = 'https://p0seid0n.example.com'
 
@@ -23,8 +30,29 @@ export type AddResult = {
   unchanged: string[]
   conflicts: string[]
   dependencies: string[]
+  devDependencies: string[]
   installed: boolean
   installCommand: string | null
+}
+
+function runInstall(cwd: string, command: string, args: string[]): void {
+  const formatted = formatCommand(command, args)
+  const run = spawnSync(command, args, {
+    cwd,
+    stdio: 'inherit',
+    // On Windows npm/pnpm/yarn are .cmd shims; package names are pre-validated.
+    shell: process.platform === 'win32',
+  })
+  if (run.error) {
+    throw new CliError(
+      `could not run "${formatted}": ${run.error.message}; files were written, install dependencies manually`,
+    )
+  }
+  if (run.status !== 0) {
+    throw new CliError(
+      `"${formatted}" exited with ${run.status}; files were written, install dependencies manually`,
+    )
+  }
 }
 
 /**
@@ -53,26 +81,31 @@ export async function add(options: AddOptions): Promise<AddResult> {
     unchanged: [],
     conflicts: [],
     dependencies: [],
+    devDependencies: [],
     installed: false,
     installCommand: null,
   }
 
   const packages = new Set<string>()
+  const devPackages = new Set<string>()
   for (const { item } of plan.items) {
     for (const dependency of item.dependencies ?? []) packages.add(dependency)
+    for (const devDependency of item.devDependencies ?? []) devPackages.add(devDependency)
   }
 
-  // Every destination is resolved before anything is written. A path that
-  // escapes its directory then fails the run without leaving half a component
-  // behind.
-  const planned = plan.items.flatMap(({ item }) =>
-    item.files.map((file) => ({
-      destination: destinationFor(file, config, mappings, options.cwd),
-      content: file.content ?? '',
-    })),
-  )
+  // Every destination is resolved before anything is written, and deduplicated by
+  // absolute path so diamond dependencies never write the same file twice.
+  const plannedByPath = new Map<string, { destination: Destination; content: string }>()
+  for (const { item } of plan.items) {
+    for (const file of item.files) {
+      const destination = destinationFor(file, config, mappings, options.cwd)
+      if (plannedByPath.has(destination.absolute)) continue
+      const content = rewriteImports(file.content ?? '', file.path, config)
+      plannedByPath.set(destination.absolute, { destination, content })
+    }
+  }
 
-  for (const { destination, content } of planned) {
+  for (const { destination, content } of plannedByPath.values()) {
     const written = writeFileChecked(destination.absolute, content, {
       overwrite: options.overwrite,
     })
@@ -84,25 +117,47 @@ export async function add(options: AddOptions): Promise<AddResult> {
   }
 
   result.dependencies = [...packages].sort()
+  result.devDependencies = [...devPackages].filter((pkg) => !packages.has(pkg)).sort()
+  assertSafePackages(result.dependencies)
+  assertSafePackages(result.devDependencies)
+
   if (result.conflicts.length > 0) return result
-  if (result.dependencies.length === 0) return result
+  if (result.dependencies.length === 0 && result.devDependencies.length === 0) return result
 
   const manager = detectPackageManager(options.cwd)
-  const { command, args } = installCommand(manager, result.dependencies)
-  result.installCommand = formatCommand(command, args)
-  // `--no-install` still reports the command so a CI run can collect it and run
-  // it later; it only skips spawning the package manager.
-  if (!options.install) return result
-  const run = spawnSync(command, args, { cwd: options.cwd, stdio: 'inherit', shell: false })
-  if (run.error) {
-    throw new CliError(
-      `could not run "${result.installCommand}": ${run.error.message}; files were written, install dependencies manually`,
-    )
+  const missingDeps = missingPackages(options.cwd, result.dependencies)
+  const missingDevDeps = missingPackages(options.cwd, result.devDependencies)
+
+  const commands: { command: string; args: string[] }[] = []
+  if (!options.install) {
+    if (result.dependencies.length > 0) {
+      commands.push(installCommand(manager, result.dependencies))
+    }
+    if (result.devDependencies.length > 0) {
+      commands.push(installCommand(manager, result.devDependencies, { dev: true }))
+    }
+    result.installCommand = commands
+      .map((entry) => formatCommand(entry.command, entry.args))
+      .join(' && ')
+    return result
   }
-  if (run.status !== 0) {
-    throw new CliError(
-      `"${result.installCommand}" exited with ${run.status}; files were written, install dependencies manually`,
-    )
+
+  if (missingDeps.length > 0) {
+    commands.push(installCommand(manager, missingDeps))
+  }
+  if (missingDevDeps.length > 0) {
+    commands.push(installCommand(manager, missingDevDeps, { dev: true }))
+  }
+  if (commands.length === 0) {
+    result.installed = true
+    return result
+  }
+
+  result.installCommand = commands
+    .map((entry) => formatCommand(entry.command, entry.args))
+    .join(' && ')
+  for (const entry of commands) {
+    runInstall(options.cwd, entry.command, entry.args)
   }
   result.installed = true
   return result

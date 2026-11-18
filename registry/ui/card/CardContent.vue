@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 
 defineOptions({ inheritAttrs: false })
@@ -15,7 +16,7 @@ const forwarded = computed(() => {
 <template>
   <div
     v-bind="forwarded"
-    :class="cn('px-6 py-4 text-[14px] text-ink-muted', $attrs.class as string | undefined)"
+    :class="cn('px-6 py-4 text-[14px] text-ink-muted', attrs.class as ClassValue)"
   >
     <slot />
   </div>

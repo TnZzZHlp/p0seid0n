@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 
 defineOptions({ inheritAttrs: false })
@@ -18,7 +19,7 @@ const forwarded = computed(() => {
     :class="
       cn(
         'flex items-center justify-between gap-3 border-t border-line px-6 py-4 text-[13px] text-ink-muted',
-        $attrs.class as string | undefined,
+        attrs.class as ClassValue,
       )
     "
   >

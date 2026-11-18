@@ -1,10 +1,11 @@
 /**
  * Shared surface for every floating layer, taken from the reference menu styles:
  * 16px radius, 1px line border, popup shadow and a 6px inset so items keep their
- * own 10px radius from touching the edge.
+ * own 10px radius from touching the edge. Portalled layers sit at z-50 so menus
+ * opened from inside a dialog stack above that dialog.
  */
 export const popupSurface = [
-  'z-10 overflow-hidden rounded-panel border border-line bg-raised p-1.5 shadow-popup',
+  'z-50 overflow-hidden rounded-panel border border-line bg-raised p-1.5 shadow-popup',
   'outline-none',
 ].join(' ')
 

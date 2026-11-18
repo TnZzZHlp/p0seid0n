@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 
 defineOptions({ inheritAttrs: false })
@@ -31,7 +32,7 @@ withDefaults(defineProps<LabelProps>(), {
     :class="
       cn(
         'inline-flex items-center gap-1 text-[13px] font-medium text-ink-muted',
-        $attrs.class as string | undefined,
+        attrs.class as ClassValue,
       )
     "
   >

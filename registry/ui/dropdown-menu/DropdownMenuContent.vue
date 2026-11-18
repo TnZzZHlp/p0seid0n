@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { computed, useAttrs } from 'vue'
+import type { StyleValue } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { DropdownMenuContent, DropdownMenuPortal } from 'reka-ui'
 import { popupSurface } from './styles'
@@ -21,6 +24,14 @@ const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
   minWidth: 160,
 })
 
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  delete rest.style
+  return rest
+})
+
 function minWidthStyle(value: number | string): string {
   return typeof value === 'number' ? `${value}px` : value
 }
@@ -29,12 +40,12 @@ function minWidthStyle(value: number | string): string {
 <template>
   <DropdownMenuPortal>
     <DropdownMenuContent
-      v-bind="$attrs"
+      v-bind="forwarded"
       :side="props.side"
       :side-offset="props.sideOffset"
       :align="props.align"
-      :class="cn(popupSurface, $attrs.class as string | undefined)"
-      :style="{ minWidth: minWidthStyle(props.minWidth) }"
+      :class="cn(popupSurface, attrs.class as ClassValue)"
+      :style="[{ minWidth: minWidthStyle(props.minWidth) }, attrs.style as StyleValue]"
     >
       <slot />
     </DropdownMenuContent>

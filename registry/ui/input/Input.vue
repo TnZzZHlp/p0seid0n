@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 
 defineOptions({ inheritAttrs: false })
@@ -8,6 +9,7 @@ const attrs = useAttrs()
 const forwarded = computed(() => {
   const rest = { ...attrs }
   delete rest.class
+  delete rest['aria-invalid']
   return rest
 })
 
@@ -18,19 +20,18 @@ export type InputProps = {
   id?: string
 }
 
-withDefaults(defineProps<InputProps>(), {
+const props = withDefaults(defineProps<InputProps>(), {
   invalid: false,
   disabled: false,
   id: undefined,
 })
 
 const model = defineModel<string | number>({ default: '' })
-const emit = defineEmits<{ input: [event: Event] }>()
 
-function onInput(event: Event): void {
-  model.value = (event.target as HTMLInputElement).value
-  emit('input', event)
-}
+const ariaInvalid = computed(() => {
+  if (props.invalid) return 'true'
+  return attrs['aria-invalid'] as 'true' | 'false' | 'grammar' | 'spelling' | undefined
+})
 </script>
 
 <template>
@@ -39,7 +40,7 @@ function onInput(event: Event): void {
     :id="id"
     v-model="model"
     :disabled="disabled"
-    :aria-invalid="invalid ? 'true' : undefined"
+    :aria-invalid="ariaInvalid"
     :class="
       cn(
         'h-11 w-full rounded-control border border-line bg-control px-3 text-[15px] text-ink',
@@ -48,9 +49,8 @@ function onInput(event: Event): void {
         'aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:outline-danger',
         'disabled:cursor-default disabled:opacity-55',
         'transition-[background-color,color,border-color,box-shadow] duration-150 motion-reduce:transition-none',
-        $attrs.class as string | undefined,
+        attrs.class as ClassValue,
       )
     "
-    @input="onInput"
   />
 </template>

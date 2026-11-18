@@ -6,6 +6,12 @@
     "description": "p0seid0n design tokens: the nine --p0seid0n-* colours, control and panel radii, popup shadow, and the Tailwind v4 @theme inline bridge."
   },
   {
+    "name": "theme-shadcn",
+    "type": "registry:theme",
+    "title": "Theme (shadcn aliases)",
+    "description": "Optional compatibility stylesheet mapping standard shadcn CSS variables and Tailwind v4 colour tokens onto --p0seid0n-* variables."
+  },
+  {
     "name": "utils",
     "type": "registry:lib",
     "title": "Utils",

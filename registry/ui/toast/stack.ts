@@ -34,13 +34,14 @@ export function createToastStack(): ToastStack {
       id,
       variant: options.variant ?? 'default',
       duration: options.duration ?? duration,
+      version: sequence,
     }
 
     // Re-pushing an id moves it to the top of the stack instead of duplicating it.
     const withoutDuplicate = items.value.filter((item) => item.id !== id)
     const next = [...withoutDuplicate, record]
     // The cap trims the oldest entries, so a burst keeps the most recent ones.
-    items.value = next.slice(Math.max(0, next.length - max))
+    items.value = next.slice(Math.max(0, next.length - Math.max(1, max)))
     return id
   }
 

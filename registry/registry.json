@@ -17,6 +17,21 @@
       "docs": "Import the stylesheet once, in the same file that imports Tailwind. Light and dark follow color-scheme: the OS preference by default, or a .light or .dark class on the html element. There are no dark: variants, so overriding any --p0seid0n-* value re-themes every component, including at runtime."
     },
     {
+      "name": "theme-shadcn",
+      "type": "registry:theme",
+      "title": "Theme (shadcn aliases)",
+      "description": "Optional compatibility stylesheet mapping standard shadcn CSS variables and Tailwind v4 colour tokens onto --p0seid0n-* variables.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "styles/p0seid0n-shadcn.css",
+          "type": "registry:file",
+          "target": "styles/p0seid0n-shadcn.css"
+        }
+      ],
+      "docs": "Import after styles/p0seid0n.css when mixing p0seid0n components with existing shadcn-vue components that reference --background, --foreground, bg-card or bg-destructive."
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "title": "Utils",
@@ -25,8 +40,7 @@
       "files": [
         {
           "path": "lib/utils.ts",
-          "type": "registry:lib",
-          "target": "lib/utils.ts"
+          "type": "registry:lib"
         }
       ],
       "docs": "Import cn from your lib alias. It merges conditional classes with clsx and resolves Tailwind conflicts with tailwind-merge."
@@ -241,7 +255,7 @@
           "type": "registry:ui"
         }
       ],
-      "docs": "Arrow keys move between items, Enter selects, Esc closes and focus returns to the trigger. DropdownMenuContent takes align, side and sideOffset; its minWidth defaults to 160px. Radio items must sit inside DropdownMenuRadioGroup. Use the trigger's asChild prop to wrap the Button item instead of a raw button."
+      "docs": "Control open state with v-model:open when needed. Arrow keys move between items, Enter selects, Esc closes and focus returns to the trigger. DropdownMenuContent takes align, side and sideOffset; its minWidth defaults to 160px and its z-index is 50 so menus inside dialogs sit above the dialog. Radio items must sit inside DropdownMenuRadioGroup. Use the trigger's asChild prop to wrap the Button item instead of a raw button."
     },
     {
       "name": "tooltip",
@@ -268,7 +282,7 @@
           "type": "registry:ui"
         }
       ],
-      "docs": "The tip opens after the delay prop (300ms by default) on both hover and keyboard focus, and Escape dismisses it. The trigger points aria-describedby at the tip content while it is open. Pass shortcut to append a key hint such as K."
+      "docs": "Control open state with v-model:open when needed. The tip opens after the delay prop (300ms by default) on both hover and keyboard focus, and Escape dismisses it. The trigger points aria-describedby at the tip content while it is open. Pass shortcut to append a key hint such as K."
     },
     {
       "name": "dialog",
@@ -389,7 +403,7 @@
           "type": "registry:ui"
         }
       ],
-      "docs": "Wrap the app in ToastProvider, then call useToast().toast({ title, description, variant, action, duration }). The provider keeps at most max notifications (3 by default) and drops the oldest first; duration defaults to 4000ms and zero keeps one open. variant danger uses the theme danger colour. The stack sits at z-60 so it stays above dialogs."
+      "docs": "Wrap the app in ToastProvider, then call useToast().toast({ title, description, variant, action, duration }). The provider keeps at most max notifications (3 by default) and drops the oldest first; duration defaults to 4000ms, pauses on hover or focus, and zero keeps one open. variant danger uses the theme danger colour and role alert. The stack teleports to body at z-60 so it stays above dialogs."
     },
     {
       "name": "sparkline",
@@ -412,7 +426,7 @@
           "type": "registry:ui"
         }
       ],
-      "docs": "Pass values as a number array; the component never formats or formats labels for you. Bars fill 60% of each slot and the series is pinned to the right edge when slots is larger than the data. The value axis is capped at median x 3 so a few spikes cannot flatten the rest; with one or two samples it falls back to the maximum. An empty array renders no path but keeps its size, a single sample renders one full-width-relative bar. Set ariaLabel to expose role img; without it the graphic is aria-hidden."
+      "docs": "Pass values as a number array; the component never formats labels for you. Bars fill 60% of each slot and the series is pinned to the right edge when slots is larger than the data. The value axis is capped at median x 3 so a few spikes cannot flatten the rest; with one or two samples it falls back to the maximum. An empty array renders no path but keeps its size, a single sample renders one full-height bar. Set ariaLabel to expose role img; without it the graphic is aria-hidden."
     },
     {
       "name": "stat",
@@ -438,8 +452,7 @@
       "type": "registry:ui",
       "title": "Theme Provider",
       "description": "Three-state theme state (system, light, dark) with a matching inline script for the first paint.",
-      "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["utils", "theme"],
+      "registryDependencies": ["theme"],
       "files": [
         {
           "path": "ui/theme-provider/ThemeProvider.vue",
@@ -458,15 +471,14 @@
           "type": "registry:ui"
         }
       ],
-      "docs": "Wrap the app in ThemeProvider and read state with useTheme(): theme is the stored choice, resolvedTheme is what is painted. setTheme writes localStorage only when the choice changes, and system removes the key so the OS preference keeps driving the page. Inline the themeScript() string in head before your bundle to avoid a flash on reload; it only touches the html element, so hydration has nothing to disagree with."
+      "docs": "Wrap the app in ThemeProvider and read state with useTheme(): theme is the stored choice, resolvedTheme is what is painted. setTheme writes localStorage only when the choice changes, and system removes the key when defaultTheme is system so the OS preference keeps driving the page. Inline the themeScript() string in head before your bundle to avoid a flash on reload; it only touches the html element, so hydration has nothing to disagree with."
     },
     {
       "name": "theme-switcher",
       "type": "registry:ui",
       "title": "Theme Switcher",
       "description": "Ghost button opening a radio menu with system, light and dark choices.",
-      "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["utils", "theme", "theme-provider", "button", "dropdown-menu"],
+      "registryDependencies": ["theme", "theme-provider", "button", "dropdown-menu"],
       "files": [
         {
           "path": "ui/theme-switcher/ThemeSwitcher.vue",

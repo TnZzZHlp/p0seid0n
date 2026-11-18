@@ -17,13 +17,15 @@ export default defineConfig({
   description: 'A Vue UI registry: install the source, own the styles.',
   lang: 'en-GB',
   cleanUrls: true,
+  // Disable VitePress's built-in appearance toggle; HeaderThemeSwitcher in the
+  // custom theme layout provides the single three-state ThemeSwitcher control.
+  appearance: false,
   head: [
-    // Applies a stored choice before the first paint. VitePress' own toggle writes
-    // `dark` too, so the same class drives both the site chrome and the tokens.
+    // Applies a stored choice before the first paint, matching themeScript().
     [
       'script',
       {},
-      `(()=>{try{var r=document.documentElement,k="p0seid0n-theme",s=localStorage.getItem(k);r.classList.remove("light","dark");if(s==="light"||s==="dark"){r.classList.add(s);if(s==="dark")r.classList.add("dark")}else if(matchMedia("(prefers-color-scheme: dark)").matches){r.classList.add("dark")}}catch(e){}})()`,
+      `(()=>{try{var r=document.documentElement,k="p0seid0n-theme",a="data-theme",s=localStorage.getItem(k);r.classList.remove("light","dark");if(s==="light"||s==="dark"){r.classList.add(s);r.setAttribute(a,s)}else{r.removeAttribute(a)}}catch(e){}})()`,
     ],
   ],
   themeConfig: {
@@ -72,6 +74,7 @@ export default defineConfig({
           items: [
             { text: 'Stat', link: '/components/stat' },
             { text: 'Sparkline', link: '/components/sparkline' },
+            { text: 'Theme switcher', link: '/components/theme-switcher' },
           ],
         },
       ],
@@ -82,8 +85,6 @@ export default defineConfig({
   vite: {
     // VitePress bundles its own Vite major, so its plugin type and the one
     // @tailwindcss/vite declares do not unify. The runtime object is compatible.
-    // The cast keeps the two Vite majors from conflicting: VitePress bundles its
-    // own, while @tailwindcss/vite declares against the workspace one.
     plugins: [tailwindcss() as never],
     resolve: {
       alias: {

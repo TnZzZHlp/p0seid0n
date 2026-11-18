@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
 import type { Component } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from './variants'
 import type { ButtonSize, ButtonVariant } from './variants'
@@ -18,6 +19,8 @@ export type ButtonProps = {
   loading?: boolean
   disabled?: boolean
 }
+
+type ClickHandler = (event: MouseEvent) => void
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   variant: 'primary',
@@ -45,9 +48,21 @@ const isInert = computed(() => props.disabled || props.loading)
 function onClick(event: MouseEvent): void {
   if (isInert.value) {
     event.preventDefault()
+    event.stopImmediatePropagation()
     return
   }
-  ;(attrs.onClick as ((event: MouseEvent) => void) | undefined)?.(event)
+  const raw = attrs.onClick as ClickHandler | ClickHandler[] | undefined
+  if (Array.isArray(raw)) {
+    for (const handler of raw) handler(event)
+  } else {
+    raw?.(event)
+  }
+}
+
+function onAuxClick(event: MouseEvent): void {
+  if (isInert.value) {
+    event.preventDefault()
+  }
 }
 </script>
 
@@ -56,11 +71,13 @@ function onClick(event: MouseEvent): void {
     :is="as"
     v-bind="forwarded"
     :type="isNativeButton ? type : undefined"
-    :class="cn(buttonVariants({ variant, size }), $attrs.class as string | undefined)"
+    :class="cn(buttonVariants({ variant, size }), attrs.class as ClassValue)"
     :disabled="isNativeButton ? isInert : undefined"
+    :tabindex="!isNativeButton && isInert ? -1 : (attrs.tabindex as number | string | undefined)"
     :aria-disabled="isInert ? 'true' : undefined"
     :aria-busy="loading ? 'true' : undefined"
     @click="onClick"
+    @auxclick="onAuxClick"
   >
     <slot name="progress" />
     <slot name="leading" />

@@ -1,6 +1,9 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { Item, Manifest } from './validate.ts'
+import type { FileEntry, Item, Manifest } from './validate.ts'
+
+export const REGISTRY_SCHEMA = 'https://shadcn-vue.com/schema/registry.json'
+export const REGISTRY_ITEM_SCHEMA = 'https://shadcn-vue.com/schema/registry-item.json'
 
 export type RegistryIndexEntry = {
   name: string
@@ -9,13 +12,26 @@ export type RegistryIndexEntry = {
   description?: string
 }
 
+export type RegistrySummaryItem = {
+  name: string
+  type: string
+  title?: string
+  description?: string
+  dependencies?: string[]
+  devDependencies?: string[]
+  registryDependencies?: string[]
+  files: FileEntry[]
+}
+
 export type RegistrySummary = {
+  $schema: string
   name: string
   homepage: string
-  items: { name: string; type: string; title?: string }[]
+  items: RegistrySummaryItem[]
 }
 
 export type ItemPayload = {
+  $schema: string
   name: string
   type: string
   title?: string
@@ -37,7 +53,11 @@ export type ItemPayloadMeta = Omit<ItemPayload, 'files'>
  * builds of unchanged input are byte-identical.
  */
 export function buildItemPayload(item: Item, registryRoot: string): ItemPayload {
-  const meta: ItemPayloadMeta = { name: item.name, type: item.type }
+  const meta: ItemPayloadMeta = {
+    $schema: REGISTRY_ITEM_SCHEMA,
+    name: item.name,
+    type: item.type,
+  }
   if (item.title !== undefined) meta.title = item.title
   if (item.description !== undefined) meta.description = item.description
   if (item.dependencies !== undefined) meta.dependencies = [...item.dependencies]
@@ -61,14 +81,33 @@ export function buildItemPayload(item: Item, registryRoot: string): ItemPayload 
   return { ...meta, files }
 }
 
-/** The minimal manifest used for cross-item dependency resolution. */
+/**
+ * The manifest emitted as `r/registry.json`, matching the upstream registry schema
+ * while omitting inlined file contents so it stays compact.
+ */
 export function buildRegistrySummary(manifest: Manifest): RegistrySummary {
   return {
+    $schema: REGISTRY_SCHEMA,
     name: manifest.name,
     homepage: manifest.homepage,
     items: manifest.items.map((item) => {
-      const entry: RegistrySummary['items'][number] = { name: item.name, type: item.type }
+      const entry: RegistrySummaryItem = {
+        name: item.name,
+        type: item.type,
+        files: [],
+      }
       if (item.title !== undefined) entry.title = item.title
+      if (item.description !== undefined) entry.description = item.description
+      if (item.dependencies !== undefined) entry.dependencies = [...item.dependencies]
+      if (item.devDependencies !== undefined) entry.devDependencies = [...item.devDependencies]
+      if (item.registryDependencies !== undefined) {
+        entry.registryDependencies = [...item.registryDependencies]
+      }
+      entry.files = (item.files ?? []).map((file) => {
+        const f: FileEntry = { path: file.path, type: file.type }
+        if (file.target !== undefined) f.target = file.target
+        return f
+      })
       return entry
     }),
   }
@@ -94,11 +133,13 @@ export function buildAllPayload(
   manifest: Manifest,
   registryRoot: string,
 ): {
+  $schema: string
   name: string
   homepage: string
   items: ItemPayload[]
 } {
   return {
+    $schema: REGISTRY_SCHEMA,
     name: manifest.name,
     homepage: manifest.homepage,
     items: manifest.items.map((item) => buildItemPayload(item, registryRoot)),

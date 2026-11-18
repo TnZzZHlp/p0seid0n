@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { add, DEFAULT_REGISTRY, type AddOptions } from './add.ts'
 import { CliError } from './errors.ts'
+import { readJson } from './fs.ts'
 import { init } from './init.ts'
 
 const USAGE = `p0seid0n - install p0seid0n UI components
 
 Usage:
-  p0seid0n init [--yes] [--force] [--cwd <dir>]
+  p0seid0n init [--force] [--cwd <dir>]
   p0seid0n add <item...> [--overwrite] [--no-install] [--cwd <dir>] [--registry <url>]
 
 Commands:
@@ -25,11 +27,16 @@ Options:
   --registry <url>   registry base used for names (default: ${DEFAULT_REGISTRY})
   --overwrite        replace files whose content differs
   --no-install       write files but skip installing package dependencies
-  --yes              accept defaults (init)
   --force            replace an existing components.json (init)
 `
 
 type Target = 'init' | 'add' | 'help' | 'version'
+
+function readCliVersion(): string {
+  const pkgPath = fileURLToPath(new URL('../package.json', import.meta.url))
+  const pkg = readJson<{ version?: string }>(pkgPath)
+  return pkg?.version ?? '0.1.0'
+}
 
 function parseArgv(argv: string[]): {
   target: Target
@@ -39,7 +46,6 @@ function parseArgv(argv: string[]): {
   install: boolean
   registry: string
   force: boolean
-  yes: boolean
 } {
   const state = {
     target: 'help' as Target,
@@ -49,7 +55,6 @@ function parseArgv(argv: string[]): {
     install: true,
     registry: DEFAULT_REGISTRY,
     force: false,
-    yes: false,
   }
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index]
@@ -86,7 +91,7 @@ function parseArgv(argv: string[]): {
       continue
     }
     if (arg === '--yes' || arg === '-y') {
-      state.yes = true
+      // Accepted for compatibility with `shadcn-vue init --yes`; init is non-interactive.
       continue
     }
     if (arg.startsWith('-')) throw new CliError(`unknown option "${arg}"`)
@@ -122,8 +127,9 @@ async function runAdd(options: AddOptions): Promise<number> {
       'Re-run with --overwrite to replace them.',
     )
   }
-  if (result.dependencies.length > 0) {
-    lines.push(`  packages   ${result.dependencies.join(' ')}`)
+  const allPackages = [...result.dependencies, ...result.devDependencies]
+  if (allPackages.length > 0) {
+    lines.push(`  packages   ${allPackages.join(' ')}`)
     if (result.installed) lines.push(`  installed  yes`)
     else if (result.installCommand) lines.push(`  install    ${result.installCommand}`)
   }
@@ -138,7 +144,7 @@ async function main(argv: string[]): Promise<number> {
     return 0
   }
   if (parsed.target === 'version') {
-    process.stdout.write('0.1.0\n')
+    process.stdout.write(`${readCliVersion()}\n`)
     return 0
   }
   if (parsed.target === 'init') {

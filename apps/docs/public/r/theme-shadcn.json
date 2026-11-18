@@ -1,0 +1,19 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "theme-shadcn",
+  "type": "registry:theme",
+  "title": "Theme (shadcn aliases)",
+  "description": "Optional compatibility stylesheet mapping standard shadcn CSS variables and Tailwind v4 colour tokens onto --p0seid0n-* variables.",
+  "registryDependencies": [
+    "theme"
+  ],
+  "docs": "Import after styles/p0seid0n.css when mixing p0seid0n components with existing shadcn-vue components that reference --background, --foreground, bg-card or bg-destructive.",
+  "files": [
+    {
+      "path": "styles/p0seid0n-shadcn.css",
+      "type": "registry:file",
+      "content": ":root {\n  --background: var(--p0seid0n-surface);\n  --foreground: var(--p0seid0n-ink);\n  --card: var(--p0seid0n-raised);\n  --card-foreground: var(--p0seid0n-ink);\n  --popover: var(--p0seid0n-raised);\n  --popover-foreground: var(--p0seid0n-ink);\n  --primary: var(--p0seid0n-ink);\n  --primary-foreground: var(--p0seid0n-surface);\n  --secondary: var(--p0seid0n-control);\n  --secondary-foreground: var(--p0seid0n-ink);\n  --muted: var(--p0seid0n-control);\n  --muted-foreground: var(--p0seid0n-ink-muted);\n  --accent: var(--p0seid0n-control);\n  --accent-foreground: var(--p0seid0n-ink);\n  --destructive: var(--p0seid0n-danger);\n  --destructive-foreground: var(--p0seid0n-surface);\n  --border: var(--p0seid0n-line);\n  --input: var(--p0seid0n-line);\n  --ring: var(--p0seid0n-ink);\n  --radius: var(--p0seid0n-radius-control);\n}\n\n@theme inline {\n  --color-background: var(--p0seid0n-surface);\n  --color-foreground: var(--p0seid0n-ink);\n  --color-card: var(--p0seid0n-raised);\n  --color-card-foreground: var(--p0seid0n-ink);\n  --color-popover: var(--p0seid0n-raised);\n  --color-popover-foreground: var(--p0seid0n-ink);\n  --color-primary: var(--p0seid0n-ink);\n  --color-primary-foreground: var(--p0seid0n-surface);\n  --color-secondary: var(--p0seid0n-control);\n  --color-secondary-foreground: var(--p0seid0n-ink);\n  --color-muted: var(--p0seid0n-control);\n  --color-muted-foreground: var(--p0seid0n-ink-muted);\n  --color-accent-foreground: var(--p0seid0n-surface);\n  --color-destructive: var(--p0seid0n-danger);\n  --color-destructive-foreground: var(--p0seid0n-surface);\n  --color-border: var(--p0seid0n-line);\n  --color-input: var(--p0seid0n-line);\n  --color-ring: var(--p0seid0n-ink);\n}\n",
+      "target": "styles/p0seid0n-shadcn.css"
+    }
+  ]
+}

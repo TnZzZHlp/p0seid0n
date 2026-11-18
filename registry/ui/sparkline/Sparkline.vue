@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useAttrs } from 'vue'
+import type { StyleValue } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { sparklinePath } from './geometry'
 
@@ -35,6 +37,14 @@ const props = withDefaults(defineProps<SparklineProps>(), {
   height: '0.7em',
 })
 
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  delete rest.style
+  return rest
+})
+
 const toneClass = computed(
   () =>
     ({
@@ -56,16 +66,16 @@ const labelled = computed(() => props.ariaLabel !== undefined)
 
 <template>
   <svg
-    v-bind="$attrs"
+    v-bind="forwarded"
     :viewBox="`0 0 ${viewWidth} 1`"
-    :style="{ height: props.height }"
+    :style="[{ height: props.height }, attrs.style as StyleValue]"
     preserveAspectRatio="none"
     :class="
       cn(
         'block w-full',
         props.baseline ? 'border-b border-line' : undefined,
         toneClass,
-        $attrs.class as string | undefined,
+        attrs.class as ClassValue,
       )
     "
     :role="labelled ? 'img' : undefined"

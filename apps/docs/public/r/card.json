@@ -1,4 +1,5 @@
 {
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
   "name": "card",
   "type": "registry:ui",
   "title": "Card",
@@ -16,22 +17,22 @@
     {
       "path": "ui/card/Card.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type CardProps = {\n  /** raised sits on the page surface; surface sits on a raised panel. */\n  appearance?: 'raised' | 'surface'\n}\n\nconst props = withDefaults(defineProps<CardProps>(), {\n  appearance: 'raised',\n})\n\nconst appearanceClass = computed(() =>\n  props.appearance === 'surface' ? 'bg-surface' : 'bg-raised',\n)\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn('flex flex-col rounded-panel border', appearanceClass, $attrs.class as string | undefined)\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type CardProps = {\n  /** raised sits on the page surface; surface sits on a raised panel. */\n  appearance?: 'raised' | 'surface'\n}\n\nconst props = withDefaults(defineProps<CardProps>(), {\n  appearance: 'raised',\n})\n\nconst appearanceClass = computed(() =>\n  props.appearance === 'surface' ? 'bg-surface' : 'bg-raised',\n)\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex flex-col rounded-panel border border-line',\n        appearanceClass,\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
     },
     {
       "path": "ui/card/CardHeader.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex items-start justify-between gap-4 px-6 pt-5 pb-4',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <div class=\"flex min-w-0 flex-col gap-1\">\n      <slot name=\"title\">\n        <h3 class=\"text-[15px] leading-tight font-medium text-ink\"><slot /></h3>\n      </slot>\n      <slot name=\"description\" />\n    </div>\n    <slot name=\"action\" />\n  </div>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"cn('flex items-start justify-between gap-4 px-6 pt-5 pb-4', attrs.class as ClassValue)\"\n  >\n    <div class=\"flex min-w-0 flex-col gap-1\">\n      <h3\n        v-if=\"$slots.title || $slots.default\"\n        class=\"text-[15px] leading-tight font-medium text-ink\"\n      >\n        <slot name=\"title\">\n          <slot />\n        </slot>\n      </h3>\n      <slot name=\"description\" />\n    </div>\n    <slot name=\"action\" />\n  </div>\n</template>\n"
     },
     {
       "path": "ui/card/CardContent.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"cn('px-6 py-4 text-[14px] text-ink-muted', $attrs.class as string | undefined)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"cn('px-6 py-4 text-[14px] text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </div>\n</template>\n"
     },
     {
       "path": "ui/card/CardFooter.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex items-center justify-between gap-3 border-t border-line px-6 py-4 text-[13px] text-ink-muted',\n        $attrs.class as string | undefined,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex items-center justify-between gap-3 border-t border-line px-6 py-4 text-[13px] text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
     },
     {
       "path": "ui/card/index.ts",

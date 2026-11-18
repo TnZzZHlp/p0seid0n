@@ -55,15 +55,19 @@ export function parseRef(value: string, cwd: string): ItemRef {
 
 export type Context = { kind: 'dir'; base: string } | { kind: 'http'; base: string }
 
+function normalizeHttpBase(url: string): string {
+  const trimmed = url.replace(/\/+$/, '')
+  return trimmed.endsWith('/r') ? trimmed.slice(0, -2) : trimmed
+}
+
 export function contextFor(ref: ItemRef, registry: string): Context {
   if (ref.kind === 'url') {
     // A dependency of a URL item is fetched from the same registry root.
     const stripped = ref.value.replace(/\/[^/]+\.json$/, '')
-    const base = stripped.endsWith('/r') ? stripped.slice(0, -2) : stripped
-    return { kind: 'http', base }
+    return { kind: 'http', base: normalizeHttpBase(stripped) }
   }
   if (ref.kind === 'file') return { kind: 'dir', base: dirname(ref.value) }
-  if (isUrl(registry)) return { kind: 'http', base: registry.replace(/\/+$/, '') }
+  if (isUrl(registry)) return { kind: 'http', base: normalizeHttpBase(registry) }
   return { kind: 'dir', base: resolve(registry) }
 }
 
@@ -155,6 +159,17 @@ export type Plan = {
   items: ResolvedItem[]
 }
 
+function canonicalKey(ref: ItemRef, context: Context): string {
+  if (ref.kind === 'url') return `url:${ref.value}`
+  if (ref.kind === 'file') return `file:${ref.value}`
+  if (context.kind === 'dir') return `file:${join(context.base, `${ref.value}.json`)}`
+  return `url:${itemUrl(context, ref.value)}`
+}
+
+function displayKey(key: string): string {
+  return key.replace(/^(url|file):/, '')
+}
+
 function dependencyRef(
   value: string,
   parent: Context,
@@ -184,12 +199,10 @@ export async function resolvePlan(refs: ItemRef[], registry: string, cwd: string
   const visiting: string[] = []
 
   async function visit(ref: ItemRef, context: Context): Promise<void> {
-    const key = ref.kind === 'name' ? `name:${ref.value}` : `${ref.kind}:${ref.value}`
+    const key = canonicalKey(ref, context)
     if (done.has(key)) return
     if (visiting.includes(key)) {
-      const cycle = [...visiting.slice(visiting.indexOf(key)), key]
-        .map((entry) => entry.replace(/^(name|url|file):/, ''))
-        .join(' -> ')
+      const cycle = [...visiting.slice(visiting.indexOf(key)), key].map(displayKey).join(' -> ')
       throw new CliError(`registry dependencies form a cycle: ${cycle}`)
     }
     visiting.push(key)

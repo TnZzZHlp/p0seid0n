@@ -21,6 +21,109 @@ export function readJson<T>(path: string): T | null {
   }
 }
 
+/**
+ * Strips `//` line comments, `/* ... *\/` block comments and trailing commas
+ * outside string literals so standard tsconfig/jsconfig files parse cleanly.
+ */
+export function stripJsonComments(input: string): string {
+  let out = ''
+  let index = 0
+  let inString = false
+
+  while (index < input.length) {
+    const ch = input[index]
+    const next = input[index + 1]
+
+    if (inString) {
+      out += ch
+      if (ch === '\\' && index + 1 < input.length) {
+        out += next
+        index += 2
+        continue
+      }
+      if (ch === '"') inString = false
+      index += 1
+      continue
+    }
+
+    if (ch === '"') {
+      inString = true
+      out += ch
+      index += 1
+      continue
+    }
+
+    if (ch === '/' && next === '/') {
+      index += 2
+      while (index < input.length && input[index] !== '\n') index += 1
+      continue
+    }
+
+    if (ch === '/' && next === '*') {
+      index += 2
+      while (index < input.length && !(input[index] === '*' && input[index + 1] === '/')) {
+        if (input[index] === '\n') out += '\n'
+        index += 1
+      }
+      index += 2
+      continue
+    }
+
+    out += ch
+    index += 1
+  }
+
+  return stripTrailingCommas(out)
+}
+
+function stripTrailingCommas(input: string): string {
+  let out = ''
+  let index = 0
+  let inString = false
+
+  while (index < input.length) {
+    const ch = input[index]
+    if (inString) {
+      out += ch
+      if (ch === '\\' && index + 1 < input.length) {
+        out += input[index + 1]
+        index += 2
+        continue
+      }
+      if (ch === '"') inString = false
+      index += 1
+      continue
+    }
+    if (ch === '"') {
+      inString = true
+      out += ch
+      index += 1
+      continue
+    }
+    if (ch === ',') {
+      let lookahead = index + 1
+      while (lookahead < input.length && /\s/.test(input[lookahead])) lookahead += 1
+      if (input[lookahead] === '}' || input[lookahead] === ']') {
+        index += 1
+        continue
+      }
+    }
+    out += ch
+    index += 1
+  }
+  return out
+}
+
+export function readJsonc<T>(path: string): T | null {
+  const text = readText(path)
+  if (text === null) return null
+  try {
+    return JSON.parse(stripJsonComments(text)) as T
+  } catch {
+    throw new CliError(`${path} is not valid JSON`)
+  }
+}
+
 export function writeText(path: string, content: string): void {
   mkdirSync(dirname(path), { recursive: true })
   writeFileSync(path, content, 'utf8')

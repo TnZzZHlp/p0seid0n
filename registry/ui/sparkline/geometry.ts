@@ -8,22 +8,44 @@ const SPIKE = 3
 /** Below this many samples the median is not meaningful, so the max is used instead. */
 const MIN_SAMPLES_FOR_MEDIAN = 3
 
+function sanitize(value: number): number {
+  return Number.isFinite(value) && value > 0 ? value : 0
+}
+
+function arrayMax(values: readonly number[]): number {
+  let highest = 0
+  for (let index = 0; index < values.length; index += 1) {
+    const current = sanitize(values[index])
+    if (current > highest) highest = current
+  }
+  return highest
+}
+
 export function median(values: readonly number[]): number {
-  const sorted = [...values].sort((a, b) => a - b)
+  if (values.length === 0) return 0
+  const sorted = values.map(sanitize).sort((a, b) => a - b)
   const mid = sorted.length >> 1
   return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid]
 }
 
 /**
  * Upper bound for the value axis. The reference clamps to `median * 3` so a few
- * spikes do not squash the rest; with one or two samples the median is too noisy,
- * so it falls back to the max (005 risk table).
+ * spikes do not squash the rest; with one or two samples (or mostly zero samples)
+ * it falls back to the positive median or max so fractional and idle series scale cleanly.
  */
 export function scaleTop(values: readonly number[]): number {
   if (values.length === 0) return 1
-  const max = Math.max(...values)
-  if (values.length < MIN_SAMPLES_FOR_MEDIAN) return Math.max(1, max)
-  return Math.max(1, Math.min(max, median(values) * SPIKE))
+  const max = arrayMax(values)
+  if (max <= 0) return 1
+  if (values.length < MIN_SAMPLES_FOR_MEDIAN) return max
+
+  let med = median(values)
+  if (med <= 0) {
+    const positive = values.map(sanitize).filter((value) => value > 0)
+    if (positive.length < MIN_SAMPLES_FOR_MEDIAN) return max
+    med = median(positive)
+  }
+  return Math.max(1e-9, Math.min(max, med * SPIKE))
 }
 
 export type SparklineOptions = {
@@ -44,13 +66,14 @@ export function sparklinePath({ values, slots, max }: SparklineOptions): string 
 
   // The slot count never drops below the sample count, or bars would overlap.
   const width = Math.max(slots ?? values.length, values.length)
-  const top = max !== undefined ? Math.max(1e-9, max) : scaleTop(values)
+  const explicitMax = max !== undefined && Number.isFinite(max) ? Math.max(1e-9, max) : undefined
+  const top = explicitMax ?? scaleTop(values)
   const first = width - values.length
   const halfGap = (1 - BAR) / 2
 
   let d = ''
   for (let index = 0; index < values.length; index += 1) {
-    const ratio = Math.min(1, Math.max(0, values[index] / top))
+    const ratio = Math.min(1, Math.max(0, sanitize(values[index]) / top))
     const x = first + index + halfGap
     d += `M${round(x)},1V${round(1 - ratio)}h${BAR}V1Z`
   }

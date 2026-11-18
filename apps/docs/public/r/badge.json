@@ -1,4 +1,5 @@
 {
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
   "name": "badge",
   "type": "registry:ui",
   "title": "Badge",
@@ -17,7 +18,7 @@
     {
       "path": "ui/badge/Badge.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { badgeVariants } from './variants'\nimport type { BadgeVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BadgeProps = {\n  variant?: BadgeVariant\n}\n\nconst props = withDefaults(defineProps<BadgeProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <span\n    v-bind=\"forwarded\"\n    :class=\"cn(badgeVariants({ variant: props.variant }), $attrs.class as string | undefined)\"\n  >\n    <slot />\n  </span>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { badgeVariants } from './variants'\nimport type { BadgeVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BadgeProps = {\n  variant?: BadgeVariant\n}\n\nconst props = withDefaults(defineProps<BadgeProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <span\n    v-bind=\"forwarded\"\n    :class=\"cn(badgeVariants({ variant: props.variant }), attrs.class as ClassValue)\"\n  >\n    <slot />\n  </span>\n</template>\n"
     },
     {
       "path": "ui/badge/variants.ts",

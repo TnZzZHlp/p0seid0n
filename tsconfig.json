@@ -4,5 +4,11 @@
     "types": ["node"]
   },
   "files": [],
-  "include": ["registry/**/*.ts", "registry/**/*.vue", "scripts/**/*.ts", "packages/**/*.ts"]
+  "include": [
+    "registry/**/*.ts",
+    "registry/**/*.vue",
+    "scripts/**/*.ts",
+    "packages/**/*.ts",
+    "tests/**/*.ts"
+  ]
 }

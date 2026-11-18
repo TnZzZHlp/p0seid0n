@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { TooltipContent, TooltipPortal } from 'reka-ui'
 
@@ -18,20 +20,27 @@ withDefaults(defineProps<TooltipContentProps>(), {
   sideOffset: 6,
   shortcut: undefined,
 })
+
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  return rest
+})
 </script>
 
 <template>
   <TooltipPortal>
     <TooltipContent
-      v-bind="$attrs"
+      v-bind="forwarded"
       :side="side"
       :align="align"
       :side-offset="sideOffset"
       :class="
         cn(
-          'z-10 flex items-center gap-2 rounded-[10px] border border-line bg-raised px-2.5 py-1.5',
+          'z-50 flex items-center gap-2 rounded-[10px] border border-line bg-raised px-2.5 py-1.5',
           'text-[12px] font-medium text-ink shadow-popup',
-          $attrs.class as string | undefined,
+          attrs.class as ClassValue,
         )
       "
     >

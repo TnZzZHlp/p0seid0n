@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide } from 'vue'
+import { provide } from 'vue'
 import { toastKey, type ToastApi, type ToastOptions } from './context'
 import { createToastStack, provideToastStack } from './stack'
 import Toaster from './Toaster.vue'
@@ -23,12 +23,12 @@ function toast(options: ToastOptions): string {
   return stack.push(options, props.duration, props.max)
 }
 
-const api = computed<ToastApi>(() => ({
+const api: ToastApi = {
   toast,
   dismiss: stack.dismiss,
   dismissAll: stack.dismissAll,
-}))
-provide(toastKey, api.value)
+}
+provide(toastKey, api)
 
 defineExpose({ toast, dismiss: stack.dismiss, dismissAll: stack.dismissAll })
 </script>

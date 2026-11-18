@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs'
-import { join } from 'node:path'
+import { isAbsolute, join, relative, resolve, sep } from 'node:path'
 
 export const ITEM_TYPES = [
   'registry:lib',
@@ -57,6 +57,13 @@ function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0
 }
 
+function isInsideRoot(root: string, candidate: string): boolean {
+  const rel = relative(resolve(root), resolve(candidate))
+  if (rel === '') return false
+  if (isAbsolute(rel)) return false
+  return !rel.split(sep).includes('..')
+}
+
 function assertStringArray(subject: string, field: string, value: unknown): void {
   if (value === undefined) return
   if (!Array.isArray(value)) fail(subject, field, 'must be an array')
@@ -87,7 +94,7 @@ export function validateManifest(manifest: unknown, registryRoot: string): Manif
   const items = root.items as unknown[]
   if (items.length === 0) fail('manifest', 'items', 'must contain at least one item')
 
-  const names = new Set<string>()
+  const byName = new Map<string, Record<string, unknown>>()
   for (const [index, raw] of items.entries()) {
     if (typeof raw !== 'object' || raw === null) {
       fail('manifest', `items[${index}]`, 'must be an object')
@@ -97,8 +104,8 @@ export function validateManifest(manifest: unknown, registryRoot: string): Manif
 
     if (!isNonEmptyString(item.name)) fail(subject, 'name', 'is required')
     const name = item.name as string
-    if (names.has(name)) fail(subject, 'name', 'is duplicated in the manifest')
-    names.add(name)
+    if (byName.has(name)) fail(subject, 'name', 'is duplicated in the manifest')
+    byName.set(name, item)
 
     if (!isNonEmptyString(item.type)) fail(subject, 'type', 'is required')
     const type = item.type as string
@@ -152,8 +159,11 @@ export function validateManifest(manifest: unknown, registryRoot: string): Manif
       }
 
       const sourcePath = file.path as string
+      if (sourcePath.startsWith('/') || sourcePath.includes('..')) {
+        fail(subject, `${fileField}.path`, `"${sourcePath}" must be a relative path without ".."`)
+      }
       const resolved = join(registryRoot, sourcePath)
-      if (!existsSync(resolved)) {
+      if (!isInsideRoot(registryRoot, resolved) || !existsSync(resolved)) {
         fail(subject, `${fileField}.path`, `"${sourcePath}" does not exist under registry/`)
       }
     }
@@ -161,22 +171,12 @@ export function validateManifest(manifest: unknown, registryRoot: string): Manif
 
   // Registry dependencies are checked after all names are known so forward
   // references within one manifest are allowed.
-  for (const raw of items) {
-    const item = raw as unknown
-    const record = item as Record<string, unknown>
-    const name = record.name as string
+  for (const [name, record] of byName) {
     const deps = record.registryDependencies
     if (!Array.isArray(deps)) continue
     for (const [index, dep] of deps.entries()) {
       if (typeof dep !== 'string') continue
       if (isHttpUrl(dep)) continue
-      if (!names.has(dep)) {
-        fail(
-          `item "${name}"`,
-          `registryDependencies[${index}]`,
-          `"${dep}" is not defined in this manifest`,
-        )
-      }
       if (dep === name) {
         fail(
           `item "${name}"`,
@@ -184,8 +184,36 @@ export function validateManifest(manifest: unknown, registryRoot: string): Manif
           'must not reference the item itself',
         )
       }
+      if (!byName.has(dep)) {
+        fail(
+          `item "${name}"`,
+          `registryDependencies[${index}]`,
+          `"${dep}" is not defined in this manifest`,
+        )
+      }
     }
   }
+
+  const visited = new Set<string>()
+  const visiting: string[] = []
+  function checkCycles(name: string): void {
+    if (visited.has(name)) return
+    const cycleStart = visiting.indexOf(name)
+    if (cycleStart !== -1) {
+      const cycle = [...visiting.slice(cycleStart), name].join(' -> ')
+      fail(`item "${visiting[cycleStart]}"`, 'registryDependencies', `forms a cycle: ${cycle}`)
+    }
+    visiting.push(name)
+    const deps = byName.get(name)?.registryDependencies
+    if (Array.isArray(deps)) {
+      for (const dep of deps) {
+        if (typeof dep === 'string' && !isHttpUrl(dep)) checkCycles(dep)
+      }
+    }
+    visiting.pop()
+    visited.add(name)
+  }
+  for (const name of byName.keys()) checkCycles(name)
 
   return manifest as Manifest
 }

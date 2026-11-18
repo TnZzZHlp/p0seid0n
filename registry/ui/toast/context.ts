@@ -4,7 +4,7 @@ export type ToastVariant = 'default' | 'success' | 'danger'
 
 export type ToastAction = {
   label: string
-  /** Called after the notification is dismissed. */
+  /** Called before the notification is dismissed. */
   onClick?: () => void
 }
 
@@ -23,6 +23,8 @@ export type ToastRecord = ToastOptions & {
   id: string
   variant: ToastVariant
   duration: number
+  /** Monotonic counter so re-pushing the same id resets its countdown. */
+  version: number
 }
 
 export type ToastApi = {

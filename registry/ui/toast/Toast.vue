@@ -16,6 +16,8 @@ const props = defineProps<{ record: ToastRecord }>()
 const emit = defineEmits<{ dismiss: [id: string] }>()
 
 let timer: ReturnType<typeof setTimeout> | undefined
+let hovered = false
+let focused = false
 
 function clearTimer(): void {
   if (timer !== undefined) {
@@ -26,15 +28,39 @@ function clearTimer(): void {
 
 function armTimer(): void {
   clearTimer()
+  if (hovered || focused) return
   // A zero duration means the notification stays until dismissed by hand.
   if (props.record.duration > 0) {
     timer = setTimeout(() => emit('dismiss', props.record.id), props.record.duration)
   }
 }
 
+function onMouseEnter(): void {
+  hovered = true
+  clearTimer()
+}
+
+function onMouseLeave(): void {
+  hovered = false
+  armTimer()
+}
+
+function onFocusIn(): void {
+  focused = true
+  clearTimer()
+}
+
+function onFocusOut(event: FocusEvent): void {
+  const current = event.currentTarget as HTMLElement | null
+  const next = event.relatedTarget as Node | null
+  if (current && next && current.contains(next)) return
+  focused = false
+  armTimer()
+}
+
 onMounted(armTimer)
-// Re-arming on duration change keeps the countdown honest if a record is replaced.
-watch(() => props.record.duration, armTimer)
+// Re-arming on duration or version change resets the countdown when an id is re-pushed.
+watch(() => [props.record.duration, props.record.version], armTimer)
 onBeforeUnmount(clearTimer)
 
 function runAction(): void {
@@ -46,9 +72,13 @@ function runAction(): void {
 <template>
   <div
     :class="cn(toastCard, 'relative overflow-hidden pl-5')"
-    role="status"
-    aria-live="polite"
+    :role="record.variant === 'danger' ? 'alert' : 'status'"
+    :aria-live="record.variant === 'danger' ? 'assertive' : 'polite'"
     :data-toast-id="record.id"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+    @focusin="onFocusIn"
+    @focusout="onFocusOut"
   >
     <span :class="toastAccent(record.variant)" aria-hidden="true" />
     <div class="min-w-0 flex-1">

@@ -34,7 +34,7 @@ export const toastAction = [
 
 export const toastDismiss = [
   'ml-auto inline-flex size-6 shrink-0 items-center justify-center rounded-[6px]',
-  'text-[14px] leading-none text-ink-faint',
+  'text-[14px] leading-none text-ink-muted',
   'hover:bg-control hover:text-ink',
   'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',
 ].join(' ')

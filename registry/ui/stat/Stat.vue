@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 
 defineOptions({ inheritAttrs: false })
@@ -23,6 +24,13 @@ const props = withDefaults(defineProps<StatProps>(), {
   tone: 'default',
 })
 
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  return rest
+})
+
 const isEmpty = computed(
   () => props.value === null || props.value === undefined || props.value === '',
 )
@@ -38,7 +46,7 @@ const toneClass = computed(
 </script>
 
 <template>
-  <div v-bind="$attrs" :class="cn('flex flex-col', $attrs.class as string | undefined)">
+  <div v-bind="forwarded" :class="cn('flex flex-col', attrs.class as ClassValue)">
     <span class="text-[13px] font-medium text-ink-muted">{{ label }}</span>
     <div class="mt-1 flex items-baseline gap-0">
       <span

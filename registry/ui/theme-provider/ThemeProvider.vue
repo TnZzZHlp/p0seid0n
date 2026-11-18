@@ -25,10 +25,10 @@ const props = withDefaults(defineProps<ThemeProviderProps>(), {
 })
 
 const theme = ref<ThemeChoice>(props.defaultTheme)
-const resolvedTheme = ref<ResolvedTheme>('light')
+const resolvedTheme = ref<ResolvedTheme>(props.defaultTheme === 'dark' ? 'dark' : 'light')
+const hydrated = ref(false)
 
 let media: MediaQueryList | undefined
-let hydrated = false
 
 function sync(): void {
   resolvedTheme.value = applyThemeToDocument(theme.value, props.attribute)
@@ -42,10 +42,13 @@ function setTheme(next: ThemeChoice): void {
 // preference event: those are not user decisions and must not pin `system`.
 watch(theme, (next) => {
   sync()
-  if (!hydrated) return
+  if (!hydrated.value) return
   try {
-    if (next === 'system') localStorage.removeItem(props.storageKey)
-    else localStorage.setItem(props.storageKey, next)
+    if (next === 'system' && props.defaultTheme === 'system') {
+      localStorage.removeItem(props.storageKey)
+    } else {
+      localStorage.setItem(props.storageKey, next)
+    }
   } catch {
     // A blocked storage backend still needs the in-memory choice to apply.
   }
@@ -57,9 +60,9 @@ function onSystemChange(): void {
 }
 
 onMounted(() => {
-  theme.value = readStoredTheme(props.storageKey)
+  theme.value = readStoredTheme(props.storageKey, props.defaultTheme)
   sync()
-  hydrated = true
+  hydrated.value = true
   media = window.matchMedia('(prefers-color-scheme: dark)')
   media.addEventListener('change', onSystemChange)
 })
@@ -73,11 +76,13 @@ const api: ThemeApi = {
   resolvedTheme,
   setTheme,
   systemTheme,
-  storageKey: props.storageKey,
+  get storageKey() {
+    return props.storageKey
+  },
 }
 provide(themeKey, api)
 
-const ready = computed(() => hydrated)
+const ready = computed(() => hydrated.value)
 defineExpose({ ready, theme, resolvedTheme, setTheme })
 </script>
 

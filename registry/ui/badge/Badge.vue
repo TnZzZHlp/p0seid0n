@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { badgeVariants } from './variants'
 import type { BadgeVariant } from './variants'
@@ -25,7 +26,7 @@ const forwarded = computed(() => {
 <template>
   <span
     v-bind="forwarded"
-    :class="cn(badgeVariants({ variant: props.variant }), $attrs.class as string | undefined)"
+    :class="cn(badgeVariants({ variant: props.variant }), attrs.class as ClassValue)"
   >
     <slot />
   </span>

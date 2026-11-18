@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 
 defineOptions({ inheritAttrs: false })
@@ -29,7 +30,11 @@ const appearanceClass = computed(() =>
   <div
     v-bind="forwarded"
     :class="
-      cn('flex flex-col rounded-panel border', appearanceClass, $attrs.class as string | undefined)
+      cn(
+        'flex flex-col rounded-panel border border-line',
+        appearanceClass,
+        attrs.class as ClassValue,
+      )
     "
   >
     <slot />

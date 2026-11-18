@@ -5,12 +5,15 @@ import { provideDialogBehaviour } from './behaviour'
 defineOptions({ inheritAttrs: false })
 
 export type DialogProps = {
+  /** Initial open state when uncontrolled. */
+  defaultOpen?: boolean
   /** Closes when the pointer goes down outside the panel. */
   closeOnOutside?: boolean
   closeOnEsc?: boolean
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {
+  defaultOpen: undefined,
   closeOnOutside: true,
   closeOnEsc: true,
 })
@@ -21,11 +24,11 @@ provideDialogBehaviour({
   closeOnEsc: () => props.closeOnEsc,
 })
 
-const model = defineModel<boolean>({ default: false })
+const open = defineModel<boolean>('open')
 </script>
 
 <template>
-  <DialogRoot v-model="model" modal v-bind="$attrs">
+  <DialogRoot v-model:open="open" :default-open="defaultOpen" modal v-bind="$attrs">
     <slot />
   </DialogRoot>
 </template>

@@ -1,5 +1,5 @@
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { dirname, join, resolve } from 'node:path'
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -7,7 +7,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 export class InstallError extends Error {}
 
 export type ComponentsConfig = {
-  aliases: { ui: string; lib: string; utils: string }
+  aliases: { components?: string; ui: string; lib: string; utils: string }
   tailwind: { css: string }
 }
 
@@ -34,6 +34,8 @@ export type Conflict = {
 export type InstallPlan = {
   /** Destination to content, already merged across items. */
   writes: Map<string, string>
+  /** Existing files replaced when `overwrite` is true. */
+  updates: Map<string, string>
   /** Files whose content already matches; nothing to do. */
   unchanged: string[]
   conflicts: Conflict[]
@@ -43,9 +45,11 @@ export const DEFAULT_ALIAS_ROOT = {
   '@': 'src',
 } as const
 
-function isInside(parent: string, child: string): boolean {
-  const relative = child.startsWith(parent) ? child.slice(parent.length) : null
-  return relative !== null && !relative.split(/[\\/]/).includes('..')
+export function isInside(parent: string, child: string): boolean {
+  const rel = relative(resolve(parent), resolve(child))
+  if (rel === '') return true
+  if (isAbsolute(rel)) return false
+  return !rel.split(sep).includes('..')
 }
 
 /**
@@ -120,6 +124,30 @@ export function readItem(sourceDir: string, name: string): RegistryItem {
   return parsed as RegistryItem
 }
 
+function rewriteImports(content: string, filePath: string, config: ComponentsConfig): string {
+  if (!/\.(vue|ts|tsx|js|jsx)$/.test(filePath)) return content
+  const componentsAlias = config.aliases.components ?? '@/components'
+  return content.replace(
+    /((?:from|import)\s*\(?\s*['"])(@\/[^'"]+)(['"])/g,
+    (full, lead: string, specifier: string, quote: string) => {
+      if (specifier === '@/lib/utils') return `${lead}${config.aliases.utils}${quote}`
+      if (specifier.startsWith('@/lib/')) {
+        return `${lead}${config.aliases.lib}/${specifier.slice('@/lib/'.length)}${quote}`
+      }
+      if (specifier.startsWith('@/components/ui/')) {
+        return `${lead}${config.aliases.ui}/${specifier.slice('@/components/ui/'.length)}${quote}`
+      }
+      if (specifier.startsWith('@/ui/')) {
+        return `${lead}${config.aliases.ui}/${specifier.slice('@/ui/'.length)}${quote}`
+      }
+      if (specifier.startsWith('@/components/')) {
+        return `${lead}${componentsAlias}/${specifier.slice('@/components/'.length)}${quote}`
+      }
+      return full
+    },
+  )
+}
+
 /**
  * The registry item type decides the destination folder, except for `registry:file`
  * items such as the theme. Their `target` follows the shadcn convention of living
@@ -135,6 +163,10 @@ function destinationFor(
     return join(root, file.target.replace(/^src\//, ''))
   }
   if (file.type === 'registry:lib') {
+    if (file.path === 'lib/utils.ts' && config.aliases.utils) {
+      const target = resolveAlias(config.aliases.utils, appRoot)
+      return target ? (target.endsWith('.ts') ? target : `${target}.ts`) : null
+    }
     const libDir = resolveAlias(config.aliases.lib, appRoot)
     return libDir ? join(libDir, file.path.split('/').pop() ?? file.path) : null
   }
@@ -152,10 +184,14 @@ function destinationFor(
  * Builds the install plan without touching the filesystem, so `--check` and the
  * real run agree on what would happen.
  */
-export function planInstall(sourceDir: string, appRoot: string): InstallPlan {
+export function planInstall(
+  sourceDir: string,
+  appRoot: string,
+  options: { overwrite?: boolean } = {},
+): InstallPlan {
   const config = readConfig(appRoot)
   const manifest = readManifest(sourceDir)
-  const plan: InstallPlan = { writes: new Map(), unchanged: [], conflicts: [] }
+  const plan: InstallPlan = { writes: new Map(), updates: new Map(), unchanged: [], conflicts: [] }
   const seen = new Set<string>()
 
   for (const entry of manifest.items) {
@@ -173,16 +209,21 @@ export function planInstall(sourceDir: string, appRoot: string): InstallPlan {
       if (seen.has(destination)) continue
       seen.add(destination)
 
+      const content = rewriteImports(file.content, file.path, config)
       const existing = readIfPresent(destination)
-      if (existing === file.content) {
+      if (existing === content) {
         plan.unchanged.push(destination)
         continue
       }
       if (existing !== null) {
-        plan.conflicts.push({ path: destination, reason: 'differs' })
+        if (options.overwrite) {
+          plan.updates.set(destination, content)
+        } else {
+          plan.conflicts.push({ path: destination, reason: 'differs' })
+        }
         continue
       }
-      plan.writes.set(destination, file.content)
+      plan.writes.set(destination, content)
     }
   }
 
@@ -197,12 +238,24 @@ function readIfPresent(path: string): string | null {
   }
 }
 
-export function applyPlan(plan: InstallPlan): { written: number; unchanged: number } {
+export function applyPlan(plan: InstallPlan): {
+  written: number
+  updated: number
+  unchanged: number
+} {
   for (const [destination, content] of plan.writes) {
     mkdirSync(dirname(destination), { recursive: true })
     writeFileSync(destination, content, 'utf8')
   }
-  return { written: plan.writes.size, unchanged: plan.unchanged.length }
+  for (const [destination, content] of plan.updates) {
+    mkdirSync(dirname(destination), { recursive: true })
+    writeFileSync(destination, content, 'utf8')
+  }
+  return {
+    written: plan.writes.size,
+    updated: plan.updates.size,
+    unchanged: plan.unchanged.length,
+  }
 }
 
 /**
@@ -231,11 +284,17 @@ export function stageRegistryOutput(sourceDir: string, appRoot: string): number 
   return copied
 }
 
-function parseArgs(argv: string[]): { sourceDir: string; appRoot: string; check: boolean } {
+function parseArgs(argv: string[]): {
+  sourceDir: string
+  appRoot: string
+  check: boolean
+  overwrite: boolean
+} {
   const sourceDir = join(repoRoot, 'apps/docs/public/r')
   const appRoot = join(repoRoot, 'apps/docs')
   let from = sourceDir
   let check = false
+  let overwrite = false
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index]
     if (arg === '--from') {
@@ -249,13 +308,18 @@ function parseArgs(argv: string[]): { sourceDir: string; appRoot: string; check:
       check = true
       continue
     }
+    if (arg === '--overwrite') {
+      overwrite = true
+      continue
+    }
     if (arg === '--help' || arg === '-h') {
       process.stdout.write(
         [
-          'Usage: node scripts/install-ui.ts [--from <dir>] [--check]',
+          'Usage: node scripts/install-ui.ts [--from <dir>] [--check] [--overwrite]',
           '',
           '  --from <dir>  registry output to install (default: apps/docs/public/r)',
           '  --check       report what would change without writing',
+          '  --overwrite   replace files whose content differs from the registry output',
           '',
         ].join('\n'),
       )
@@ -263,12 +327,12 @@ function parseArgs(argv: string[]): { sourceDir: string; appRoot: string; check:
     }
     throw new InstallError(`unknown argument "${arg}"`)
   }
-  return { sourceDir: from, appRoot, check }
+  return { sourceDir: from, appRoot, check, overwrite }
 }
 
 function main(): void {
-  const { sourceDir, appRoot, check } = parseArgs(process.argv.slice(2))
-  const plan = planInstall(sourceDir, appRoot)
+  const { sourceDir, appRoot, check, overwrite } = parseArgs(process.argv.slice(2))
+  const plan = planInstall(sourceDir, appRoot, { overwrite })
 
   for (const conflict of plan.conflicts) {
     const detail =
@@ -296,17 +360,20 @@ function main(): void {
   }
 
   if (plan.conflicts.length > 0) {
-    process.stderr.write('error: refusing to write while conflicts remain\n')
+    process.stderr.write(
+      'error: refusing to write while conflicts remain (pass --overwrite to sync)\n',
+    )
     process.exit(1)
   }
 
-  const { written, unchanged } = applyPlan(plan)
+  const { written, updated, unchanged } = applyPlan(plan)
   const staged = stageRegistryOutput(sourceDir, appRoot)
   process.stdout.write(
     [
       'p0seid0n ui install',
       `  source   ${sourceDir}`,
       `  written  ${written}`,
+      ...(updated > 0 ? [`  updated  ${updated}`] : []),
       `  skipped  ${unchanged}`,
       `  staged   ${staged} registry files into src/public/r`,
       '',
@@ -314,12 +381,14 @@ function main(): void {
   )
 }
 
-try {
-  main()
-} catch (error) {
-  if (error instanceof InstallError) {
-    process.stderr.write(`error: ${error.message}\n`)
-    process.exit(1)
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    main()
+  } catch (error) {
+    if (error instanceof InstallError) {
+      process.stderr.write(`error: ${error.message}\n`)
+      process.exit(1)
+    }
+    throw error
   }
-  throw error
 }

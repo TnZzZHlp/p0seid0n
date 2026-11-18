@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 
 defineOptions({ inheritAttrs: false })
@@ -32,7 +33,7 @@ const isVertical = computed(() => props.orientation === 'vertical')
       cn(
         'shrink-0 bg-line',
         isVertical ? 'h-full w-px self-stretch' : 'h-px w-full',
-        $attrs.class as string | undefined,
+        attrs.class as ClassValue,
       )
     "
     :role="decorative ? 'presentation' : 'separator'"

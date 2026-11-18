@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { TabsList } from 'reka-ui'
 import { tabList } from './styles'
@@ -13,10 +15,17 @@ export type TabsListProps = {
 withDefaults(defineProps<TabsListProps>(), {
   loop: true,
 })
+
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  return rest
+})
 </script>
 
 <template>
-  <TabsList :loop="loop" :class="cn(tabList, $attrs.class as string | undefined)" v-bind="$attrs">
+  <TabsList v-bind="forwarded" :loop="loop" :class="cn(tabList, attrs.class as ClassValue)">
     <slot />
   </TabsList>
 </template>

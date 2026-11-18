@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import buttonVariants from '../../src/examples/button-variants.vue?raw'
 import buttonSizes from '../../src/examples/button-sizes.vue?raw'
 import buttonSlots from '../../src/examples/button-slots.vue?raw'
@@ -12,6 +12,7 @@ import labelRequired from '../../src/examples/label-required.vue?raw'
 import switchSizes from '../../src/examples/switch-sizes.vue?raw'
 import switchThumbSlot from '../../src/examples/switch-thumb-slot.vue?raw'
 import dropdownMenuItems from '../../src/examples/dropdown-menu-items.vue?raw'
+import dropdownMenuSelection from '../../src/examples/dropdown-menu-selection.vue?raw'
 import tooltipSides from '../../src/examples/tooltip-sides.vue?raw'
 import dialogBasic from '../../src/examples/dialog-basic.vue?raw'
 import tabsBasic from '../../src/examples/tabs-basic.vue?raw'
@@ -21,6 +22,7 @@ import statBasic from '../../src/examples/stat-basic.vue?raw'
 import statFigure from '../../src/examples/stat-figure.vue?raw'
 import sparklineTone from '../../src/examples/sparkline-tone.vue?raw'
 import sparklineEdges from '../../src/examples/sparkline-edges.vue?raw'
+import themeSwitcherBasic from '../../src/examples/theme-switcher-basic.vue?raw'
 
 const props = defineProps<{
   /** File name inside `src/examples`, without the extension. */
@@ -28,9 +30,7 @@ const props = defineProps<{
 }>()
 
 // `import.meta.glob` with a `?raw` query resolves to nothing inside VitePress'
-// SSR build, so the example sources are imported one by one instead. Adding an
-// example means adding a line here; the alternative was a code block that had to
-// be kept in sync by hand, which the subplan explicitly rules out.
+// SSR build, so the example sources are imported one by one instead.
 const sources: Record<string, string> = {
   'button-variants': buttonVariants,
   'button-sizes': buttonSizes,
@@ -44,6 +44,7 @@ const sources: Record<string, string> = {
   'switch-sizes': switchSizes,
   'switch-thumb-slot': switchThumbSlot,
   'dropdown-menu-items': dropdownMenuItems,
+  'dropdown-menu-selection': dropdownMenuSelection,
   'tooltip-sides': tooltipSides,
   'dialog-basic': dialogBasic,
   'tabs-basic': tabsBasic,
@@ -53,19 +54,94 @@ const sources: Record<string, string> = {
   'stat-figure': statFigure,
   'sparkline-tone': sparklineTone,
   'sparkline-edges': sparklineEdges,
+  'theme-switcher-basic': themeSwitcherBasic,
+}
+
+type CodeToken = {
+  text: string
+  cls?: string
+}
+
+const TOKEN_PATTERN =
+  /(<!--[\s\S]*?-->|\/\/[^\n]*|\/\*[\s\S]*?\*\/|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`|<\/?[A-Za-z][A-Za-z0-9-]*|\b(?:import|from|export|const|let|function|async|await|return|if|else|type|true|false|null|undefined)\b)/g
+
+function tokenizeVue(code: string): CodeToken[] {
+  const result: CodeToken[] = []
+  let lastIndex = 0
+  TOKEN_PATTERN.lastIndex = 0
+  let match = TOKEN_PATTERN.exec(code)
+  while (match) {
+    if (match.index > lastIndex) {
+      result.push({ text: code.slice(lastIndex, match.index) })
+    }
+    const value = match[0]
+    let cls: string | undefined
+    if (value.startsWith('<!--') || value.startsWith('//') || value.startsWith('/*')) {
+      cls = 'text-ink-faint'
+    } else if (value.startsWith("'") || value.startsWith('"') || value.startsWith('`')) {
+      cls = 'text-danger'
+    } else if (value.startsWith('<')) {
+      cls = 'text-accent'
+    } else {
+      cls = 'font-medium text-accent'
+    }
+    result.push({ text: value, cls })
+    lastIndex = match.index + value.length
+    match = TOKEN_PATTERN.exec(code)
+  }
+  if (lastIndex < code.length) {
+    result.push({ text: code.slice(lastIndex) })
+  }
+  return result
 }
 
 const source = computed(() => sources[props.name] ?? `<!-- example ${props.name}.vue not found -->`)
+const tokens = computed(() => tokenizeVue(source.value))
+
+const copied = ref(false)
+let copyTimer: ReturnType<typeof setTimeout> | undefined
+
+async function copySource(): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(source.value)
+    copied.value = true
+    if (copyTimer) clearTimeout(copyTimer)
+    copyTimer = setTimeout(() => {
+      copied.value = false
+    }, 1500)
+  } catch {
+    // Clipboard access may be unavailable in insecure contexts.
+  }
+}
+
+onBeforeUnmount(() => {
+  if (copyTimer) clearTimeout(copyTimer)
+})
 </script>
 
 <template>
   <div class="example-surface my-4">
     <slot />
   </div>
-  <details class="my-4 rounded-panel border border-line">
-    <summary class="cursor-pointer px-4 py-2 text-[13px] font-medium text-ink-muted">Source</summary>
+  <details class="my-4 overflow-hidden rounded-panel border border-line bg-raised">
+    <summary
+      class="flex cursor-pointer items-center justify-between px-4 py-2 text-[13px] font-medium text-ink-muted select-none hover:text-ink"
+    >
+      <span>Source</span>
+      <button
+        type="button"
+        class="rounded-[8px] px-2 py-0.5 text-[12px] font-medium text-ink-muted hover:bg-control hover:text-ink"
+        @click.stop.prevent="copySource"
+      >
+        {{ copied ? 'Copied' : 'Copy' }}
+      </button>
+    </summary>
     <pre
-      class="overflow-auto px-4 pb-4 text-[12px] leading-relaxed"
-    ><code>{{ source }}</code></pre>
+      class="m-0 overflow-auto border-t border-line bg-raised px-4 py-3 font-mono text-[12px] leading-relaxed text-ink"
+    ><code><span
+      v-for="(token, index) in tokens"
+      :key="index"
+      :class="token.cls"
+    >{{ token.text }}</span></code></pre>
   </details>
 </template>

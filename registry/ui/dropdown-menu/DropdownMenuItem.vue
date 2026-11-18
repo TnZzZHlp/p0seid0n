@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { DropdownMenuItem } from 'reka-ui'
 import { menuItem } from './styles'
@@ -17,14 +19,21 @@ withDefaults(defineProps<DropdownMenuItemProps>(), {
 })
 
 const emit = defineEmits<{ select: [event: Event] }>()
+
+const attrs = useAttrs()
+const forwarded = computed(() => {
+  const rest = { ...attrs }
+  delete rest.class
+  return rest
+})
 </script>
 
 <template>
   <DropdownMenuItem
-    v-bind="$attrs"
+    v-bind="forwarded"
     :disabled="disabled"
     :text-value="textValue"
-    :class="cn(menuItem, $attrs.class as string | undefined)"
+    :class="cn(menuItem, attrs.class as ClassValue)"
     @select="emit('select', $event)"
   >
     <slot />

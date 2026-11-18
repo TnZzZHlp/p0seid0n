@@ -46,6 +46,8 @@ only "dialog".
 
 | Prop | On | Type | Default |
 | --- | --- | --- | --- |
+| `open` (`v-model:open`) | `Dialog` | boolean | — |
+| `defaultOpen` | `Dialog` | boolean | — |
 | `closeOnEsc` | `Dialog` | boolean | `true` |
 | `closeOnOutside` | `Dialog` | boolean | `true` |
 | `hideClose` | `DialogContent` | boolean | `false` |

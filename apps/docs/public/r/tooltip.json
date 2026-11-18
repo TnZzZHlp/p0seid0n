@@ -1,4 +1,5 @@
 {
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
   "name": "tooltip",
   "type": "registry:ui",
   "title": "Tooltip",
@@ -12,12 +13,12 @@
     "utils",
     "theme"
   ],
-  "docs": "The tip opens after the delay prop (300ms by default) on both hover and keyboard focus, and Escape dismisses it. The trigger points aria-describedby at the tip content while it is open. Pass shortcut to append a key hint such as K.",
+  "docs": "Control open state with v-model:open when needed. The tip opens after the delay prop (300ms by default) on both hover and keyboard focus, and Escape dismisses it. The trigger points aria-describedby at the tip content while it is open. Pass shortcut to append a key hint such as K.",
   "files": [
     {
       "path": "ui/tooltip/Tooltip.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { TooltipProvider, TooltipRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipProps = {\n  /** Milliseconds the pointer must rest before the tip opens. */\n  delay?: number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TooltipProps>(), {\n  delay: 300,\n  disabled: false,\n})\n\nconst model = defineModel<boolean>({ default: false })\n</script>\n\n<template>\n  <TooltipProvider :delay-duration=\"delay\" :disabled=\"disabled\">\n    <TooltipRoot v-model=\"model\" v-bind=\"$attrs\">\n      <slot />\n    </TooltipRoot>\n  </TooltipProvider>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { TooltipProvider, TooltipRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n  /** Milliseconds the pointer must rest before the tip opens. */\n  delay?: number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TooltipProps>(), {\n  defaultOpen: undefined,\n  delay: 300,\n  disabled: false,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <TooltipProvider :delay-duration=\"delay\" :disabled=\"disabled\">\n    <TooltipRoot v-model:open=\"open\" :default-open=\"defaultOpen\" v-bind=\"$attrs\">\n      <slot />\n    </TooltipRoot>\n  </TooltipProvider>\n</template>\n"
     },
     {
       "path": "ui/tooltip/TooltipTrigger.vue",
@@ -27,7 +28,7 @@
     {
       "path": "ui/tooltip/TooltipContent.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { cn } from '@/lib/utils'\nimport { TooltipContent, TooltipPortal } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipContentProps = {\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  align?: 'start' | 'center' | 'end'\n  sideOffset?: number\n  /** Keyboard shortcut hint appended after the label. */\n  shortcut?: string\n}\n\nwithDefaults(defineProps<TooltipContentProps>(), {\n  side: 'top',\n  align: 'center',\n  sideOffset: 6,\n  shortcut: undefined,\n})\n</script>\n\n<template>\n  <TooltipPortal>\n    <TooltipContent\n      v-bind=\"$attrs\"\n      :side=\"side\"\n      :align=\"align\"\n      :side-offset=\"sideOffset\"\n      :class=\"\n        cn(\n          'z-10 flex items-center gap-2 rounded-[10px] border border-line bg-raised px-2.5 py-1.5',\n          'text-[12px] font-medium text-ink shadow-popup',\n          $attrs.class as string | undefined,\n        )\n      \"\n    >\n      <slot />\n      <kbd\n        v-if=\"shortcut\"\n        class=\"rounded-[6px] border border-line px-1.5 py-0.5 font-sans text-[11px] text-ink-muted\"\n        >{{ shortcut }}</kbd\n      >\n    </TooltipContent>\n  </TooltipPortal>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { TooltipContent, TooltipPortal } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipContentProps = {\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  align?: 'start' | 'center' | 'end'\n  sideOffset?: number\n  /** Keyboard shortcut hint appended after the label. */\n  shortcut?: string\n}\n\nwithDefaults(defineProps<TooltipContentProps>(), {\n  side: 'top',\n  align: 'center',\n  sideOffset: 6,\n  shortcut: undefined,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <TooltipPortal>\n    <TooltipContent\n      v-bind=\"forwarded\"\n      :side=\"side\"\n      :align=\"align\"\n      :side-offset=\"sideOffset\"\n      :class=\"\n        cn(\n          'z-50 flex items-center gap-2 rounded-[10px] border border-line bg-raised px-2.5 py-1.5',\n          'text-[12px] font-medium text-ink shadow-popup',\n          attrs.class as ClassValue,\n        )\n      \"\n    >\n      <slot />\n      <kbd\n        v-if=\"shortcut\"\n        class=\"rounded-[6px] border border-line px-1.5 py-0.5 font-sans text-[11px] text-ink-muted\"\n        >{{ shortcut }}</kbd\n      >\n    </TooltipContent>\n  </TooltipPortal>\n</template>\n"
     },
     {
       "path": "ui/tooltip/index.ts",

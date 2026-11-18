@@ -34,6 +34,8 @@ it is part of the described text rather than a separate element.
 
 | Prop | On | Type | Default |
 | --- | --- | --- | --- |
+| `open` (`v-model:open`) | `Tooltip` | boolean | — |
+| `defaultOpen` | `Tooltip` | boolean | — |
 | `delay` | `Tooltip` | number (ms) | `300` |
 | `disabled` | `Tooltip` | boolean | `false` |
 | `side` | `TooltipContent` | `top` \| `right` \| `bottom` \| `left` | `top` |

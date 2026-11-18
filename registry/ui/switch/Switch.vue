@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { SwitchRoot, SwitchThumb } from 'reka-ui'
 
@@ -38,8 +39,8 @@ const isLarge = computed(() => props.size === 'lg')
         'data-[state=checked]:border-ink data-[state=checked]:bg-ink',
         'transition-[background-color,border-color,box-shadow] duration-150 motion-reduce:transition-none',
         'disabled:cursor-default disabled:opacity-55',
-        isLarge ? 'h-10 w-16 p-0.5' : 'h-7 w-11 p-px',
-        $attrs.class as string | undefined,
+        isLarge ? 'h-10 w-16 p-[3px]' : 'h-7 w-11 p-px',
+        attrs.class as ClassValue,
       )
     "
   >
@@ -50,7 +51,7 @@ const isLarge = computed(() => props.size === 'lg')
           'transition-transform duration-150 motion-reduce:transition-none',
           'data-[state=checked]:text-ink',
           isLarge
-            ? 'size-8 data-[state=checked]:translate-x-6.5'
+            ? 'size-8 data-[state=checked]:translate-x-6'
             : 'size-6 data-[state=checked]:translate-x-4',
         )
       "

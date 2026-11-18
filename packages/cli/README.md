@@ -28,10 +28,13 @@ self-hosted registry keeps working without being named on the command line.
 
 - Node 20.19 or newer
 - a `components.json` written by `init`
-- `compilerOptions.paths` in `tsconfig.json`, such as `"@/*": ["./src/*"]`
+- `compilerOptions.paths` in `tsconfig.json` (including JSONC comments, `extends`,
+  or Vite `references` such as `tsconfig.app.json`), for example `"@/*": ["./src/*"]`
 
-`add` reads the alias mapping to decide where files go. Without it the command
-stops rather than writing to a guessed directory.
+`add` reads the alias mapping to decide where files go and rewrites `@/...`
+imports inside installed `.vue` and `.ts` files to match your `aliases` when
+customised. Without a path mapping the command stops rather than writing to a
+guessed directory.
 
 ## Options
 
@@ -48,7 +51,7 @@ stops rather than writing to a guessed directory.
 | Item kind                       | Destination                                                                      |
 | ------------------------------- | -------------------------------------------------------------------------------- |
 | `registry:ui`                   | the `aliases.ui` directory, one folder per component                             |
-| `registry:lib`                  | the `aliases.lib` directory                                                      |
+| `registry:lib`                  | the `aliases.lib` directory (or `aliases.utils` for `lib/utils.ts`)              |
 | `registry:file` with a `target` | relative to the alias root, or the project root when the target starts with `~/` |
 
 A file that already exists with different content is never replaced silently: the

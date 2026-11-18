@@ -1,14 +1,10 @@
 {
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
   "name": "theme-switcher",
   "type": "registry:ui",
   "title": "Theme Switcher",
   "description": "Ghost button opening a radio menu with system, light and dark choices.",
-  "dependencies": [
-    "clsx",
-    "tailwind-merge"
-  ],
   "registryDependencies": [
-    "utils",
     "theme",
     "theme-provider",
     "button",

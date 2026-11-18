@@ -7,12 +7,14 @@ const stack = useToastStack()
 </script>
 
 <template>
-  <div :class="toastViewport" role="region" aria-label="Notifications">
-    <Toast
-      v-for="record in stack.items.value"
-      :key="record.id"
-      :record="record"
-      @dismiss="stack.dismiss"
-    />
-  </div>
+  <Teleport v-if="stack.items.value.length > 0" to="body">
+    <div :class="toastViewport" role="region" aria-label="Notifications">
+      <Toast
+        v-for="record in stack.items.value"
+        :key="record.id"
+        :record="record"
+        @dismiss="stack.dismiss"
+      />
+    </div>
+  </Teleport>
 </template>

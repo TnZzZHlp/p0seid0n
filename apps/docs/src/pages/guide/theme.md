@@ -155,23 +155,37 @@ preview. Nothing is rebuilt.
 | `--p0seid0n-radius-panel-lg` | `20px` | `rounded-panel-lg` |
 | `--p0seid0n-shadow-popup` | `0 12px 32px -8px` | `shadow-popup` |
 
-## shadcn aliases
+## Runtime switching (`theme-provider`)
 
-An optional second item maps the shadcn names onto the same variables, so a
-project that already uses `--background` and `--foreground` keeps working. It adds
-no new values:
+Install `theme-provider` (or `theme-switcher`, which pulls it in automatically) to
+manage three-state appearance (`system`, `light`, `dark`) without page reloads or
+first-paint flashes:
+
+```bash
+npx p0seid0n add theme-provider theme-switcher
+```
+
+1. Inline the string returned by `themeScript()` in `<head>` before your app
+   bundle so a stored preference applies `.light` or `.dark` on `<html>` before
+   the first frame.
+2. Wrap your root tree in `<ThemeProvider default-theme="system">` and read or
+   change state anywhere below with `useTheme()` (`{ theme, resolvedTheme, setTheme }`)
+   or drop `<ThemeSwitcher />` directly into your header.
+
+See [Theme switcher](/components/theme-switcher) for the full API and live demo.
+
+## shadcn aliases (`theme-shadcn`)
+
+An optional item (`npx p0seid0n add theme-shadcn`) maps standard shadcn CSS
+variables (`--background`, `--foreground`, `--destructive`, etc.) and Tailwind v4
+`--color-*` tokens onto `--p0seid0n-*`, so a project that mixes existing
+shadcn-vue components keeps working without a second palette:
 
 ```css
-@theme inline {
-  --color-background: var(--p0seid0n-surface);
-  --color-foreground: var(--p0seid0n-ink);
-  --color-card: var(--p0seid0n-raised);
-  --color-primary: var(--p0seid0n-ink);
-  --color-muted-foreground: var(--p0seid0n-ink-muted);
-  --color-border: var(--p0seid0n-line);
-  --color-input: var(--p0seid0n-line);
-  --color-ring: var(--p0seid0n-ink);
-}
+/* src/styles/app.css */
+@import 'tailwindcss';
+@import './p0seid0n.css';
+@import './p0seid0n-shadcn.css';
 ```
 
 Next: [typography and breakpoints](/guide/typography).
