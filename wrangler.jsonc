@@ -1,0 +1,13 @@
+{
+  // Cloudflare Workers Static Assets configuration for the docs site and /r/*.json registry.
+  "name": "p0seid0n",
+  "compatibility_date": "2026-11-01",
+  "build": {
+    "command": "pnpm build:registry && pnpm docs:build",
+  },
+  "assets": {
+    "directory": "./apps/docs/.vitepress/dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+}

@@ -5,6 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@12.8.1",
   "scripts": {
+    "build": "pnpm build:registry && pnpm docs:build",
     "build:registry": "node scripts/build-registry/index.ts",
     "ui:install": "node scripts/install-ui.ts",
     "ui:sync": "pnpm build:registry && node scripts/install-ui.ts --overwrite",

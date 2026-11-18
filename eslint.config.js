@@ -108,6 +108,7 @@ export default tseslint.config(
     ignores: [
       'node_modules/',
       'dist/',
+      '.wrangler/',
       'packages/cli/dist/',
       'packages/cli/*.tgz',
       'apps/docs/.vitepress/dist/',

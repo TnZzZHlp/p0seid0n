@@ -13,3 +13,4 @@ packages/cli/*.tgz
 .DS_Store
 *.log
 .tmp/
+.wrangler/
