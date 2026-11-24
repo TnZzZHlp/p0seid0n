@@ -53,12 +53,14 @@ const forwarded = computed(() => {
         :data-state="checked ? 'checked' : 'unchecked'"
       >
         <span class="flex size-3.5 shrink-0 items-center justify-center">
-          <span
-            v-if="checked"
-            class="flex items-center justify-center text-ink motion-safe:animate-check-in"
+          <Transition
+            enter-active-class="motion-safe:animate-check-in"
+            leave-active-class="motion-safe:animate-check-out"
           >
-            <slot name="indicator"><span class="size-1.5 rounded-full bg-ink" /></slot>
-          </span>
+            <span v-if="checked" class="flex items-center justify-center text-ink">
+              <slot name="indicator"><span class="size-1.5 rounded-full bg-ink" /></slot>
+            </span>
+          </Transition>
         </span>
         <slot />
       </div>

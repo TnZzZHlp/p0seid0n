@@ -13,7 +13,7 @@ withDefaults(defineProps<SheetProps>(), {
   defaultOpen: undefined,
 })
 
-const open = defineModel<boolean>('open')
+const open = defineModel<boolean | undefined>('open', { default: undefined })
 const onOpenChange = provideDialogBehaviour()
 </script>
 

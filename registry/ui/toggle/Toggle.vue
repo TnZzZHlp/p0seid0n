@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
   required: false,
 })
 
-const model = defineModel<boolean>()
+const model = defineModel<boolean | undefined>({ default: undefined })
 const internal = ref(props.defaultValue)
 const pressed = computed({
   get: () => model.value ?? internal.value,

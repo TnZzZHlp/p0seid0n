@@ -550,8 +550,16 @@ describe('Breadcrumb & Accordion E2E', () => {
       })
       await session.pressKey('Space')
       await session.waitFor(() => {
-        const btn = document.querySelector('.example-surface button[aria-expanded][aria-controls]')
-        return btn?.getAttribute('aria-expanded') === 'true'
+        const root = document.querySelectorAll('.example-surface')[0]?.firstElementChild
+        const btn = root?.querySelector('button[aria-expanded][aria-controls]')
+        const region = root?.querySelector('[role="region"]') as HTMLElement | null
+        return (
+          btn?.getAttribute('aria-expanded') === 'true' &&
+          Boolean(region) &&
+          !region!.hidden &&
+          region!.getBoundingClientRect().height > 20 &&
+          region!.getAnimations().length === 0
+        )
       })
 
       // Multiple-mode accordion (second example) infers type="multiple" from array defaultValue.

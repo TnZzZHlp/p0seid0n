@@ -20,7 +20,7 @@
     {
       "path": "ui/tooltip/Tooltip.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { Tooltip as TooltipRoot } from '@ui-sdk/vue/tooltip'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n  /** Milliseconds the pointer must rest before the tip opens. */\n  delay?: number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TooltipProps>(), {\n  defaultOpen: undefined,\n  delay: 300,\n  disabled: false,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <TooltipRoot\n    v-model:open=\"open\"\n    v-bind=\"$attrs\"\n    :default-open=\"defaultOpen\"\n    :delay=\"delay\"\n    :disabled=\"disabled\"\n  >\n    <slot />\n  </TooltipRoot>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { Tooltip as TooltipRoot } from '@ui-sdk/vue/tooltip'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type TooltipProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n  /** Milliseconds the pointer must rest before the tip opens. */\n  delay?: number\n  disabled?: boolean\n}\n\nwithDefaults(defineProps<TooltipProps>(), {\n  defaultOpen: undefined,\n  delay: 300,\n  disabled: false,\n})\n\nconst open = defineModel<boolean | undefined>('open', { default: undefined })\n</script>\n\n<template>\n  <TooltipRoot\n    v-model:open=\"open\"\n    v-bind=\"$attrs\"\n    :default-open=\"defaultOpen\"\n    :delay=\"delay\"\n    :disabled=\"disabled\"\n  >\n    <slot />\n  </TooltipRoot>\n</template>\n"
     },
     {
       "path": "ui/tooltip/TooltipTrigger.vue",

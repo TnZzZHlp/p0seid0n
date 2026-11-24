@@ -63,7 +63,7 @@ function onEnter(event: KeyboardEvent) {
     <SwitchThumb
       :class="
         cn(
-          'pointer-events-none flex items-center justify-center rounded-full bg-surface text-ink-muted shadow',
+          'pointer-events-none ms-0 flex items-center justify-center rounded-full bg-surface text-ink-muted shadow',
           'transition-transform duration-[var(--p0seid0n-duration-normal)] ease-spring motion-reduce:transition-none',
           'group-active:group-enabled:scale-x-105 motion-reduce:group-active:scale-x-100',
           'data-checked:text-ink',

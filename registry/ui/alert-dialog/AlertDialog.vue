@@ -12,7 +12,7 @@ withDefaults(defineProps<AlertDialogProps>(), {
   defaultOpen: undefined,
 })
 
-const open = defineModel<boolean>('open')
+const open = defineModel<boolean | undefined>('open', { default: undefined })
 </script>
 
 <template>

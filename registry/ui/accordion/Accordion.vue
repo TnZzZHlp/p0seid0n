@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, provide, toRef, useAttrs } from 'vue'
+import { computed, useAttrs } from 'vue'
 import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { Accordion as AccordionRoot } from '@ui-sdk/vue/accordion'
-import { accordionUnmountOnHide } from './context'
 import { navigateAccordion } from './keyboard'
 
 defineOptions({ inheritAttrs: false })
@@ -24,11 +23,9 @@ const props = withDefaults(defineProps<AccordionProps>(), {
   collapsible: true,
   defaultValue: undefined,
   disabled: false,
-  unmountOnHide: true,
+  unmountOnHide: false,
   orientation: 'vertical',
 })
-
-provide(accordionUnmountOnHide, toRef(props, 'unmountOnHide'))
 
 const model = defineModel<string | string[]>()
 const resolvedType = computed<'single' | 'multiple'>(
@@ -59,7 +56,7 @@ const forwarded = computed(() => {
     :collapsible="collapsible"
     :default-value="toValues(defaultValue)"
     :disabled="disabled"
-    keep-mounted
+    :keep-mounted="!unmountOnHide"
     :data-orientation="orientation"
     :class="cn('w-full max-w-none border-t-0', attrs.class as ClassValue)"
     @update:value="updateValue"

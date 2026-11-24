@@ -220,9 +220,12 @@ describe('component SFC regression contracts', () => {
       'registry/ui/command/CommandDialog.vue',
     ]) {
       const content = readFileSync(join(repoRoot, rel), 'utf8')
-      assert.match(content, /defineModel<boolean>\('open'\)/)
+      assert.match(content, /defineModel<boolean \| undefined>\('open', \{ default: undefined \}\)/)
       assert.match(content, /v-model:open="open"/)
     }
+
+    const toggle = readFileSync(join(repoRoot, 'registry/ui/toggle/Toggle.vue'), 'utf8')
+    assert.match(toggle, /defineModel<boolean \| undefined>\(\{ default: undefined \}\)/)
 
     const pagination = readFileSync(join(repoRoot, 'registry/ui/pagination/Pagination.vue'), 'utf8')
     assert.match(pagination, /defineModel<number>\('page'\)/)
@@ -268,6 +271,19 @@ describe('component SFC regression contracts', () => {
       '@keyframes p0seid0n-progress-indeterminate',
     ]) {
       assert.ok(css.includes(token), `expected p0seid0n.css to declare ${token}`)
+    }
+
+    for (const exitVar of [
+      '--animate-fade-out',
+      '--animate-dialog-out',
+      '--animate-pop-out',
+      '--animate-toast-out',
+      '--animate-check-out',
+      '--animate-accordion-up',
+      '--animate-sheet-out',
+    ]) {
+      const pattern = new RegExp(`${exitVar}:[^;]+forwards;`)
+      assert.match(css, pattern, `expected ${exitVar} to include forwards fill-mode`)
     }
 
     const tabsList = readFileSync(join(repoRoot, 'registry/ui/tabs/TabsList.vue'), 'utf8')

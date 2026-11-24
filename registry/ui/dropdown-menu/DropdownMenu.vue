@@ -15,7 +15,7 @@ withDefaults(defineProps<DropdownMenuProps>(), {
   modal: false,
 })
 
-const open = defineModel<boolean>('open')
+const open = defineModel<boolean | undefined>('open', { default: undefined })
 </script>
 
 <template>

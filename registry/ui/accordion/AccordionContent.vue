@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from 'vue'
+import { computed, useAttrs } from 'vue'
 import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
 import { AccordionPanel } from '@ui-sdk/vue/accordion'
-import { accordionUnmountOnHide } from './context'
 
 defineOptions({ inheritAttrs: false })
 
-const unmountOnHide = inject(accordionUnmountOnHide)
 const attrs = useAttrs()
 const forwarded = computed(() => {
   const rest = { ...attrs }
@@ -23,10 +21,7 @@ const forwarded = computed(() => {
   >
     <template #render="{ props: part, state }">
       <div v-bind="part" :data-state="state.open ? 'open' : 'closed'">
-        <div
-          v-if="!unmountOnHide || state.open || 'data-ending-style' in part"
-          :class="cn('pt-0 pb-4 [&>p]:m-0', attrs.class as ClassValue)"
-        >
+        <div :class="cn('pt-0 pb-4 [&>p]:m-0', attrs.class as ClassValue)">
           <slot />
         </div>
       </div>

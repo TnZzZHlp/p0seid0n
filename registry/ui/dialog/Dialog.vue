@@ -23,7 +23,7 @@ const onOpenChange = provideDialogBehaviour({
   closeOnEsc: () => props.closeOnEsc,
 })
 
-const open = defineModel<boolean>('open')
+const open = defineModel<boolean | undefined>('open', { default: undefined })
 </script>
 
 <template>

@@ -22,7 +22,7 @@
     {
       "path": "ui/alert-dialog/AlertDialog.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { AlertDialog as AlertDialogRoot } from '@ui-sdk/vue/alert-dialog'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogProps>(), {\n  defaultOpen: undefined,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <AlertDialogRoot v-model:open=\"open\" :default-open=\"defaultOpen\" v-bind=\"$attrs\">\n    <slot />\n  </AlertDialogRoot>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { AlertDialog as AlertDialogRoot } from '@ui-sdk/vue/alert-dialog'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertDialogProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n}\n\nwithDefaults(defineProps<AlertDialogProps>(), {\n  defaultOpen: undefined,\n})\n\nconst open = defineModel<boolean | undefined>('open', { default: undefined })\n</script>\n\n<template>\n  <AlertDialogRoot v-model:open=\"open\" :default-open=\"defaultOpen\" v-bind=\"$attrs\">\n    <slot />\n  </AlertDialogRoot>\n</template>\n"
     },
     {
       "path": "ui/alert-dialog/AlertDialogTrigger.vue",

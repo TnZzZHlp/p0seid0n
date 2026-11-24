@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
 })
 
 const model = defineModel<string>()
-const open = defineModel<boolean>('open')
+const open = defineModel<boolean | undefined>('open', { default: undefined })
 const items = new Map<string, (event: Event) => void>()
 const selections = new WeakMap<Event, boolean>()
 provide(selectItems, items)

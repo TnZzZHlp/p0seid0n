@@ -17,7 +17,7 @@ withDefaults(defineProps<PopoverProps>(), {
   modal: false,
 })
 
-const open = defineModel<boolean>('open')
+const open = defineModel<boolean | undefined>('open', { default: undefined })
 const trapFocus = ref(false)
 provide(popoverContext, { anchor: shallowRef<HTMLElement>(), trapFocus })
 </script>

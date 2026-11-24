@@ -64,23 +64,32 @@
   --ease-in-quad: var(--p0seid0n-ease-in);
   --ease-spring: var(--p0seid0n-ease-spring);
 
-  --animate-fade-in: p0seid0n-fade-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);
-  --animate-fade-out: p0seid0n-fade-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
-  --animate-dialog-in: p0seid0n-dialog-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);
-  --animate-dialog-out: p0seid0n-dialog-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
-  --animate-pop-in: p0seid0n-pop-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);
-  --animate-pop-out: p0seid0n-pop-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
-  --animate-panel-in: p0seid0n-panel-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out);
-  --animate-toast-in: p0seid0n-toast-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);
-  --animate-toast-out: p0seid0n-toast-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in);
-  --animate-check-in: p0seid0n-check-in var(--p0seid0n-duration-fast) var(--p0seid0n-ease-spring);
-  --animate-check-out: p0seid0n-check-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in);
+  --animate-fade-in: p0seid0n-fade-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out) both;
+  --animate-fade-out: p0seid0n-fade-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in)
+    forwards;
+  --animate-dialog-in: p0seid0n-dialog-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out)
+    both;
+  --animate-dialog-out: p0seid0n-dialog-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in)
+    forwards;
+  --animate-pop-in: p0seid0n-pop-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out) both;
+  --animate-pop-out: p0seid0n-pop-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in)
+    forwards;
+  --animate-panel-in: p0seid0n-panel-in var(--p0seid0n-duration-normal) var(--p0seid0n-ease-out)
+    both;
+  --animate-toast-in: p0seid0n-toast-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out) both;
+  --animate-toast-out: p0seid0n-toast-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in)
+    forwards;
+  --animate-check-in: p0seid0n-check-in var(--p0seid0n-duration-fast) var(--p0seid0n-ease-spring)
+    both;
+  --animate-check-out: p0seid0n-check-out var(--p0seid0n-duration-fast) var(--p0seid0n-ease-in)
+    forwards;
   --animate-accordion-down: p0seid0n-accordion-down var(--p0seid0n-duration-normal)
-    var(--p0seid0n-ease-out);
+    var(--p0seid0n-ease-out) both;
   --animate-accordion-up: p0seid0n-accordion-up var(--p0seid0n-duration-fast)
-    var(--p0seid0n-ease-in);
-  --animate-sheet-in: p0seid0n-sheet-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out);
-  --animate-sheet-out: p0seid0n-sheet-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in);
+    var(--p0seid0n-ease-in) forwards;
+  --animate-sheet-in: p0seid0n-sheet-in var(--p0seid0n-duration-slow) var(--p0seid0n-ease-out) both;
+  --animate-sheet-out: p0seid0n-sheet-out var(--p0seid0n-duration-normal) var(--p0seid0n-ease-in)
+    forwards;
   --animate-progress-indeterminate: p0seid0n-progress-indeterminate 1.4s var(--p0seid0n-ease-out)
     infinite;
 }
@@ -208,14 +217,14 @@
     opacity: 0;
   }
   to {
-    height: var(--accordion-panel-height, var(--reka-accordion-content-height));
+    height: var(--accordion-panel-height);
     opacity: 1;
   }
 }
 
 @keyframes p0seid0n-accordion-up {
   from {
-    height: var(--accordion-panel-height, var(--reka-accordion-content-height));
+    height: var(--accordion-panel-height);
     opacity: 1;
   }
   to {

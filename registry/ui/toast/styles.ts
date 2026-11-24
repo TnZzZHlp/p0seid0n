@@ -28,7 +28,7 @@ export const toastActions = 'mt-2 flex items-center gap-2'
 export const toastAction = [
   'h-auto rounded-[8px] border-0 bg-transparent px-2 py-1 text-[12px] font-medium text-ink',
   'hover:bg-control active:scale-95 motion-reduce:active:scale-100',
-  'transition-[background-color,color,transform] duration-[var(--p0seid0n-duration-fast)] ease-spring motion-reduce:transition-none',
+  'transition-[background-color,color,scale] duration-[var(--p0seid0n-duration-fast)] ease-spring motion-reduce:transition-none',
   'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',
 ].join(' ')
 
@@ -36,6 +36,6 @@ export const toastDismiss = [
   'ml-auto inline-flex size-6 shrink-0 items-center justify-center rounded-[6px] border-0 bg-transparent p-0 before:hidden after:hidden',
   'text-[14px] leading-none text-ink-muted',
   'hover:bg-control hover:text-ink active:scale-95 motion-reduce:active:scale-100',
-  'transition-[background-color,color,transform] duration-[var(--p0seid0n-duration-fast)] ease-spring motion-reduce:transition-none',
+  'transition-[background-color,color,scale] duration-[var(--p0seid0n-duration-fast)] ease-spring motion-reduce:transition-none',
   'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink',
 ].join(' ')

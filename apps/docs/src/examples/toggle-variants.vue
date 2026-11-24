@@ -9,7 +9,7 @@ const muted = ref(false)
 
 <template>
   <div class="flex flex-wrap items-center gap-3">
-    <Toggle v-model="live" aria-label="Toggle live stream">
+    <Toggle v-model="live">
       <svg
         class="size-4"
         viewBox="0 0 16 16"
@@ -27,9 +27,9 @@ const muted = ref(false)
       Live ({{ live ? 'on' : 'off' }})
     </Toggle>
 
-    <Toggle v-model="bold" variant="outline" size="sm" aria-label="Toggle pin">Pin</Toggle>
-    <Toggle v-model="muted" variant="outline" size="md" aria-label="Toggle alerts">Alerts</Toggle>
-    <Toggle variant="outline" size="lg" :default-value="true" disabled aria-label="Locked">
+    <Toggle v-model="bold" variant="outline" size="sm">Pin</Toggle>
+    <Toggle v-model="muted" variant="outline" size="md">Alerts</Toggle>
+    <Toggle variant="outline" size="lg" :default-value="true" disabled>
       Locked
     </Toggle>
   </div>
