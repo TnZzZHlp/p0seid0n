@@ -8,7 +8,7 @@ import ToggleVariants from '../../examples/toggle-variants.vue'
 
 # Toggle
 
-A two-state pressed button built on reka-ui, in `default` and `outline`
+A two-state pressed button built on ui-sdk, in `default` and `outline`
 variants across three sizes.
 
 <Example name="toggle-variants"><ToggleVariants /></Example>

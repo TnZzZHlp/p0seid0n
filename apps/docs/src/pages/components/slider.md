@@ -8,7 +8,7 @@ import SliderRange from '../../examples/slider-range.vue'
 
 # Slider
 
-A continuous or stepped numeric slider built on reka-ui. Pass one element in the
+A continuous or stepped numeric slider built on ui-sdk. Pass one element in the
 array for a single thumb, or two or more for a range.
 
 <Example name="slider-range"><SliderRange /></Example>

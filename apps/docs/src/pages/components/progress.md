@@ -8,7 +8,7 @@ import ProgressStates from '../../examples/progress-states.vue'
 
 # Progress
 
-A determinate and indeterminate progress track built on reka-ui, in `default`,
+A determinate and indeterminate progress track built on ui-sdk, in `default`,
 `accent` and `danger` tones.
 
 <Example name="progress-states"><ProgressStates /></Example>

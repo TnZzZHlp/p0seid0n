@@ -8,7 +8,7 @@ import RadioGroupBasic from '../../examples/radio-group-basic.vue'
 
 # Radio group
 
-A mutually exclusive option list built on reka-ui, in vertical or horizontal
+A mutually exclusive option list built on ui-sdk, in vertical or horizontal
 orientations.
 
 <Example name="radio-group-basic"><RadioGroupBasic /></Example>

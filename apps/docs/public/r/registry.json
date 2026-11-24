@@ -49,6 +49,18 @@
       ]
     },
     {
+      "name": "render-child",
+      "type": "registry:lib",
+      "files": [
+        {
+          "path": "lib/render-child.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "title": "Render child",
+      "description": "Adapts asChild slots to ui-sdk's render contract."
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "files": [
@@ -70,7 +82,9 @@
       "dependencies": [
         "class-variance-authority",
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -123,7 +137,9 @@
       "description": "One-pixel rule in a line colour, horizontal or vertical.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -183,7 +199,9 @@
       "description": "Text field with a focus ring, an aria-driven invalid state and a disabled state.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -207,7 +225,9 @@
       "description": "Caption that associates with a control through its for attribute, with an optional required marker.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -228,11 +248,12 @@
         }
       ],
       "title": "Switch",
-      "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb.",
+      "description": "Two-state control built on ui-sdk, in md and lg sizes with an optional slot inside the thumb.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -288,6 +309,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/dropdown-menu/selection.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/dropdown-menu/index.ts",
           "type": "registry:ui"
         }
@@ -297,11 +322,13 @@
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
-        "theme"
+        "theme",
+        "render-child"
       ]
     },
     {
@@ -330,11 +357,13 @@
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
-        "theme"
+        "theme",
+        "render-child"
       ]
     },
     {
@@ -415,6 +444,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/tabs/context.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/tabs/index.ts",
           "type": "registry:ui"
         }
@@ -424,7 +457,8 @@
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -468,7 +502,9 @@
       "description": "Self-contained notification stack with a provider, useToast composable and three variants.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -593,7 +629,9 @@
       "description": "Multi-line text field with a focus ring, an aria-driven invalid state and a disabled state.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -614,11 +652,12 @@
         }
       ],
       "title": "Checkbox",
-      "description": "Checked, unchecked and indeterminate control built on reka-ui, with an optional indicator slot.",
+      "description": "Checked, unchecked and indeterminate control built on ui-sdk, with an optional indicator slot.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -638,16 +677,21 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/radio-group/context.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/radio-group/index.ts",
           "type": "registry:ui"
         }
       ],
       "title": "Radio Group",
-      "description": "Single-choice option list built on reka-ui, supporting vertical and horizontal orientations.",
+      "description": "Single-choice option list built on ui-sdk, supporting vertical and horizontal orientations.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -695,16 +739,29 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/select/selection.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/scroll.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/select/SelectScrollButton.vue",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/select/index.ts",
           "type": "registry:ui"
         }
       ],
       "title": "Select",
-      "description": "Accessible dropdown selector built on reka-ui, with groups, labels, separators and scroll buttons.",
+      "description": "Accessible dropdown selector built on ui-sdk, with groups, labels, separators and scroll buttons.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -720,16 +777,25 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/slider/parts.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/slider/inverted-values.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/slider/index.ts",
           "type": "registry:ui"
         }
       ],
       "title": "Slider",
-      "description": "Single-value and multi-thumb range slider built on reka-ui, with keyboard steps and vertical support.",
+      "description": "Single-value and multi-thumb range slider built on ui-sdk, with keyboard steps and vertical support.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -761,20 +827,26 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/popover/context.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/popover/index.ts",
           "type": "registry:ui"
         }
       ],
       "title": "Popover",
-      "description": "Anchored floating surface built on reka-ui, for rich interactive controls outside dialogs.",
+      "description": "Anchored floating surface built on ui-sdk, for rich interactive controls outside dialogs.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
-        "theme"
+        "theme",
+        "render-child"
       ]
     },
     {
@@ -915,16 +987,25 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/accordion/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "ui/accordion/keyboard.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/accordion/index.ts",
           "type": "registry:ui"
         }
       ],
       "title": "Accordion",
-      "description": "Vertically stacked collapsible disclosure panels built on reka-ui, with single or multiple open items.",
+      "description": "Vertically stacked collapsible disclosure panels built on ui-sdk, with single or multiple open items.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -972,12 +1053,12 @@
       "description": "Hierarchical navigation trail with links, separators, ellipsis and current-page indicator.",
       "dependencies": [
         "clsx",
-        "tailwind-merge",
-        "reka-ui"
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "utils",
-        "theme"
+        "theme",
+        "render-child"
       ]
     },
     {
@@ -1026,15 +1107,17 @@
         }
       ],
       "title": "Pagination",
-      "description": "Page navigation controls built on reka-ui, with condensed tabular page numbers and edge buttons.",
+      "description": "Page navigation controls built on ui-sdk, with condensed tabular page numbers and edge buttons.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
-        "theme"
+        "theme",
+        "render-child"
       ]
     },
     {
@@ -1088,11 +1171,12 @@
         }
       ],
       "title": "Progress",
-      "description": "Determinate and indeterminate progress bar built on reka-ui, in default, accent and danger tones.",
+      "description": "Determinate and indeterminate progress bar built on ui-sdk, in default, accent and danger tones.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -1149,12 +1233,13 @@
         }
       ],
       "title": "Avatar",
-      "description": "Image and delayed fallback wrapper built on reka-ui, in sm, md and lg sizes with circle or square shape.",
+      "description": "Image and delayed fallback wrapper built on ui-sdk, in sm, md and lg sizes with circle or square shape.",
       "dependencies": [
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -1231,12 +1316,13 @@
         }
       ],
       "title": "Toggle",
-      "description": "Two-state pressed button built on reka-ui, in default and outline variants across three sizes.",
+      "description": "Two-state pressed button built on ui-sdk, in default and outline variants across three sizes.",
       "dependencies": [
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -1288,16 +1374,21 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/command/selection.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/command/index.ts",
           "type": "registry:ui"
         }
       ],
       "title": "Command",
-      "description": "Searchable command palette and modal dialog built on reka-ui Listbox and Dialog.",
+      "description": "Searchable command palette and modal dialog built on ui-sdk Command with a dialog.",
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",

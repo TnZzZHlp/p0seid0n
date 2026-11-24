@@ -208,14 +208,14 @@
     opacity: 0;
   }
   to {
-    height: var(--reka-accordion-content-height);
+    height: var(--accordion-panel-height, var(--reka-accordion-content-height));
     opacity: 1;
   }
 }
 
 @keyframes p0seid0n-accordion-up {
   from {
-    height: var(--reka-accordion-content-height);
+    height: var(--accordion-panel-height, var(--reka-accordion-content-height));
     opacity: 1;
   }
   to {

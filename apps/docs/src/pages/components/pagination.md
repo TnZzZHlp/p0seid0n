@@ -8,14 +8,14 @@ import PaginationBasic from '../../examples/pagination-basic.vue'
 
 # Pagination
 
-Page navigation controls built on reka-ui, pairing condensed tabular page
+Page navigation controls built on ui-sdk, pairing condensed tabular page
 numbers with first, previous, next and last triggers.
 
 <Example name="pagination-basic"><PaginationBasic /></Example>
 
 ## Scoped page list
 
-`PaginationList` receives the computed `{ items }` array from reka-ui, with
+`PaginationList` receives the computed `{ items }` array from ui-sdk, with
 `{ type: 'page', value }` and `{ type: 'ellipsis' }` entries. Render
 `PaginationListItem` for page entries and `PaginationEllipsis` for gaps.
 

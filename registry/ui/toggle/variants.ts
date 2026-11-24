@@ -15,7 +15,7 @@ export const toggleVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-transparent text-ink-muted hover:bg-[color-mix(in_oklab,var(--color-control)_65%,transparent)] hover:text-ink data-[state=on]:bg-control data-[state=on]:text-ink',
+          'border-0 bg-transparent text-ink-muted hover:bg-[color-mix(in_oklab,var(--color-control)_65%,transparent)] hover:text-ink data-[state=on]:bg-control data-[state=on]:text-ink',
         outline:
           'border border-line bg-transparent text-ink-muted hover:bg-control hover:text-ink data-[state=on]:border-ink data-[state=on]:bg-ink data-[state=on]:text-surface',
       } satisfies Record<ToggleVariant, string>,

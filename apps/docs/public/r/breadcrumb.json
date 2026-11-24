@@ -6,12 +6,12 @@
   "description": "Hierarchical navigation trail with links, separators, ellipsis and current-page indicator.",
   "dependencies": [
     "clsx",
-    "tailwind-merge",
-    "reka-ui"
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "utils",
-    "theme"
+    "theme",
+    "render-child"
   ],
   "docs": "Compose BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator and BreadcrumbPage inside Breadcrumb. Pass as-child on BreadcrumbLink to wrap a router link component.",
   "files": [
@@ -33,7 +33,7 @@
     {
       "path": "ui/breadcrumb/BreadcrumbLink.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs, type Component } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { Primitive, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BreadcrumbLinkProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<BreadcrumbLinkProps>(), {\n  as: 'a',\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <Primitive\n    v-bind=\"forwarded\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        'rounded-[6px] text-ink-muted no-underline transition-colors duration-[var(--p0seid0n-duration-fast)] ease-out-expo hover:text-ink',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs, type Component } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { RenderChild } from '@/lib/render-child'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BreadcrumbLinkProps = {\n  as?: string | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<BreadcrumbLinkProps>(), {\n  as: 'a',\n  asChild: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <component\n    :is=\"asChild ? RenderChild : as\"\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'rounded-[6px] text-ink-muted no-underline transition-colors duration-[var(--p0seid0n-duration-fast)] ease-out-expo hover:text-ink',\n        'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ink motion-reduce:transition-none',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </component>\n</template>\n"
     },
     {
       "path": "ui/breadcrumb/BreadcrumbPage.vue",

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { CheckboxCheckedState } from 'reka-ui'
+import type { CheckedState as CheckboxCheckedState } from '@ui-sdk/vue/checkbox'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'

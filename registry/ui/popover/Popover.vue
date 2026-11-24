@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { PopoverRoot } from 'reka-ui'
+import { Popover as PopoverRoot } from '@ui-sdk/vue/popover'
+import { provide, ref, shallowRef } from 'vue'
+import { popoverContext } from './context'
 
 defineOptions({ inheritAttrs: false })
 
@@ -16,10 +18,17 @@ withDefaults(defineProps<PopoverProps>(), {
 })
 
 const open = defineModel<boolean>('open')
+const trapFocus = ref(false)
+provide(popoverContext, { anchor: shallowRef<HTMLElement>(), trapFocus })
 </script>
 
 <template>
-  <PopoverRoot v-model:open="open" :default-open="defaultOpen" :modal="modal" v-bind="$attrs">
+  <PopoverRoot
+    v-model:open="open"
+    :default-open="defaultOpen"
+    :modal="modal || (trapFocus ? 'trap-focus' : false)"
+    v-bind="$attrs"
+  >
     <slot />
   </PopoverRoot>
 </template>

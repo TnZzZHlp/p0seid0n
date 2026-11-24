@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry-item.json",
+  "name": "render-child",
+  "type": "registry:lib",
+  "title": "Render child",
+  "description": "Adapts asChild slots to ui-sdk's render contract.",
+  "files": [
+    {
+      "path": "lib/render-child.ts",
+      "type": "registry:lib",
+      "content": "import { cloneVNode, defineComponent, Fragment, isVNode, type VNode } from 'vue'\n\nfunction findElement(nodes: unknown[]): VNode | undefined {\n  for (const node of nodes) {\n    if (!isVNode(node)) continue\n    if (node.type === Fragment && Array.isArray(node.children)) {\n      const child = findElement(node.children)\n      if (child) return child\n    } else if (\n      typeof node.type === 'string' ||\n      typeof node.type === 'object' ||\n      typeof node.type === 'function'\n    ) {\n      return node\n    }\n  }\n  return undefined\n}\n\nexport const RenderChild = defineComponent({\n  inheritAttrs: false,\n  setup(_, { attrs, slots }) {\n    return () => {\n      const child = findElement(slots.default?.() ?? [])\n      return child ? cloneVNode(child, attrs, true) : null\n    }\n  },\n})\n"
+    }
+  ]
+}

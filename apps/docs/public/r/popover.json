@@ -3,42 +3,49 @@
   "name": "popover",
   "type": "registry:ui",
   "title": "Popover",
-  "description": "Anchored floating surface built on reka-ui, for rich interactive controls outside dialogs.",
+  "description": "Anchored floating surface built on ui-sdk, for rich interactive controls outside dialogs.",
   "dependencies": [
     "clsx",
     "tailwind-merge",
-    "reka-ui"
+    "@ui-sdk/vue@0.1.0-beta.14",
+    "@ui-sdk/core@0.1.0-beta.14"
   ],
   "registryDependencies": [
     "utils",
-    "theme"
+    "theme",
+    "render-child"
   ],
   "docs": "Control open state with v-model:open when needed. Use PopoverTrigger with as-child to wrap a Button. PopoverContent supports side, align, sideOffset and trapFocus, and renders at z-50 with the popup shadow.",
   "files": [
     {
       "path": "ui/popover/Popover.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { PopoverRoot } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n  /** Disables interaction with outside elements while open. */\n  modal?: boolean\n}\n\nwithDefaults(defineProps<PopoverProps>(), {\n  defaultOpen: undefined,\n  modal: false,\n})\n\nconst open = defineModel<boolean>('open')\n</script>\n\n<template>\n  <PopoverRoot v-model:open=\"open\" :default-open=\"defaultOpen\" :modal=\"modal\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverRoot>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { Popover as PopoverRoot } from '@ui-sdk/vue/popover'\nimport { provide, ref, shallowRef } from 'vue'\nimport { popoverContext } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverProps = {\n  /** Initial open state when uncontrolled. */\n  defaultOpen?: boolean\n  /** Disables interaction with outside elements while open. */\n  modal?: boolean\n}\n\nwithDefaults(defineProps<PopoverProps>(), {\n  defaultOpen: undefined,\n  modal: false,\n})\n\nconst open = defineModel<boolean>('open')\nconst trapFocus = ref(false)\nprovide(popoverContext, { anchor: shallowRef<HTMLElement>(), trapFocus })\n</script>\n\n<template>\n  <PopoverRoot\n    v-model:open=\"open\"\n    :default-open=\"defaultOpen\"\n    :modal=\"modal || (trapFocus ? 'trap-focus' : false)\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </PopoverRoot>\n</template>\n"
     },
     {
       "path": "ui/popover/PopoverTrigger.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverTrigger, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverTriggerProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <PopoverTrigger :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverTrigger>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverTrigger as SdkPopoverTrigger } from '@ui-sdk/vue/popover'\nimport { RenderChild } from '@/lib/render-child'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverTriggerProps = {\n  as?: string | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverTriggerProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <SdkPopoverTrigger v-bind=\"$attrs\" :class=\"!asChild && 'h-auto border-0 bg-transparent p-0'\">\n    <template #render=\"{ props: part }\">\n      <RenderChild v-if=\"asChild\" v-bind=\"part\"><slot /></RenderChild>\n      <component :is=\"as\" v-else v-bind=\"part\"><slot /></component>\n    </template>\n  </SdkPopoverTrigger>\n</template>\n"
     },
     {
       "path": "ui/popover/PopoverAnchor.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverAnchor, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverAnchorProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverAnchorProps>(), {\n  as: 'div',\n  asChild: false,\n})\n</script>\n\n<template>\n  <PopoverAnchor :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverAnchor>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { inject, useTemplateRef, watchEffect, type ComponentPublicInstance } from 'vue'\nimport { RenderChild } from '@/lib/render-child'\nimport { popoverContext } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverAnchorProps = {\n  as?: string | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverAnchorProps>(), {\n  as: 'div',\n  asChild: false,\n})\n\nconst context = inject(popoverContext)\nconst anchor = useTemplateRef<HTMLElement | ComponentPublicInstance>('anchor')\nwatchEffect((onCleanup) => {\n  if (!context || !anchor.value) return\n  const value = anchor.value instanceof HTMLElement ? anchor.value : anchor.value.$el\n  if (!(value instanceof HTMLElement)) return\n  context.anchor.value = value\n  onCleanup(() => {\n    if (context.anchor.value === value) context.anchor.value = undefined\n  })\n})\n</script>\n\n<template>\n  <RenderChild v-if=\"asChild\" ref=\"anchor\" v-bind=\"$attrs\"><slot /></RenderChild>\n  <component :is=\"as\" v-else ref=\"anchor\" v-bind=\"$attrs\"><slot /></component>\n</template>\n"
     },
     {
       "path": "ui/popover/PopoverClose.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverClose, type AsTag } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverCloseProps = {\n  as?: AsTag | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverCloseProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <PopoverClose :as=\"as\" :as-child=\"asChild\" v-bind=\"$attrs\">\n    <slot />\n  </PopoverClose>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport type { Component } from 'vue'\nimport { PopoverClose as SdkPopoverClose } from '@ui-sdk/vue/popover'\nimport { RenderChild } from '@/lib/render-child'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverCloseProps = {\n  as?: string | Component\n  asChild?: boolean\n}\n\nwithDefaults(defineProps<PopoverCloseProps>(), {\n  as: 'button',\n  asChild: false,\n})\n</script>\n\n<template>\n  <SdkPopoverClose v-bind=\"$attrs\" :class=\"!asChild && 'h-auto border-0 bg-transparent p-0'\">\n    <template #render=\"{ props: part }\">\n      <RenderChild v-if=\"asChild\" v-bind=\"part\"><slot /></RenderChild>\n      <component :is=\"as\" v-else v-bind=\"part\"><slot /></component>\n    </template>\n  </SdkPopoverClose>\n</template>\n"
     },
     {
       "path": "ui/popover/PopoverContent.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PopoverContent, PopoverPortal } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverContentProps = {\n  align?: 'start' | 'center' | 'end'\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  sideOffset?: number\n  trapFocus?: boolean\n}\n\nwithDefaults(defineProps<PopoverContentProps>(), {\n  align: 'center',\n  side: 'bottom',\n  sideOffset: 8,\n  trapFocus: false,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <PopoverPortal>\n    <PopoverContent\n      v-bind=\"forwarded\"\n      :align=\"align\"\n      :side=\"side\"\n      :side-offset=\"sideOffset\"\n      :trap-focus=\"trapFocus\"\n      :class=\"\n        cn(\n          'z-50 w-72 rounded-panel border border-line bg-raised p-4 text-[14px] text-ink shadow-popup outline-none',\n          'origin-[var(--reka-popover-content-transform-origin)]',\n          'data-[side=bottom]:[--p0seid0n-pop-y:-4px]',\n          'data-[side=top]:[--p0seid0n-pop-y:4px]',\n          'data-[side=left]:[--p0seid0n-pop-x:4px] data-[side=left]:[--p0seid0n-pop-y:0px]',\n          'data-[side=right]:[--p0seid0n-pop-x:-4px] data-[side=right]:[--p0seid0n-pop-y:0px]',\n          'motion-safe:animate-pop-in data-[state=closed]:motion-safe:animate-pop-out',\n          attrs.class as ClassValue,\n        )\n      \"\n    >\n      <slot />\n    </PopoverContent>\n  </PopoverPortal>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, inject, onScopeDispose, useAttrs, watchEffect } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { PopoverContent as SdkPopoverContent } from '@ui-sdk/vue/popover'\nimport { popoverContext } from './context'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type PopoverContentProps = {\n  align?: 'start' | 'center' | 'end'\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  sideOffset?: number\n  trapFocus?: boolean\n}\n\nconst props = withDefaults(defineProps<PopoverContentProps>(), {\n  align: 'center',\n  side: 'bottom',\n  sideOffset: 8,\n  trapFocus: false,\n})\n\nconst context = inject(popoverContext)\nconst anchor = context?.anchor\nif (context) {\n  watchEffect(() => {\n    context.trapFocus.value = props.trapFocus\n  })\n  onScopeDispose(() => {\n    context.trapFocus.value = false\n  })\n}\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SdkPopoverContent\n    v-bind=\"forwarded\"\n    :align=\"align\"\n    :side=\"side\"\n    :side-offset=\"sideOffset\"\n    :anchor=\"anchor\"\n    :class=\"\n      cn(\n        'z-50 w-72 rounded-panel border border-line bg-raised p-4 text-[14px] text-ink shadow-popup outline-none',\n        'origin-[var(--transform-origin)]',\n        'data-[side=bottom]:[--p0seid0n-pop-y:-4px]',\n        'data-[side=top]:[--p0seid0n-pop-y:4px]',\n        'data-[side=left]:[--p0seid0n-pop-x:4px] data-[side=left]:[--p0seid0n-pop-y:0px]',\n        'data-[side=right]:[--p0seid0n-pop-x:-4px] data-[side=right]:[--p0seid0n-pop-y:0px]',\n        'motion-safe:animate-pop-in data-ending-style:motion-safe:animate-pop-out',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </SdkPopoverContent>\n</template>\n"
+    },
+    {
+      "path": "ui/popover/context.ts",
+      "type": "registry:ui",
+      "content": "import type { InjectionKey, ShallowRef, Ref } from 'vue'\n\nexport const popoverContext: InjectionKey<{\n  anchor: ShallowRef<HTMLElement | undefined>\n  trapFocus: Ref<boolean>\n}> = Symbol('p0seid0n-popover')\n"
     },
     {
       "path": "ui/popover/index.ts",
