@@ -9,7 +9,7 @@ import SheetSides from '../../examples/sheet-sides.vue'
 # Sheet
 
 An edge-anchored modal drawer sliding from any of the four viewport edges,
-built on reka-ui's dialog primitive.
+built on ui-sdk's dialog primitive.
 
 <Example name="sheet-sides"><SheetSides /></Example>
 
@@ -33,3 +33,8 @@ drawer's accessible name.
 | `hideClose` | `SheetContent` | boolean | `false` |
 | `closeOnEsc` | `SheetContent` | boolean | `true` |
 | `closeOnOutside` | `SheetContent` | boolean | `true` |
+
+Use `initialFocus` and `finalFocus` on `SheetContent` to set where focus goes
+on open and close. Pass a CSS selector, an element, or a function returning one.
+Use `"none"` to skip the default focus move. They replace `openAutoFocus` and
+`closeAutoFocus`.

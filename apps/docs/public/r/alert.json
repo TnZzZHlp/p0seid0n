@@ -7,7 +7,9 @@
   "dependencies": [
     "class-variance-authority",
     "clsx",
-    "tailwind-merge"
+    "tailwind-merge",
+    "@ui-sdk/vue@0.1.0-beta.14",
+    "@ui-sdk/core@0.1.0-beta.14"
   ],
   "registryDependencies": [
     "utils",
@@ -18,22 +20,27 @@
     {
       "path": "ui/alert/Alert.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { alertVariants, type AlertVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertProps = {\n  variant?: AlertVariant\n}\n\nconst props = withDefaults(defineProps<AlertProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest.role\n  return rest\n})\n\nconst role = computed(() => {\n  return (attrs.role as string | undefined) ?? (props.variant === 'danger' ? 'alert' : 'status')\n})\n\nconst iconTone = computed(() => {\n  if (props.variant === 'danger') return 'text-danger'\n  if (props.variant === 'accent') return 'text-accent'\n  return 'text-ink-muted'\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :role=\"role\"\n    :class=\"cn(alertVariants({ variant }), attrs.class as ClassValue)\"\n  >\n    <span v-if=\"$slots.icon\" :class=\"cn('mt-0.5 shrink-0', iconTone)\">\n      <slot name=\"icon\" />\n    </span>\n    <div class=\"flex min-w-0 flex-1 flex-col gap-1\">\n      <slot />\n    </div>\n  </div>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertPart } from './parts'\nimport { alertVariants, type AlertVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AlertProps = {\n  variant?: AlertVariant\n}\n\nconst props = withDefaults(defineProps<AlertProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  delete rest.role\n  return rest\n})\n\nconst role = computed(() => {\n  return (attrs.role as string | undefined) ?? (props.variant === 'danger' ? 'alert' : 'status')\n})\n\nconst iconTone = computed(() => {\n  if (props.variant === 'danger') return 'text-danger'\n  if (props.variant === 'accent') return 'text-accent'\n  return 'text-ink-muted'\n})\n</script>\n\n<template>\n  <AlertPart\n    v-bind=\"forwarded\"\n    :role=\"role\"\n    :class=\"cn(alertVariants({ variant }), attrs.class as ClassValue)\"\n  >\n    <span v-if=\"$slots.icon\" :class=\"cn('mt-0.5 shrink-0', iconTone)\">\n      <slot name=\"icon\" />\n    </span>\n    <div class=\"flex min-w-0 flex-1 flex-col gap-1\">\n      <slot />\n    </div>\n  </AlertPart>\n</template>\n"
     },
     {
       "path": "ui/alert/AlertTitle.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <h5\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[14px] leading-snug font-semibold text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </h5>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertTitlePart } from './parts'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertTitlePart\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[14px] leading-snug font-semibold text-ink', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AlertTitlePart>\n</template>\n"
     },
     {
       "path": "ui/alert/AlertDescription.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[13px] leading-relaxed text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AlertDescriptionPart } from './parts'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AlertDescriptionPart\n    v-bind=\"forwarded\"\n    :class=\"cn('text-[13px] leading-relaxed text-ink-muted', attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AlertDescriptionPart>\n</template>\n"
     },
     {
       "path": "ui/alert/variants.ts",
       "type": "registry:ui",
       "content": "import { cva } from 'class-variance-authority'\n\nexport type AlertVariant = 'neutral' | 'accent' | 'danger'\n\nexport const alertVariants = cva(\n  'relative flex w-full items-start gap-3 rounded-panel border p-4 text-[14px]',\n  {\n    variants: {\n      variant: {\n        neutral: 'border-line bg-raised text-ink',\n        accent:\n          'border-[color-mix(in_oklab,var(--color-accent)_40%,var(--color-line))] bg-[color-mix(in_oklab,var(--color-accent)_8%,var(--color-raised))] text-ink',\n        danger:\n          'border-[color-mix(in_oklab,var(--color-danger)_45%,var(--color-line))] bg-[color-mix(in_oklab,var(--color-danger)_8%,var(--color-raised))] text-ink',\n      } satisfies Record<AlertVariant, string>,\n    },\n    defaultVariants: {\n      variant: 'neutral',\n    },\n  },\n)\n"
+    },
+    {
+      "path": "ui/alert/parts.ts",
+      "type": "registry:ui",
+      "content": "import { definePrimitive } from '@ui-sdk/core'\nimport { createParts } from '@ui-sdk/vue/primitive'\n\nconst alert = definePrimitive({\n  name: 'p0seid0n-alert',\n  state: () => ({}),\n  api: () => ({}),\n  slots: (slot) => ({\n    root: slot({}),\n    title: slot({}),\n    description: slot({}),\n  }),\n})\n\nexport const {\n  Root: AlertPart,\n  Title: AlertTitlePart,\n  Description: AlertDescriptionPart,\n} = createParts(alert, {\n  root: 'div',\n  title: 'h5',\n  description: 'div',\n})\n"
     },
     {
       "path": "ui/alert/index.ts",

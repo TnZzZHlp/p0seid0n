@@ -30,7 +30,7 @@ attributes.
 | Control | Closes |
 | --- | --- |
 | Escape | yes, unless `closeOnEsc` is false |
-| pointer down outside | yes, unless `closeOnOutside` is false |
+| press and release outside | yes, unless `closeOnOutside` is false |
 | the built-in close button | always |
 | `DialogClose` | always |
 
@@ -51,3 +51,8 @@ only "dialog".
 | `closeOnEsc` | `Dialog` | boolean | `true` |
 | `closeOnOutside` | `Dialog` | boolean | `true` |
 | `hideClose` | `DialogContent` | boolean | `false` |
+
+Use `initialFocus` and `finalFocus` on `DialogContent` to set where focus goes
+on open and close. Pass a CSS selector, an element, or a function returning one.
+Use `"none"` to skip the default focus move. They replace `openAutoFocus` and
+`closeAutoFocus`.

@@ -34,7 +34,6 @@
     "eslint-plugin-vue": "^10.12.1",
     "globals": "^17.14.0",
     "prettier": "^3.10.1",
-    "reka-ui": "2.11.0",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.5",
     "typescript": "~5.9.3",

@@ -6,7 +6,9 @@
   "description": "Animated placeholder block that marks loading layout regions without colour literals.",
   "dependencies": [
     "clsx",
-    "tailwind-merge"
+    "tailwind-merge",
+    "@ui-sdk/vue@0.1.0-beta.14",
+    "@ui-sdk/core@0.1.0-beta.14"
   ],
   "registryDependencies": [
     "utils",
@@ -17,7 +19,12 @@
     {
       "path": "ui/skeleton/Skeleton.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <div\n    aria-hidden=\"true\"\n    v-bind=\"forwarded\"\n    :class=\"cn('rounded-control bg-control motion-safe:animate-pulse', attrs.class as ClassValue)\"\n  />\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { SkeletonPart } from './parts'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SkeletonPart\n    v-bind=\"forwarded\"\n    :class=\"cn('rounded-control bg-control motion-safe:animate-pulse', attrs.class as ClassValue)\"\n  />\n</template>\n"
+    },
+    {
+      "path": "ui/skeleton/parts.ts",
+      "type": "registry:ui",
+      "content": "import { definePrimitive } from '@ui-sdk/core'\nimport { createParts } from '@ui-sdk/vue/primitive'\n\nconst skeleton = definePrimitive({\n  name: 'p0seid0n-skeleton',\n  state: () => ({}),\n  api: () => ({}),\n  slots: (slot) => ({\n    root: slot({ attrs: () => ({ 'aria-hidden': 'true' }) }),\n  }),\n})\n\nexport const { Root: SkeletonPart } = createParts(skeleton, {\n  root: 'div',\n})\n"
     },
     {
       "path": "ui/skeleton/index.ts",

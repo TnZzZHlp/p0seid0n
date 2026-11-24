@@ -24,7 +24,7 @@ test('Escape dismisses a dialog and restores focus to its trigger', async () => 
   }
 })
 
-test('a close-auto-focus handler can move focus away from the dialog trigger', async () => {
+test('finalFocus can return focus to a target other than the dialog trigger', async () => {
   const session = await BrowserSession.launch()
   try {
     await session.goto('/components/dialog')

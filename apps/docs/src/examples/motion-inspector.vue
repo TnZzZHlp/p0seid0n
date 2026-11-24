@@ -148,8 +148,7 @@ const ToastLauncher = defineComponent({
           vertically without flashing on first paint.
         </TabsContent>
         <TabsContent value="exit">
-          Paired exit keyframes let reka-ui Presence and Vue TransitionGroup finish animating before
-          removing nodes from the DOM.
+          Paired exit keyframes let ui-sdk finish animating before removing nodes from the DOM.
         </TabsContent>
       </Tabs>
     </div>

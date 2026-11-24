@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlertDialogRoot } from 'reka-ui'
+import { AlertDialog as AlertDialogRoot } from '@ui-sdk/vue/alert-dialog'
 
 defineOptions({ inheritAttrs: false })
 

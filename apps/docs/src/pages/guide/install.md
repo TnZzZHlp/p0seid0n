@@ -29,7 +29,7 @@ npx p0seid0n add button card dialog
 `add` resolves `registryDependencies` recursively, pulls in `theme` and `utils`,
 rewrites `@/...` imports to match your configured `aliases`, and installs missing
 npm dependencies with your project's package manager. Interactive components
-use ui-sdk or Reka UI; their styles come from the registry.
+use ui-sdk; their styles come from the registry.
 
 Then import the token stylesheet once, in the same file that imports Tailwind:
 

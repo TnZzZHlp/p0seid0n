@@ -21,11 +21,10 @@ function confirmDelete() {
   open.value = false
 }
 
-function onCloseAutoFocus(event: Event) {
-  if (!focusStatusOnClose) return
+function finalFocus() {
+  if (!focusStatusOnClose) return undefined
   focusStatusOnClose = false
-  event.preventDefault()
-  status.value?.focus()
+  return status.value
 }
 </script>
 
@@ -35,7 +34,7 @@ function onCloseAutoFocus(event: Event) {
       <DialogTrigger as-child>
         <Button variant="danger">Delete project</Button>
       </DialogTrigger>
-      <DialogContent @close-auto-focus="onCloseAutoFocus">
+      <DialogContent :final-focus="finalFocus">
         <DialogTitle>Delete this project?</DialogTitle>
         <DialogDescription>The project and its history are removed for good.</DialogDescription>
         <div class="mt-5 flex justify-end gap-2">

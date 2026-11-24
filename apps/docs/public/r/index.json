@@ -159,13 +159,13 @@
     "name": "alert-dialog",
     "type": "registry:ui",
     "title": "Alert Dialog",
-    "description": "Interruptive confirmation modal built on reka-ui that requires an explicit action or cancel."
+    "description": "Interruptive confirmation modal built on ui-sdk that requires an explicit action or cancel."
   },
   {
     "name": "sheet",
     "type": "registry:ui",
     "title": "Sheet",
-    "description": "Edge-anchored modal drawer sliding from top, right, bottom or left, built on reka-ui Dialog."
+    "description": "Edge-anchored modal drawer sliding from top, right, bottom or left, built on ui-sdk Dialog."
   },
   {
     "name": "accordion",

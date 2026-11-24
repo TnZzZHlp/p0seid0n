@@ -104,6 +104,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/badge/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/badge/index.ts",
           "type": "registry:ui"
         }
@@ -113,7 +117,9 @@
       "dependencies": [
         "class-variance-authority",
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -167,6 +173,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/card/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/card/index.ts",
           "type": "registry:ui"
         }
@@ -175,7 +185,9 @@
       "description": "Panel container with a raised or surface appearance, plus header, content and footer sections.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -412,11 +424,13 @@
       "dependencies": [
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
-        "theme"
+        "theme",
+        "render-child"
       ]
     },
     {
@@ -524,6 +538,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/sparkline/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/sparkline/index.ts",
           "type": "registry:ui"
         }
@@ -532,7 +550,9 @@
       "description": "Hand-written SVG bar strip for a numeric series, with median-based scaling and an optional baseline.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -548,6 +568,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/stat/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/stat/index.ts",
           "type": "registry:ui"
         }
@@ -556,7 +580,9 @@
       "description": "Label, condensed tabular value and unit, with an inline figure slot for a sparkline.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -586,6 +612,10 @@
       ],
       "title": "Theme Provider",
       "description": "Three-state theme state (system, light, dark) with a matching inline script for the first paint.",
+      "dependencies": [
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
+      ],
       "registryDependencies": [
         "theme"
       ]
@@ -605,6 +635,10 @@
       ],
       "title": "Theme Switcher",
       "description": "Ghost button opening a radio menu with system, light and dark choices.",
+      "dependencies": [
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
+      ],
       "registryDependencies": [
         "theme",
         "theme-provider",
@@ -895,17 +929,19 @@
         }
       ],
       "title": "Alert Dialog",
-      "description": "Interruptive confirmation modal built on reka-ui that requires an explicit action or cancel.",
+      "description": "Interruptive confirmation modal built on ui-sdk that requires an explicit action or cancel.",
       "dependencies": [
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
         "theme",
-        "button"
+        "button",
+        "render-child"
       ]
     },
     {
@@ -954,16 +990,19 @@
         }
       ],
       "title": "Sheet",
-      "description": "Edge-anchored modal drawer sliding from top, right, bottom or left, built on reka-ui Dialog.",
+      "description": "Edge-anchored modal drawer sliding from top, right, bottom or left, built on ui-sdk Dialog.",
       "dependencies": [
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
-        "reka-ui"
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
-        "theme"
+        "theme",
+        "render-child",
+        "dialog"
       ]
     },
     {
@@ -1045,6 +1084,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/breadcrumb/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/breadcrumb/index.ts",
           "type": "registry:ui"
         }
@@ -1053,7 +1096,9 @@
       "description": "Hierarchical navigation trail with links, separators, ellipsis and current-page indicator.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -1141,6 +1186,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/alert/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/alert/index.ts",
           "type": "registry:ui"
         }
@@ -1150,7 +1199,9 @@
       "dependencies": [
         "class-variance-authority",
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -1192,6 +1243,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/skeleton/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/skeleton/index.ts",
           "type": "registry:ui"
         }
@@ -1200,7 +1255,9 @@
       "description": "Animated placeholder block that marks loading layout regions without colour literals.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -1283,6 +1340,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/table/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/table/index.ts",
           "type": "registry:ui"
         }
@@ -1291,7 +1352,9 @@
       "description": "Responsive HTML table primitives with condensed tabular numeric columns and hoverable rows.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",
@@ -1409,6 +1472,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "ui/area-chart/parts.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "ui/area-chart/index.ts",
           "type": "registry:ui"
         }
@@ -1417,7 +1484,9 @@
       "description": "Hand-written SVG area chart with monotone or linear curves, multi-series data and pointer tooltip.",
       "dependencies": [
         "clsx",
-        "tailwind-merge"
+        "tailwind-merge",
+        "@ui-sdk/vue@0.1.0-beta.14",
+        "@ui-sdk/core@0.1.0-beta.14"
       ],
       "registryDependencies": [
         "utils",

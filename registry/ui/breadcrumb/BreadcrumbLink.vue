@@ -2,6 +2,7 @@
 import { computed, useAttrs, type Component } from 'vue'
 import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
+import { BreadcrumbLinkPart } from './parts'
 import { RenderChild } from '@/lib/render-child'
 
 defineOptions({ inheritAttrs: false })
@@ -25,8 +26,7 @@ const forwarded = computed(() => {
 </script>
 
 <template>
-  <component
-    :is="asChild ? RenderChild : as"
+  <BreadcrumbLinkPart
     v-bind="forwarded"
     :class="
       cn(
@@ -36,6 +36,9 @@ const forwarded = computed(() => {
       )
     "
   >
-    <slot />
-  </component>
+    <template #render="{ props: rendered }">
+      <RenderChild v-if="asChild" v-bind="rendered"><slot /></RenderChild>
+      <component :is="as" v-else v-bind="rendered"><slot /></component>
+    </template>
+  </BreadcrumbLinkPart>
 </template>

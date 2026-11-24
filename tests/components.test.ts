@@ -282,7 +282,7 @@ describe('component SFC regression contracts', () => {
       'utf8',
     )
     assert.match(dialogContent, /motion-safe:animate-dialog-in/)
-    assert.match(dialogContent, /data-\[state=closed\]:motion-safe:animate-dialog-out/)
+    assert.match(dialogContent, /data-ending-style:motion-safe:animate-dialog-out/)
 
     const accordionContent = readFileSync(
       join(repoRoot, 'registry/ui/accordion/AccordionContent.vue'),
@@ -295,7 +295,7 @@ describe('component SFC regression contracts', () => {
     assert.match(sheetContent, /sheetVariants/)
     const sheetVariants = readFileSync(join(repoRoot, 'registry/ui/sheet/variants.ts'), 'utf8')
     assert.match(sheetVariants, /motion-safe:animate-sheet-in/)
-    assert.match(sheetVariants, /data-\[state=closed\]:motion-safe:animate-sheet-out/)
+    assert.match(sheetVariants, /data-ending-style:motion-safe:animate-sheet-out/)
 
     const progress = readFileSync(join(repoRoot, 'registry/ui/progress/Progress.vue'), 'utf8')
     assert.match(progress, /motion-safe:animate-progress-indeterminate/)

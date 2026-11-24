@@ -8,7 +8,7 @@ import AlertDialogBasic from '../../examples/alert-dialog-basic.vue'
 
 # Alert dialog
 
-An interruptive confirmation modal built on reka-ui that waits for an explicit
+An interruptive confirmation modal built on ui-sdk that waits for an explicit
 cancel or confirm choice.
 
 <Example name="alert-dialog-basic"><AlertDialogBasic /></Example>
@@ -34,3 +34,8 @@ cancel or confirm choice.
 | `variant` | `AlertDialogAction` \| `AlertDialogCancel` | `'primary' \| 'secondary' \| 'ghost' \| 'danger'` | `'primary'` / `'secondary'` |
 | `size` | `AlertDialogAction` \| `AlertDialogCancel` | `'sm' \| 'md' \| 'lg'` | `'md'` |
 | `asChild` | `AlertDialogAction` \| `AlertDialogCancel` | boolean | `false` |
+
+Use `initialFocus` and `finalFocus` on `AlertDialogContent` to set where focus goes
+on open and close. Pass a CSS selector, an element, or a function returning one.
+Use `"none"` to skip the default focus move. They replace `openAutoFocus` and
+`closeAutoFocus`.

@@ -7,7 +7,9 @@
   "dependencies": [
     "class-variance-authority",
     "clsx",
-    "tailwind-merge"
+    "tailwind-merge",
+    "@ui-sdk/vue@0.1.0-beta.14",
+    "@ui-sdk/core@0.1.0-beta.14"
   ],
   "registryDependencies": [
     "utils",
@@ -18,12 +20,17 @@
     {
       "path": "ui/badge/Badge.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { badgeVariants } from './variants'\nimport type { BadgeVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BadgeProps = {\n  variant?: BadgeVariant\n}\n\nconst props = withDefaults(defineProps<BadgeProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <span\n    v-bind=\"forwarded\"\n    :class=\"cn(badgeVariants({ variant: props.variant }), attrs.class as ClassValue)\"\n  >\n    <slot />\n  </span>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { BadgePart } from './parts'\nimport { badgeVariants } from './variants'\nimport type { BadgeVariant } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type BadgeProps = {\n  variant?: BadgeVariant\n}\n\nconst props = withDefaults(defineProps<BadgeProps>(), {\n  variant: 'neutral',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <BadgePart\n    v-bind=\"forwarded\"\n    :class=\"cn(badgeVariants({ variant: props.variant }), attrs.class as ClassValue)\"\n  >\n    <slot />\n  </BadgePart>\n</template>\n"
     },
     {
       "path": "ui/badge/variants.ts",
       "type": "registry:ui",
       "content": "import { cva } from 'class-variance-authority'\n\nexport type BadgeVariant = 'neutral' | 'accent' | 'accent-alt' | 'outline'\n\n/**\n * The raw download colour sits just below 4.5:1 against surface-coloured text in\n * light mode, so the label is mixed toward the ink instead of the background.\n */\nconst accentFill = 'bg-[color-mix(in_oklab,var(--color-accent)_88%,var(--color-ink))]'\n\nexport const badgeVariants = cva(\n  [\n    'inline-flex items-center gap-1 rounded-[10px] px-2 py-0.5 text-[12px] font-medium whitespace-nowrap',\n    'transition-[background-color,color,border-color] duration-[var(--p0seid0n-duration-normal)] ease-out-expo motion-reduce:transition-none',\n  ].join(' '),\n  {\n    variants: {\n      variant: {\n        neutral: 'bg-control text-ink-muted',\n        accent: `${accentFill} text-surface`,\n        'accent-alt': 'bg-danger text-surface',\n        outline: 'border border-line text-ink-muted',\n      } satisfies Record<BadgeVariant, string>,\n    },\n    defaultVariants: {\n      variant: 'neutral',\n    },\n  },\n)\n"
+    },
+    {
+      "path": "ui/badge/parts.ts",
+      "type": "registry:ui",
+      "content": "import { definePrimitive } from '@ui-sdk/core'\nimport { createParts } from '@ui-sdk/vue/primitive'\n\nconst badge = definePrimitive({\n  name: 'p0seid0n-badge',\n  state: () => ({}),\n  api: () => ({}),\n  slots: (slot) => ({\n    root: slot({}),\n  }),\n})\n\nexport const { Root: BadgePart } = createParts(badge, {\n  root: 'span',\n})\n"
     },
     {
       "path": "ui/badge/index.ts",
