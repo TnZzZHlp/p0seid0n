@@ -6,7 +6,9 @@
   "description": "Caption that associates with a control through its for attribute, with an optional required marker.",
   "dependencies": [
     "clsx",
-    "tailwind-merge"
+    "tailwind-merge",
+    "@ui-sdk/vue@0.1.0-beta.14",
+    "@ui-sdk/core@0.1.0-beta.14"
   ],
   "registryDependencies": [
     "utils",
@@ -17,7 +19,7 @@
     {
       "path": "ui/label/Label.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type LabelProps = {\n  /** Id of the control this label describes; rendered as the `for` attribute. */\n  for?: string\n  /** Appends a decorative required marker. */\n  required?: boolean\n}\n\nwithDefaults(defineProps<LabelProps>(), {\n  for: undefined,\n  required: false,\n})\n</script>\n\n<template>\n  <label\n    v-bind=\"forwarded\"\n    :for=\"$props.for\"\n    :class=\"\n      cn(\n        'inline-flex items-center gap-1 text-[13px] font-medium text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n    <span v-if=\"required\" aria-hidden=\"true\" class=\"text-danger\">*</span>\n  </label>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { Label as SdkLabel } from '@ui-sdk/vue/label'\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\n\ndefineOptions({ inheritAttrs: false })\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n\nexport type LabelProps = {\n  /** Id of the control this label describes; rendered as the `for` attribute. */\n  for?: string\n  /** Appends a decorative required marker. */\n  required?: boolean\n}\n\nwithDefaults(defineProps<LabelProps>(), {\n  for: undefined,\n  required: false,\n})\n</script>\n\n<template>\n  <SdkLabel\n    v-bind=\"forwarded\"\n    :for=\"$props.for\"\n    :class=\"\n      cn(\n        'inline-flex items-center gap-1 text-[13px] font-medium text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n    <span v-if=\"required\" aria-hidden=\"true\" class=\"text-danger\">*</span>\n  </SdkLabel>\n</template>\n"
     },
     {
       "path": "ui/label/index.ts",

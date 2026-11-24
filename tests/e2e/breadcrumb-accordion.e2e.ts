@@ -333,13 +333,15 @@ describe('Breadcrumb & Accordion E2E', () => {
         const basicRoot = surfaces[0]?.firstElementChild as HTMLElement | null
         if (!basicRoot) return null
 
-        const items = [...basicRoot.children].filter((el) => el.hasAttribute('data-orientation'))
+        const items = [...basicRoot.children].filter((el) =>
+          el.matches('[data-slot="accordion-item"]'),
+        )
         const headers = [...basicRoot.querySelectorAll('h3')]
-        const triggers = [...basicRoot.querySelectorAll('button[data-reka-collection-item]')]
+        const triggers = [...basicRoot.querySelectorAll('button[aria-expanded][aria-controls]')]
         const regions = [...basicRoot.querySelectorAll('[role="region"]')]
 
         const allTriggers = [
-          ...document.querySelectorAll('.example-surface button[data-reka-collection-item]'),
+          ...document.querySelectorAll('.example-surface button[aria-expanded][aria-controls]'),
         ]
         const ariaPairs = allTriggers.map((btn) => {
           const controlsId = btn.getAttribute('aria-controls') ?? ''
@@ -427,11 +429,11 @@ describe('Breadcrumb & Accordion E2E', () => {
       assert.equal(initial.regionStates[2].height, 0)
 
       // Click second trigger in basic accordion -> item 2 opens, item 1 collapses completely.
-      await session.click('.example-surface button[data-reka-collection-item]', 1)
+      await session.click('.example-surface button[aria-expanded][aria-controls]', 1)
       const afterSecondOpen = await session.waitFor(() => {
         const root = document.querySelectorAll('.example-surface')[0]?.firstElementChild
         if (!root) return false
-        const triggers = [...root.querySelectorAll('button[data-reka-collection-item]')]
+        const triggers = [...root.querySelectorAll('button[aria-expanded][aria-controls]')]
         const regions = [...root.querySelectorAll('[role="region"]')] as HTMLElement[]
         const firstClosed =
           triggers[0]?.getAttribute('aria-expanded') === 'false' &&
@@ -444,18 +446,16 @@ describe('Breadcrumb & Accordion E2E', () => {
         if (!firstClosed || !secondOpen) return false
         return {
           secondText: regions[1].textContent?.trim() ?? '',
-          secondHeightVar: regions[1].style.getPropertyValue('--reka-collapsible-content-height'),
         }
       })
       assert.match(afterSecondOpen.secondText, /src\/components\/ui/)
-      assert.notEqual(afterSecondOpen.secondHeightVar, '0px')
 
       // Click second trigger again (collapsible: true) -> all panels collapse.
-      await session.click('.example-surface button[data-reka-collection-item]', 1)
+      await session.click('.example-surface button[aria-expanded][aria-controls]', 1)
       const allCollapsed = await session.waitFor(() => {
         const root = document.querySelectorAll('.example-surface')[0]?.firstElementChild
         if (!root) return false
-        const triggers = [...root.querySelectorAll('button[data-reka-collection-item]')]
+        const triggers = [...root.querySelectorAll('button[aria-expanded][aria-controls]')]
         const regions = [...root.querySelectorAll('[role="region"]')] as HTMLElement[]
         const closed = triggers.every((t, idx) => {
           return (
@@ -470,11 +470,11 @@ describe('Breadcrumb & Accordion E2E', () => {
 
       // Hovering an AccordionTrigger transitions its default chevron icon from ink-muted to ink.
       const accordionTokens = await resolveThemeTokens(session)
-      await session.hover('.example-surface button[data-reka-collection-item]', 1)
+      await session.hover('.example-surface button[aria-expanded][aria-controls]', 1)
       const hoveredChevronColor = await session.waitFor(
         (expected: string) => {
           const btn = document.querySelectorAll(
-            '.example-surface button[data-reka-collection-item]',
+            '.example-surface button[aria-expanded][aria-controls]',
           )[1]
           const svg = btn?.querySelector('svg')
           if (!svg) return false
@@ -489,10 +489,10 @@ describe('Breadcrumb & Accordion E2E', () => {
       // Reduced motion disables accordion content keyframe animation & trigger icon transition.
       await session.setReducedMotion(true)
       try {
-        await session.click('.example-surface button[data-reka-collection-item]', 0)
+        await session.click('.example-surface button[aria-expanded][aria-controls]', 0)
         const reduced = await session.waitFor(() => {
           const root = document.querySelectorAll('.example-surface')[0]?.firstElementChild
-          const trigger = root?.querySelector('button[data-reka-collection-item]')
+          const trigger = root?.querySelector('button[aria-expanded][aria-controls]')
           const region = root?.querySelector('[role="region"]') as HTMLElement | null
           if (trigger?.getAttribute('aria-expanded') !== 'true' || !region || region.hidden) {
             return false
@@ -519,7 +519,7 @@ describe('Breadcrumb & Accordion E2E', () => {
       // Keyboard navigation on basic accordion triggers (ArrowDown, End, ArrowUp, Home, Enter, Space).
       await session.evaluate(() => {
         const firstBtn = document.querySelector(
-          '.example-surface button[data-reka-collection-item]',
+          '.example-surface button[aria-expanded][aria-controls]',
         ) as HTMLElement | null
         firstBtn?.focus()
       })
@@ -527,7 +527,9 @@ describe('Breadcrumb & Accordion E2E', () => {
       const focusedIndex = () =>
         session.evaluate(() => {
           const root = document.querySelectorAll('.example-surface')[0]?.firstElementChild
-          const triggers = [...(root?.querySelectorAll('button[data-reka-collection-item]') ?? [])]
+          const triggers = [
+            ...(root?.querySelectorAll('button[aria-expanded][aria-controls]') ?? []),
+          ]
           return triggers.indexOf(document.activeElement as Element)
         })
 
@@ -543,12 +545,12 @@ describe('Breadcrumb & Accordion E2E', () => {
       // Enter collapses open item 0; Space opens item 0 back up.
       await session.pressKey('Enter')
       await session.waitFor(() => {
-        const btn = document.querySelector('.example-surface button[data-reka-collection-item]')
+        const btn = document.querySelector('.example-surface button[aria-expanded][aria-controls]')
         return btn?.getAttribute('aria-expanded') === 'false'
       })
       await session.pressKey('Space')
       await session.waitFor(() => {
-        const btn = document.querySelector('.example-surface button[data-reka-collection-item]')
+        const btn = document.querySelector('.example-surface button[aria-expanded][aria-controls]')
         return btn?.getAttribute('aria-expanded') === 'true'
       })
 
@@ -557,7 +559,7 @@ describe('Breadcrumb & Accordion E2E', () => {
         const multiRoot = document.querySelectorAll('.example-surface')[1]?.firstElementChild
         if (!multiRoot) return null
         const triggers = [
-          ...multiRoot.querySelectorAll('button[data-reka-collection-item]'),
+          ...multiRoot.querySelectorAll('button[aria-expanded][aria-controls]'),
         ] as HTMLButtonElement[]
         const regions = [...multiRoot.querySelectorAll('[role="region"]')] as HTMLElement[]
         const firstParagraph = regions[0]?.querySelector('p')
@@ -593,15 +595,15 @@ describe('Breadcrumb & Accordion E2E', () => {
       await session.evaluate(() => {
         const multiRoot = document.querySelectorAll('.example-surface')[1]?.firstElementChild
         const triggers = [
-          ...(multiRoot?.querySelectorAll('button[data-reka-collection-item]') ?? []),
+          ...(multiRoot?.querySelectorAll('button[aria-expanded][aria-controls]') ?? []),
         ]
         ;(triggers[1] as HTMLElement | undefined)?.scrollIntoView({ block: 'center' })
       })
-      await session.click('.example-surface button[data-reka-collection-item]', 4)
+      await session.click('.example-surface button[aria-expanded][aria-controls]', 4)
       const bothOpen = await session.waitFor(() => {
         const multiRoot = document.querySelectorAll('.example-surface')[1]?.firstElementChild
         if (!multiRoot) return false
-        const triggers = [...multiRoot.querySelectorAll('button[data-reka-collection-item]')]
+        const triggers = [...multiRoot.querySelectorAll('button[aria-expanded][aria-controls]')]
         const regions = [...multiRoot.querySelectorAll('[role="region"]')] as HTMLElement[]
         const ok =
           triggers[0]?.getAttribute('aria-expanded') === 'true' &&
@@ -615,11 +617,11 @@ describe('Breadcrumb & Accordion E2E', () => {
       assert.equal(bothOpen, true)
 
       // Disabled item cannot be opened via click and is skipped by arrow navigation.
-      await session.click('.example-surface button[data-reka-collection-item]', 5)
+      await session.click('.example-surface button[aria-expanded][aria-controls]', 5)
       const disabledState = await session.evaluate(() => {
         const multiRoot = document.querySelectorAll('.example-surface')[1]?.firstElementChild
         const triggers = [
-          ...(multiRoot?.querySelectorAll('button[data-reka-collection-item]') ?? []),
+          ...(multiRoot?.querySelectorAll('button[aria-expanded][aria-controls]') ?? []),
         ]
         const regions = [...(multiRoot?.querySelectorAll('[role="region"]') ?? [])] as HTMLElement[]
         return {
@@ -634,7 +636,7 @@ describe('Breadcrumb & Accordion E2E', () => {
       await session.evaluate(() => {
         const multiRoot = document.querySelectorAll('.example-surface')[1]?.firstElementChild
         const triggers = [
-          ...(multiRoot?.querySelectorAll('button[data-reka-collection-item]') ?? []),
+          ...(multiRoot?.querySelectorAll('button[aria-expanded][aria-controls]') ?? []),
         ]
         ;(triggers[1] as HTMLElement | undefined)?.focus()
       })
@@ -642,7 +644,7 @@ describe('Breadcrumb & Accordion E2E', () => {
       const activeAfterSkip = await session.evaluate(() => {
         const multiRoot = document.querySelectorAll('.example-surface')[1]?.firstElementChild
         const triggers = [
-          ...(multiRoot?.querySelectorAll('button[data-reka-collection-item]') ?? []),
+          ...(multiRoot?.querySelectorAll('button[aria-expanded][aria-controls]') ?? []),
         ]
         return triggers.indexOf(document.activeElement as Element)
       })
@@ -653,8 +655,8 @@ describe('Breadcrumb & Accordion E2E', () => {
       const lightColors = await session.evaluate(() => {
         const root = document.querySelectorAll('.example-surface')[0]
           ?.firstElementChild as HTMLElement
-        const item = root.querySelector('[data-orientation]') as HTMLElement
-        const trigger = root.querySelector('button[data-reka-collection-item]') as HTMLElement
+        const item = root.querySelector('[data-slot="accordion-item"]') as HTMLElement
+        const trigger = root.querySelector('button[aria-expanded][aria-controls]') as HTMLElement
         const region = root.querySelector('[role="region"]') as HTMLElement
         return {
           bg: getComputedStyle(root).backgroundColor,
@@ -673,8 +675,8 @@ describe('Breadcrumb & Accordion E2E', () => {
       const darkColors = await session.evaluate(() => {
         const root = document.querySelectorAll('.example-surface')[0]
           ?.firstElementChild as HTMLElement
-        const item = root.querySelector('[data-orientation]') as HTMLElement
-        const trigger = root.querySelector('button[data-reka-collection-item]') as HTMLElement
+        const item = root.querySelector('[data-slot="accordion-item"]') as HTMLElement
+        const trigger = root.querySelector('button[aria-expanded][aria-controls]') as HTMLElement
         const region = root.querySelector('[role="region"]') as HTMLElement
         return {
           bg: getComputedStyle(root).backgroundColor,

@@ -9,7 +9,7 @@ import SwitchThumbSlot from '../../examples/switch-thumb-slot.vue'
 
 # Switch
 
-A two-state control on reka-ui's switch primitive. Space and Enter toggle it, and
+A two-state control on ui-sdk's switch primitive. Space and Enter toggle it, and
 `aria-checked` follows the value.
 
 <Example name="switch-sizes"><SwitchSizes /></Example>

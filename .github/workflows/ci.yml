@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify registry build has no drift
+        run: |
+          pnpm build:registry
+          git diff --exit-code apps/docs/public/r
+
+      - name: Install UI artifacts into docs site
+        run: pnpm ui:install
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Build CLI package
+        run: pnpm cli:build
+
+      - name: Build docs site
+        run: pnpm docs:build
+
+      - name: End-to-end tests
+        run: pnpm test:e2e

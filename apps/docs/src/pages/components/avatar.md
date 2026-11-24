@@ -8,7 +8,7 @@ import AvatarSizes from '../../examples/avatar-sizes.vue'
 
 # Avatar
 
-An image container with automatic fallback built on reka-ui, in three sizes and
+An image container with automatic fallback built on ui-sdk, in three sizes and
 `circle` or `square` shapes.
 
 <Example name="avatar-sizes"><AvatarSizes /></Example>

@@ -18,6 +18,12 @@
     "description": "The cn() class merge helper built on clsx and tailwind-merge."
   },
   {
+    "name": "render-child",
+    "type": "registry:lib",
+    "title": "Render child",
+    "description": "Adapts asChild slots to ui-sdk's render contract."
+  },
+  {
     "name": "button",
     "type": "registry:ui",
     "title": "Button",
@@ -57,7 +63,7 @@
     "name": "switch",
     "type": "registry:ui",
     "title": "Switch",
-    "description": "Two-state control built on reka-ui, in md and lg sizes with an optional slot inside the thumb."
+    "description": "Two-state control built on ui-sdk, in md and lg sizes with an optional slot inside the thumb."
   },
   {
     "name": "dropdown-menu",
@@ -123,31 +129,31 @@
     "name": "checkbox",
     "type": "registry:ui",
     "title": "Checkbox",
-    "description": "Checked, unchecked and indeterminate control built on reka-ui, with an optional indicator slot."
+    "description": "Checked, unchecked and indeterminate control built on ui-sdk, with an optional indicator slot."
   },
   {
     "name": "radio-group",
     "type": "registry:ui",
     "title": "Radio Group",
-    "description": "Single-choice option list built on reka-ui, supporting vertical and horizontal orientations."
+    "description": "Single-choice option list built on ui-sdk, supporting vertical and horizontal orientations."
   },
   {
     "name": "select",
     "type": "registry:ui",
     "title": "Select",
-    "description": "Accessible dropdown selector built on reka-ui, with groups, labels, separators and scroll buttons."
+    "description": "Accessible dropdown selector built on ui-sdk, with groups, labels, separators and scroll buttons."
   },
   {
     "name": "slider",
     "type": "registry:ui",
     "title": "Slider",
-    "description": "Single-value and multi-thumb range slider built on reka-ui, with keyboard steps and vertical support."
+    "description": "Single-value and multi-thumb range slider built on ui-sdk, with keyboard steps and vertical support."
   },
   {
     "name": "popover",
     "type": "registry:ui",
     "title": "Popover",
-    "description": "Anchored floating surface built on reka-ui, for rich interactive controls outside dialogs."
+    "description": "Anchored floating surface built on ui-sdk, for rich interactive controls outside dialogs."
   },
   {
     "name": "alert-dialog",
@@ -165,7 +171,7 @@
     "name": "accordion",
     "type": "registry:ui",
     "title": "Accordion",
-    "description": "Vertically stacked collapsible disclosure panels built on reka-ui, with single or multiple open items."
+    "description": "Vertically stacked collapsible disclosure panels built on ui-sdk, with single or multiple open items."
   },
   {
     "name": "breadcrumb",
@@ -177,7 +183,7 @@
     "name": "pagination",
     "type": "registry:ui",
     "title": "Pagination",
-    "description": "Page navigation controls built on reka-ui, with condensed tabular page numbers and edge buttons."
+    "description": "Page navigation controls built on ui-sdk, with condensed tabular page numbers and edge buttons."
   },
   {
     "name": "alert",
@@ -189,7 +195,7 @@
     "name": "progress",
     "type": "registry:ui",
     "title": "Progress",
-    "description": "Determinate and indeterminate progress bar built on reka-ui, in default, accent and danger tones."
+    "description": "Determinate and indeterminate progress bar built on ui-sdk, in default, accent and danger tones."
   },
   {
     "name": "skeleton",
@@ -201,7 +207,7 @@
     "name": "avatar",
     "type": "registry:ui",
     "title": "Avatar",
-    "description": "Image and delayed fallback wrapper built on reka-ui, in sm, md and lg sizes with circle or square shape."
+    "description": "Image and delayed fallback wrapper built on ui-sdk, in sm, md and lg sizes with circle or square shape."
   },
   {
     "name": "table",
@@ -213,13 +219,13 @@
     "name": "toggle",
     "type": "registry:ui",
     "title": "Toggle",
-    "description": "Two-state pressed button built on reka-ui, in default and outline variants across three sizes."
+    "description": "Two-state pressed button built on ui-sdk, in default and outline variants across three sizes."
   },
   {
     "name": "command",
     "type": "registry:ui",
     "title": "Command",
-    "description": "Searchable command palette and modal dialog built on reka-ui Listbox and Dialog."
+    "description": "Searchable command palette and modal dialog built on ui-sdk Command with a dialog."
   },
   {
     "name": "area-chart",

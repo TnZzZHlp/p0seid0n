@@ -8,7 +8,7 @@ import CommandBasic from '../../examples/command-basic.vue'
 
 # Command
 
-A searchable command palette built on reka-ui's `Listbox` primitives, with an
+A searchable command palette built on ui-sdk's `Command` primitive, with an
 optional `CommandDialog` modal wrapper.
 
 <Example name="command-basic"><CommandBasic /></Example>

@@ -3,12 +3,13 @@
   "name": "avatar",
   "type": "registry:ui",
   "title": "Avatar",
-  "description": "Image and delayed fallback wrapper built on reka-ui, in sm, md and lg sizes with circle or square shape.",
+  "description": "Image and delayed fallback wrapper built on ui-sdk, in sm, md and lg sizes with circle or square shape.",
   "dependencies": [
     "class-variance-authority",
     "clsx",
     "tailwind-merge",
-    "reka-ui"
+    "@ui-sdk/vue@0.1.0-beta.14",
+    "@ui-sdk/core@0.1.0-beta.14"
   ],
   "registryDependencies": [
     "utils",
@@ -19,17 +20,17 @@
     {
       "path": "ui/avatar/Avatar.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarRoot } from 'reka-ui'\nimport { avatarVariants, type AvatarShape, type AvatarSize } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarProps = {\n  size?: AvatarSize\n  shape?: AvatarShape\n}\n\nwithDefaults(defineProps<AvatarProps>(), {\n  size: 'md',\n  shape: 'circle',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarRoot\n    v-bind=\"forwarded\"\n    :class=\"cn(avatarVariants({ size, shape }), attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AvatarRoot>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { Avatar as AvatarRoot } from '@ui-sdk/vue/avatar'\nimport { avatarVariants, type AvatarShape, type AvatarSize } from './variants'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarProps = {\n  size?: AvatarSize\n  shape?: AvatarShape\n}\n\nwithDefaults(defineProps<AvatarProps>(), {\n  size: 'md',\n  shape: 'circle',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarRoot\n    v-bind=\"forwarded\"\n    :class=\"cn(avatarVariants({ size, shape }), attrs.class as ClassValue)\"\n  >\n    <slot />\n  </AvatarRoot>\n</template>\n"
     },
     {
       "path": "ui/avatar/AvatarImage.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarImage } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarImageProps = {\n  src: string\n  alt?: string\n}\n\nwithDefaults(defineProps<AvatarImageProps>(), {\n  alt: '',\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarImage\n    v-bind=\"forwarded\"\n    :src=\"src\"\n    :alt=\"alt\"\n    :class=\"cn('aspect-square size-full object-cover', attrs.class as ClassValue)\"\n  />\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, onMounted, ref, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarImage as SdkAvatarImage } from '@ui-sdk/vue/avatar'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarImageProps = {\n  src: string\n  alt?: string\n}\n\nwithDefaults(defineProps<AvatarImageProps>(), {\n  alt: '',\n})\n\nconst mounted = ref(false)\nonMounted(() => {\n  mounted.value = true\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SdkAvatarImage\n    v-bind=\"forwarded\"\n    :src=\"mounted ? src : undefined\"\n    :alt=\"alt\"\n    :class=\"cn('aspect-square size-full object-cover', attrs.class as ClassValue)\"\n  />\n</template>\n"
     },
     {
       "path": "ui/avatar/AvatarFallback.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarFallback } from 'reka-ui'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarFallbackProps = {\n  delayMs?: number\n}\n\nwithDefaults(defineProps<AvatarFallbackProps>(), {\n  delayMs: undefined,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <AvatarFallback\n    v-bind=\"forwarded\"\n    :delay-ms=\"delayMs\"\n    :class=\"\n      cn(\n        'flex size-full items-center justify-center bg-control font-medium text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </AvatarFallback>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue'\nimport type { ClassValue } from 'clsx'\nimport { cn } from '@/lib/utils'\nimport { AvatarFallback as SdkAvatarFallback } from '@ui-sdk/vue/avatar'\n\ndefineOptions({ inheritAttrs: false })\n\nexport type AvatarFallbackProps = {\n  delayMs?: number\n}\n\nwithDefaults(defineProps<AvatarFallbackProps>(), {\n  delayMs: undefined,\n})\n\nconst attrs = useAttrs()\nconst forwarded = computed(() => {\n  const rest = { ...attrs }\n  delete rest.class\n  return rest\n})\n</script>\n\n<template>\n  <SdkAvatarFallback\n    v-bind=\"forwarded\"\n    :delay=\"delayMs\"\n    :class=\"\n      cn(\n        'flex size-full items-center justify-center bg-control font-medium text-ink-muted',\n        attrs.class as ClassValue,\n      )\n    \"\n  >\n    <slot />\n  </SdkAvatarFallback>\n</template>\n"
     },
     {
       "path": "ui/avatar/variants.ts",

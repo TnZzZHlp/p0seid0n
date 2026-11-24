@@ -9,7 +9,7 @@ import AccordionMultiple from '../../examples/accordion-multiple.vue'
 
 # Accordion
 
-Vertically stacked disclosure sections built on reka-ui, supporting single or
+Vertically stacked disclosure sections built on ui-sdk, supporting single or
 multiple open panels.
 
 <Example name="accordion-basic"><AccordionBasic /></Example>
@@ -24,8 +24,8 @@ allow several sections open at once, mark individual `AccordionItem` entries
 
 ## Motion
 
-`AccordionContent` animates `height` against `--reka-accordion-content-height`
-using `animate-accordion-down` and `animate-accordion-up` under `motion-safe:`,
+`AccordionContent` transitions its measured height and opacity on open and
+close under `motion-safe:`,
 while the trigger's chevron rotates 180 degrees via `group-data-[state=open]`.
 
 ## Keyboard

@@ -8,7 +8,7 @@ import CheckboxStates from '../../examples/checkbox-states.vue'
 
 # Checkbox
 
-A three-state check control built on reka-ui's checkbox primitive: unchecked,
+A three-state check control built on ui-sdk's checkbox primitive: unchecked,
 checked and `indeterminate`.
 
 <Example name="checkbox-states"><CheckboxStates /></Example>

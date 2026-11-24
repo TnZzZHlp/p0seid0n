@@ -17,7 +17,7 @@ marker and a current-page indicator.
 ## Custom separator and as-child
 
 `BreadcrumbSeparator` accepts any icon slot content, and `BreadcrumbLink` uses
-reka-ui's `Primitive`, so passing `as-child` lets you wrap a `<button>` or
+a Vue render adapter, so passing `as-child` lets you wrap a `<button>` or
 framework router link while preserving the muted hover colour and focus ring:
 
 <Example name="breadcrumb-custom"><BreadcrumbCustom /></Example>

@@ -22,8 +22,8 @@ const openItem = ref<string>('tokens')
     <AccordionItem value="source">
       <AccordionTrigger>Can I edit installed component files?</AccordionTrigger>
       <AccordionContent>
-        Yes. Every item copies straight into your src/components/ui directory as Vue single-file
-        components with zero runtime wrapper dependency.
+        Yes. The Vue component files are copied straight into your src/components/ui directory so
+        you can change the markup and styles.
       </AccordionContent>
     </AccordionItem>
     <AccordionItem value="motion">

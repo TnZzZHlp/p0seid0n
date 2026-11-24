@@ -9,7 +9,7 @@ import DropdownMenuSelection from '../../examples/dropdown-menu-selection.vue'
 
 # Dropdown menu
 
-A menu built on reka-ui, styled to the reference popup: 16px radius, 1px border,
+A menu built on ui-sdk, styled to the reference popup: 16px radius, 1px border,
 6px inset and the popup shadow.
 
 <Example name="dropdown-menu-items"><DropdownMenuItems /></Example>

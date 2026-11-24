@@ -2,12 +2,12 @@
 import { computed, useAttrs, type Component } from 'vue'
 import type { ClassValue } from 'clsx'
 import { cn } from '@/lib/utils'
-import { Primitive, type AsTag } from 'reka-ui'
+import { RenderChild } from '@/lib/render-child'
 
 defineOptions({ inheritAttrs: false })
 
 export type BreadcrumbLinkProps = {
-  as?: AsTag | Component
+  as?: string | Component
   asChild?: boolean
 }
 
@@ -25,10 +25,9 @@ const forwarded = computed(() => {
 </script>
 
 <template>
-  <Primitive
+  <component
+    :is="asChild ? RenderChild : as"
     v-bind="forwarded"
-    :as="as"
-    :as-child="asChild"
     :class="
       cn(
         'rounded-[6px] text-ink-muted no-underline transition-colors duration-[var(--p0seid0n-duration-fast)] ease-out-expo hover:text-ink',
@@ -38,5 +37,5 @@ const forwarded = computed(() => {
     "
   >
     <slot />
-  </Primitive>
+  </component>
 </template>

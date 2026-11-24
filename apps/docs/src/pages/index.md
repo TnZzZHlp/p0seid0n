@@ -3,7 +3,7 @@ layout: home
 hero:
   name: P0seid0n
   text: A Vue UI registry
-  tagline: Install the source, own the styles. No runtime package, no wrapper to fight.
+  tagline: Install the source, own the styles.
   actions:
     - theme: brand
       text: Get started
@@ -33,7 +33,7 @@ three text levels, condensed numerals, a 12/16/20 radius scale and breakpoints a
 
 ## What it is not
 
-- Not a runtime npm package. There is nothing to import from a versioned dist.
+- Not a bundled component package. The installed source declares its own npm dependencies.
 - Not a theme system with `dark:` variants. Dark mode is a token value.
 - Not an icon set. Components take slots and ship no icons.
 

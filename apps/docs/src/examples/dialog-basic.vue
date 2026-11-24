@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -12,6 +12,21 @@ import {
 
 const open = ref(false)
 const confirmed = ref(false)
+const status = useTemplateRef<HTMLElement>('status')
+let focusStatusOnClose = false
+
+function confirmDelete() {
+  confirmed.value = true
+  focusStatusOnClose = true
+  open.value = false
+}
+
+function onCloseAutoFocus(event: Event) {
+  if (!focusStatusOnClose) return
+  focusStatusOnClose = false
+  event.preventDefault()
+  status.value?.focus()
+}
 </script>
 
 <template>
@@ -20,17 +35,19 @@ const confirmed = ref(false)
       <DialogTrigger as-child>
         <Button variant="danger">Delete project</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent @close-auto-focus="onCloseAutoFocus">
         <DialogTitle>Delete this project?</DialogTitle>
         <DialogDescription>The project and its history are removed for good.</DialogDescription>
         <div class="mt-5 flex justify-end gap-2">
           <DialogClose as-child>
             <Button variant="ghost" size="sm">Cancel</Button>
           </DialogClose>
-          <Button variant="danger" size="sm" @click="confirmed = true; open = false">Delete</Button>
+          <Button variant="danger" size="sm" @click="confirmDelete">Delete</Button>
         </div>
       </DialogContent>
     </Dialog>
-    <span class="text-[13px] text-ink-muted">{{ confirmed ? 'deleted' : 'not deleted' }}</span>
+    <span ref="status" tabindex="-1" class="text-[13px] text-ink-muted">
+      {{ confirmed ? 'deleted' : 'not deleted' }}
+    </span>
   </div>
 </template>

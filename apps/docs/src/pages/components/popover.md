@@ -8,7 +8,7 @@ import PopoverBasic from '../../examples/popover-basic.vue'
 
 # Popover
 
-An anchored floating panel built on reka-ui for interactive forms and controls
+An anchored floating panel built on ui-sdk for interactive forms and controls
 attached to a trigger.
 
 <Example name="popover-basic"><PopoverBasic /></Example>

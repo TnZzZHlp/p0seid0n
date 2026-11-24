@@ -8,7 +8,7 @@ import SelectBasic from '../../examples/select-basic.vue'
 
 # Select
 
-An accessible option picker built on reka-ui. The trigger shares `Input`'s
+An accessible option picker built on ui-sdk. The trigger shares `Input`'s
 44px height, 12px radius and `invalid` border, while the popup reuses the 16px
 menu surface.
 
@@ -17,7 +17,7 @@ menu surface.
 ## Non-empty values
 
 Every `SelectItem` must receive a non-empty `value` string. Empty strings are
-reserved by reka-ui to clear the selection and render the `SelectValue`
+reserved to clear the selection and render the `SelectValue`
 placeholder.
 
 ## Keyboard

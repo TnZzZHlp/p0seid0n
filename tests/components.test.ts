@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 
 import { areaPaths, niceMax, normalizeAreaData } from '../registry/ui/area-chart/geometry.ts'
 import { matchesCommandItem } from '../registry/ui/command/context.ts'
+import { reverseSliderValues, sliderStepMax } from '../registry/ui/slider/inverted-values.ts'
 import { median, scaleTop, sparklinePath } from '../registry/ui/sparkline/geometry.ts'
 import { readStoredTheme, themeScript } from '../registry/ui/theme-provider/theme.ts'
 import { createToastStack } from '../registry/ui/toast/stack.ts'
@@ -44,6 +45,14 @@ describe('sparkline geometry', () => {
     const large = new Array<number>(100_000).fill(5)
     assert.equal(scaleTop(large), 5)
   })
+})
+
+it('reflects inverted slider ranges without moving values off the step grid', () => {
+  const values = [0.1, 0.7]
+  const max = sliderStepMax(0.1, 0.95, 0.2)
+  const inverted = reverseSliderValues(values, 0.1, max)
+  assert.deepEqual(inverted, [0.3, 0.9])
+  assert.deepEqual(reverseSliderValues(inverted, 0.1, max), values)
 })
 
 describe('toast stack state', () => {
@@ -264,10 +273,9 @@ describe('component SFC regression contracts', () => {
     const tabsList = readFileSync(join(repoRoot, 'registry/ui/tabs/TabsList.vue'), 'utf8')
     assert.match(tabsList, /<TabsIndicator/)
 
-    const toaster = readFileSync(join(repoRoot, 'registry/ui/toast/Toaster.vue'), 'utf8')
-    assert.match(toaster, /<TransitionGroup/)
-    assert.match(toaster, /motion-safe:animate-toast-in/)
-    assert.match(toaster, /motion-safe:animate-toast-out/)
+    const toast = readFileSync(join(repoRoot, 'registry/ui/toast/Toast.vue'), 'utf8')
+    assert.match(toast, /motion-safe:animate-toast-in/)
+    assert.match(toast, /data-ending-style:motion-safe:animate-toast-out/)
 
     const dialogContent = readFileSync(
       join(repoRoot, 'registry/ui/dialog/DialogContent.vue'),
@@ -280,8 +288,8 @@ describe('component SFC regression contracts', () => {
       join(repoRoot, 'registry/ui/accordion/AccordionContent.vue'),
       'utf8',
     )
-    assert.match(accordionContent, /motion-safe:animate-accordion-down/)
-    assert.match(accordionContent, /data-\[state=closed\]:motion-safe:animate-accordion-up/)
+    assert.match(accordionContent, /motion-safe:transition-\[height,opacity\]/)
+    assert.match(accordionContent, /motion-safe:data-ending-style:h-0/)
 
     const sheetContent = readFileSync(join(repoRoot, 'registry/ui/sheet/SheetContent.vue'), 'utf8')
     assert.match(sheetContent, /sheetVariants/)
@@ -293,7 +301,7 @@ describe('component SFC regression contracts', () => {
     assert.match(progress, /motion-safe:animate-progress-indeterminate/)
   })
 
-  it('defends Breadcrumb against prose list/link leakage and wires Accordion ARIA & type inference', () => {
+  it('defends Breadcrumb against prose list/link leakage and preserves Accordion type inference', () => {
     const breadcrumbList = readFileSync(
       join(repoRoot, 'registry/ui/breadcrumb/BreadcrumbList.vue'),
       'utf8',
@@ -333,8 +341,6 @@ describe('component SFC regression contracts', () => {
       join(repoRoot, 'registry/ui/accordion/AccordionTrigger.vue'),
       'utf8',
     )
-    assert.match(accordionTrigger, /injectCollapsibleRootContext\(null\)/)
-    assert.match(accordionTrigger, /collapsibleContext\.contentId = fallbackContentId/)
     assert.match(accordionTrigger, /<AccordionHeader class="m-0 flex">/)
     assert.match(accordionTrigger, /group-hover:text-ink/)
 

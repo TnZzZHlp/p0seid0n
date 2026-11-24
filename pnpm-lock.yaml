@@ -178,6 +178,12 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.72.2
         version: 8.72.2(eslint@10.14.0(jiti@2.7.0))(typescript@5.9.3)
+      '@ui-sdk/core':
+        specifier: 0.1.0-beta.14
+        version: 0.1.0-beta.14
+      '@ui-sdk/vue':
+        specifier: 0.1.0-beta.14
+        version: 0.1.0-beta.14(@ui-sdk/core@0.1.0-beta.14)(vue@3.5.45(typescript@5.9.3))
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -232,6 +238,12 @@ importers:
       '@fontsource/barlow-semi-condensed':
         specifier: ^5.3.0
         version: 5.3.0
+      '@ui-sdk/core':
+        specifier: 0.1.0-beta.14
+        version: 0.1.0-beta.14
+      '@ui-sdk/vue':
+        specifier: 0.1.0-beta.14
+        version: 0.1.0-beta.14(@ui-sdk/core@0.1.0-beta.14)(vue@3.5.45(typescript@5.9.3))
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -257,6 +269,8 @@ importers:
       vitepress:
         specifier: ^1.6.4
         version: 1.6.4(@algolia/client-search@5.64.0)(@types/node@25.9.9)(lightningcss@1.33.0)(postcss@8.5.32)(search-insights@2.17.3)(typescript@5.9.3)
+
+  packages/cli: {}
 
 packages:
 
@@ -1124,6 +1138,25 @@ packages:
   '@typescript-eslint/visitor-keys@8.72.2':
     resolution: {integrity: sha512-NAGrjn0Pitjqzq/GkgMC4kBYm233PQ8GffyQ9+kTA3AlNQYEzOf25EIM02BAHZv5FRJSpHpJk+OGUxVkOB93GQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@ui-sdk/core@0.1.0-beta.14':
+    resolution: {integrity: sha512-SHm5qLYBqxT5+d3svaBeP5uoBMIQbETKBqcZ/6b+WhhXlz6YoeNqjtMfpmq4yGA329DFwzu+y7+xGJjw4fnTPQ==}
+
+  '@ui-sdk/vue@0.1.0-beta.14':
+    resolution: {integrity: sha512-J3cqsQ6NzYeVeJ7/cmRnAbajdo7ml+djOk7vogCzgDnkYfr+ltpMaG+WXwULMrgVtVTfuNr7/veFDwhACJZuPA==}
+    peerDependencies:
+      '@nuxt/kit': ^4.0.0 || ^5.0.0-0
+      '@nuxt/schema': ^4.0.0 || ^5.0.0-0
+      '@ui-sdk/core': ^0.1.0-beta.14
+      nuxt: ^4.0.0 || ^5.0.0-0
+      vue: '>=3.5'
+    peerDependenciesMeta:
+      '@nuxt/kit':
+        optional: true
+      '@nuxt/schema':
+        optional: true
+      nuxt:
+        optional: true
 
   '@ungap/structured-clone@1.4.0':
     resolution: {integrity: sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ==}
@@ -2786,6 +2819,13 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.72.2
       eslint-visitor-keys: 5.0.1
+
+  '@ui-sdk/core@0.1.0-beta.14': {}
+
+  '@ui-sdk/vue@0.1.0-beta.14(@ui-sdk/core@0.1.0-beta.14)(vue@3.5.45(typescript@5.9.3))':
+    dependencies:
+      '@ui-sdk/core': 0.1.0-beta.14
+      vue: 3.5.45(typescript@5.9.3)
 
   '@ungap/structured-clone@1.4.0': {}
 
