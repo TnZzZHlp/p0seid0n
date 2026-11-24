@@ -28,8 +28,8 @@ const { scrollable, dragging, startDrag, moveDrag, stopDrag } = useViewportScrol
   inset-block: 4px;
   inset-inline-end: 0;
   z-index: 39;
-  inline-size: 12px;
-  border-radius: 999px;
+  inline-size: var(--docs-scrollbar-size);
+  border-radius: var(--docs-scrollbar-radius);
   visibility: hidden;
   touch-action: none;
 }
@@ -46,7 +46,7 @@ const { scrollable, dragging, startDrag, moveDrag, stopDrag } = useViewportScrol
 
 .viewport-scrollbar:hover,
 .viewport-scrollbar[data-dragging] {
-  background: color-mix(in oklab, var(--p0seid0n-ink) 8%, transparent);
+  background: var(--docs-scrollbar-track-hover);
 }
 
 .viewport-scrollbar-thumb {
@@ -54,12 +54,11 @@ const { scrollable, dragging, startDrag, moveDrag, stopDrag } = useViewportScrol
   inset-block-start: 0;
   inset-inline: 3px;
   border-radius: inherit;
-  background: var(--p0seid0n-ink-muted);
-  opacity: 0.65;
+  background: var(--docs-scrollbar-thumb);
 }
 
 .viewport-scrollbar:hover .viewport-scrollbar-thumb,
 .viewport-scrollbar[data-dragging] .viewport-scrollbar-thumb {
-  opacity: 1;
+  background: var(--docs-scrollbar-thumb-hover);
 }
 </style>

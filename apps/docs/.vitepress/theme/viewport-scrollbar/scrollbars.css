@@ -1,0 +1,51 @@
+:root {
+  --docs-scrollbar-size: 12px;
+  --docs-scrollbar-radius: 999px;
+  --docs-scrollbar-thumb: color-mix(in oklab, var(--p0seid0n-ink-muted) 65%, transparent);
+  --docs-scrollbar-thumb-hover: var(--p0seid0n-ink-muted);
+  --docs-scrollbar-track-hover: color-mix(in oklab, var(--p0seid0n-ink) 8%, transparent);
+}
+
+@media not all and (forced-colors: active) {
+  @supports selector(::-webkit-scrollbar) {
+    ::-webkit-scrollbar {
+      width: var(--docs-scrollbar-size);
+      height: var(--docs-scrollbar-size);
+    }
+
+    ::-webkit-scrollbar-track,
+    ::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border: 3px solid transparent;
+      border-radius: var(--docs-scrollbar-radius);
+      background-color: var(--docs-scrollbar-thumb);
+      background-clip: padding-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover,
+    ::-webkit-scrollbar-thumb:active {
+      background-color: var(--docs-scrollbar-thumb-hover);
+    }
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    :where(*) {
+      scrollbar-width: thin;
+      scrollbar-color: var(--docs-scrollbar-thumb) transparent;
+    }
+  }
+}
+
+@media (forced-colors: none) and (scripting: enabled) {
+  html {
+    scrollbar-width: none;
+    scrollbar-gutter: auto;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+}

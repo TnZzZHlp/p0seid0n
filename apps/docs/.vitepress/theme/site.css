@@ -13,6 +13,7 @@
 /* Installed by `pnpm ui:install`; importing it here is the only place the tokens
    enter the site build. */
 @import '@/styles/p0seid0n.css';
+@import './viewport-scrollbar/scrollbars.css';
 
 /* Paths are relative to this file. Installed component sources are scanned too:
    the registry ships class strings, but Tailwind still has to emit them, and
@@ -50,15 +51,21 @@
   --vp-custom-block-tip-border: var(--p0seid0n-line);
 }
 
-@media (forced-colors: none) and (scripting: enabled) {
-  html {
-    scrollbar-width: none;
-    scrollbar-gutter: auto;
-  }
+.VPHero .VPButton.alt {
+  --vp-button-alt-text: var(--p0seid0n-ink);
+  --vp-button-alt-bg: var(--p0seid0n-control);
+  --vp-button-alt-border: color-mix(in oklab, var(--p0seid0n-ink-muted) 80%, var(--p0seid0n-line));
+  --vp-button-alt-hover-text: var(--p0seid0n-ink);
+  --vp-button-alt-hover-bg: color-mix(in oklab, var(--p0seid0n-control) 90%, var(--p0seid0n-ink));
+  --vp-button-alt-hover-border: var(--p0seid0n-ink-muted);
+  --vp-button-alt-active-text: var(--p0seid0n-ink);
+  --vp-button-alt-active-bg: color-mix(in oklab, var(--p0seid0n-control) 82%, var(--p0seid0n-ink));
+  --vp-button-alt-active-border: var(--p0seid0n-ink-muted);
+}
 
-  html::-webkit-scrollbar {
-    display: none;
-  }
+.VPHero .VPButton.alt:focus-visible {
+  outline: 2px solid var(--p0seid0n-download);
+  outline-offset: 3px;
 }
 
 html .vp-code span {
