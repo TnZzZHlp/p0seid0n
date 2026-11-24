@@ -10,6 +10,7 @@ import '@fontsource/barlow-semi-condensed/600.css'
 import { ThemeProvider, useTheme } from '@/components/ui/theme-provider'
 import { ThemeSwitcher } from '@/components/ui/theme-switcher'
 import Example from './Example.vue'
+import ViewportScrollbar from './viewport-scrollbar/ViewportScrollbar.vue'
 import './site.css'
 
 /**
@@ -53,11 +54,13 @@ export default {
           ThemeProvider,
           { defaultTheme: 'system' },
           {
-            default: () =>
+            default: () => [
               h(DefaultTheme.Layout, null, {
                 'nav-bar-content-after': () => h(HeaderThemeSwitcher),
                 ...slots,
               }),
+              h(ViewportScrollbar),
+            ],
           },
         )
     },

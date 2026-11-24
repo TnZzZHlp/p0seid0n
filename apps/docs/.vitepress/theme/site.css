@@ -50,6 +50,17 @@
   --vp-custom-block-tip-border: var(--p0seid0n-line);
 }
 
+@media (forced-colors: none) and (scripting: enabled) {
+  html {
+    scrollbar-width: none;
+    scrollbar-gutter: auto;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 html .vp-code span {
   color: light-dark(var(--shiki-light), var(--shiki-dark)) !important;
 }
